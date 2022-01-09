@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RuneSharper.Shared.Entities;
 
 namespace RuneSharper.Data.Mappings {
-    public class AccountMapping : IEntityTypeConfiguration<Account> {
-        public void Configure(EntityTypeBuilder<Account> builder) {
+    public class CharacterMapping : IEntityTypeConfiguration<Character> {
+        public void Configure(EntityTypeBuilder<Character> builder) {
             builder.HasKey(x => x.Id);
 
             builder.HasMany(x => x.Snapshots)
-                .WithOne(x => x.Account);
+                .WithOne(x => x.Character);
         }
     }
 }

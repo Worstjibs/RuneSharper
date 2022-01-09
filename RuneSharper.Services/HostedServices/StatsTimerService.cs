@@ -5,19 +5,20 @@ using Microsoft.Extensions.Logging;
 using RuneSharper.Data;
 using RuneSharper.Services.Stats;
 using RuneSharper.Shared.Entities;
+using RuneSharper.Shared.Enums;
 
 namespace RuneSharper.Services.HostedServices {
     public sealed class StatsTimerService : IHostedService {
         private readonly ILogger<StatsTimerService> _logger;
-        private readonly IStatsService _statsService;
+        private readonly IOsrsApiService _osrsApiService;
         private readonly IServiceProvider _services;
         private Timer? _timer;
 
         private readonly string[] ACCOUNT_NAMES = { "Worstjibs" };
 
-        public StatsTimerService(ILogger<StatsTimerService> logger, IStatsService statsService, IServiceProvider services) {
+        public StatsTimerService(ILogger<StatsTimerService> logger, IOsrsApiService osrsApiService, IServiceProvider services) {
             _logger = logger;
-            _statsService = statsService;
+            _osrsApiService = osrsApiService;
             _services = services;
         }
 
@@ -36,27 +37,18 @@ namespace RuneSharper.Services.HostedServices {
 
             if (context is not null) {
                 foreach (var accountName in ACCOUNT_NAMES) {
-                    var account = context.Accounts.Include(x => x.Snapshots).FirstOrDefault(x => x.UserName == accountName);
+                    var account = context.Characters.Include(x => x.Snapshots).FirstOrDefault(x => x.UserName == accountName);
 
                     if (account is null) {
-                        account = new Account {
-                            UserName = accountName,
+                        account = new Character {
+                            UserName = accountName.ToLower(),
                             Snapshots = new List<Snapshot>()
                         };
 
-                        context.Accounts.Add(account);
+                        context.Characters.Add(account);
                     }
 
-                    var skills = _statsService.QueryStatsForUserId(accountName);
-
-                    account.Snapshots.Add(new Snapshot {
-                        Account = account,
-                        Skills = skills.Select(x => new SkillSnapshot {
-                            Experience = x.Experience,
-                            Level = x.Level,
-                            Rank = x.Rank
-                        }).ToList()
-                    });
+                    account.Snapshots.Add(_osrsApiService.QueryHiScoresByAccount(account));
 
                     await context.SaveChangesAsync();
                 }

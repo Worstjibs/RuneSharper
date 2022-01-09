@@ -7,7 +7,7 @@ namespace RuneSharper.Data {
         public RuneSharperContext(DbContextOptions options) : base(options) {
         }
 
-        public DbSet<Account> Accounts { get; set; } = default!;
+        public DbSet<Character> Characters { get; set; } = default!;
         public DbSet<Snapshot> Snapshots { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {

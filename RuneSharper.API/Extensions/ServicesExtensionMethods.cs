@@ -1,13 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RuneSharper.Data;
+using RuneSharper.Data.Repositories;
 using RuneSharper.Services.HostedServices;
 using RuneSharper.Services.Stats;
+using RuneSharper.Shared.Entities;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ServicesExtensionMethods {
     public static IServiceCollection AddRuneSharperServices(this IServiceCollection services) {
-        services.AddSingleton<IStatsService, StatsService>();
+        services.AddSingleton<IOsrsApiService, OsrsApiService>();
+
+        services.AddScoped<CharacterRepository, CharacterRepository>();
 
         services.AddHostedService<StatsTimerService>();
 

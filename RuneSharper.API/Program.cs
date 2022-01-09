@@ -7,7 +7,7 @@ ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-await MigrateDatabase(app.Services);
+await MigrateDatabase(app.Services, app.Environment);
 
 ConfigureMiddleware(app, app.Environment);
 ConfigureEndpoints(app);
@@ -25,7 +25,7 @@ void ConfigureServices(IServiceCollection services) {
         .AddRuneSharperDatabase(builder.Configuration);
 }
 
-async Task MigrateDatabase(IServiceProvider services) {
+async Task MigrateDatabase(IServiceProvider services, IWebHostEnvironment env) {
     using var scope = services.CreateScope();
 
     var servicesCollection = scope.ServiceProvider;
@@ -34,6 +34,9 @@ async Task MigrateDatabase(IServiceProvider services) {
         var context = servicesCollection.GetRequiredService<RuneSharperContext>();
 
         await context.Database.MigrateAsync();
+
+        if (env.IsDevelopment()) {
+        }
     } catch (Exception ex) {
         var logger = servicesCollection.GetService<ILogger<Program>>();
 
