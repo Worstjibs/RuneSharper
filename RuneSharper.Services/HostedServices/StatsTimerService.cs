@@ -14,7 +14,7 @@ namespace RuneSharper.Services.HostedServices {
         private readonly IServiceProvider _services;
         private Timer? _timer;
 
-        private readonly string[] ACCOUNT_NAMES = { "Worstjibs" };
+        private readonly string[] ACCOUNT_NAMES = { "worstjibs" };
 
         public StatsTimerService(ILogger<StatsTimerService> logger, IOsrsApiService osrsApiService, IServiceProvider services) {
             _logger = logger;
@@ -37,7 +37,7 @@ namespace RuneSharper.Services.HostedServices {
 
             if (context is not null) {
                 foreach (var accountName in ACCOUNT_NAMES) {
-                    var account = context.Characters.Include(x => x.Snapshots).FirstOrDefault(x => x.UserName == accountName);
+                    var account = context.Characters.Include(x => x.Snapshots).FirstOrDefault(x => x.UserName == accountName.ToLower());
 
                     if (account is null) {
                         account = new Character {

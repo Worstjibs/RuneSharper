@@ -6,7 +6,6 @@ namespace RuneSharper.Data.Seed {
             if (await context.Characters.AnyAsync()) {
                 return;
             }
-
         }
     }
 }

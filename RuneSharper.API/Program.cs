@@ -1,28 +1,39 @@
 using Microsoft.EntityFrameworkCore;
 using RuneSharper.Data;
+using System.Text.Json.Serialization;
 
-var builder = WebApplication.CreateBuilder(args);
+await Start();
 
-ConfigureServices(builder.Services);
+async Task Start()
+{
+    var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+    ConfigureServices(builder.Services, builder.Configuration);
 
-await MigrateDatabase(app.Services, app.Environment);
+    var app = builder.Build();
 
-ConfigureMiddleware(app, app.Environment);
-ConfigureEndpoints(app);
+    await MigrateDatabase(app.Services, app.Environment);
 
-app.Run();
+    ConfigureMiddleware(app, app.Environment);
+    ConfigureEndpoints(app);
+
+    app.Run();
+}
 
 
-void ConfigureServices(IServiceCollection services) {
-    builder.Services.AddControllers();
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+void ConfigureServices(IServiceCollection services, IConfiguration config) {
+    services.AddControllers().AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    });
 
-    builder.Services
+    services.AddEndpointsApiExplorer();
+    services.AddSwaggerGen();
+
+    services
         .AddRuneSharperServices()
-        .AddRuneSharperDatabase(builder.Configuration);
+        .AddIdentityServices()
+        .AddRuneSharperDatabase(config);
 }
 
 async Task MigrateDatabase(IServiceProvider services, IWebHostEnvironment env) {
