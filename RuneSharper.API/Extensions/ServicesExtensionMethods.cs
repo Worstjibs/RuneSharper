@@ -6,23 +6,29 @@ using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
 using RuneSharper.Services.HostedServices;
 using RuneSharper.Services.Stats;
+using RuneSharper.Services.Token;
 using RuneSharper.Shared.Entities;
+using RuneSharper.Shared.Settings;
 using System.Text;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ServicesExtensionMethods {
-    public static IServiceCollection AddRuneSharperServices(this IServiceCollection services) {
+    public static IServiceCollection AddRuneSharperServices(this IServiceCollection services, IConfiguration config) {
+        services.Configure<RuneSharperSettings>(config.GetSection("RuneSharperSettings"));
+
         services.AddSingleton<IOsrsApiService, OsrsApiService>();
 
         services.AddScoped<CharacterRepository, CharacterRepository>();
+
+        services.AddScoped<ITokenService, TokenService>();
 
         services.AddHostedService<StatsTimerService>();
 
         return services;
     }
 
-    public static IServiceCollection AddIdentityServices(this IServiceCollection services)
+    public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
     {
         services.AddIdentityCore<AppUser>(options =>
         {
@@ -47,13 +53,17 @@ public static class ServicesExtensionMethods {
             .AddUserManager<UserManager<AppUser>>()
             .AddEntityFrameworkStores<RuneSharperContext>();
 
+
+        var jwtSection = config.GetSection("Jwt");
+        services.Configure<JwtTokenSettings>(jwtSection);
+
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Super Secret Key!")),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.Get<JwtTokenSettings>().SecretKey)),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
@@ -64,7 +74,7 @@ public static class ServicesExtensionMethods {
 
     public static IServiceCollection AddRuneSharperDatabase(this IServiceCollection services, IConfiguration config) {
         services.AddDbContext<RuneSharperContext>(options => {
-            options.UseSqlite(config.GetConnectionString("DefaultConnection"));
+            options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
         });
 
         return services;

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using RuneSharper.Data;
 using System.Text.Json.Serialization;
 
@@ -31,8 +32,8 @@ void ConfigureServices(IServiceCollection services, IConfiguration config) {
     services.AddSwaggerGen();
 
     services
-        .AddRuneSharperServices()
-        .AddIdentityServices()
+        .AddRuneSharperServices(config)
+        .AddIdentityServices(config)
         .AddRuneSharperDatabase(config);
 }
 

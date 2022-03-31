@@ -2,30 +2,38 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using RuneSharper.Data;
 using RuneSharper.Services.Stats;
 using RuneSharper.Shared.Entities;
 using RuneSharper.Shared.Enums;
+using RuneSharper.Shared.Settings;
 
 namespace RuneSharper.Services.HostedServices {
     public sealed class StatsTimerService : IHostedService {
         private readonly ILogger<StatsTimerService> _logger;
         private readonly IOsrsApiService _osrsApiService;
         private readonly IServiceProvider _services;
+        private readonly RuneSharperSettings _settings;
         private Timer? _timer;
 
         private readonly string[] ACCOUNT_NAMES = { "worstjibs" };
 
-        public StatsTimerService(ILogger<StatsTimerService> logger, IOsrsApiService osrsApiService, IServiceProvider services) {
+        public StatsTimerService(
+            ILogger<StatsTimerService> logger,
+            IOsrsApiService osrsApiService,
+            IServiceProvider services,
+            IOptions<RuneSharperSettings> settings) {
             _logger = logger;
             _osrsApiService = osrsApiService;
             _services = services;
+            _settings = settings.Value;
         }
 
         public Task StartAsync(CancellationToken cancellationToken) {
             _logger.LogInformation("{Service} is running", nameof(StatsTimerService));
 
-            _timer = new Timer(FetchStats, null, TimeSpan.Zero, TimeSpan.FromSeconds(15));
+            _timer = new Timer(FetchStats, null, TimeSpan.Zero, TimeSpan.FromSeconds(_settings.OsrsApiPollingTime));
 
             return Task.CompletedTask;
         }
