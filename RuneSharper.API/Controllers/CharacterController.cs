@@ -21,7 +21,7 @@ namespace RuneSharper.API.Controllers {
         /// <returns></returns>
         [HttpGet("{username}")]
         public async Task<ActionResult<Character>> Get(string username) {
-            var character = await _characterRepository.GetByCharacterNameAsync(username);
+            var character = await _characterRepository.GetCharacterByNameAsync(username);
 
             return Ok(character);
         }

@@ -9,6 +9,7 @@ namespace RuneSharper.Data.Repositories
 {
     public interface ICharacterRepository : IRepository<Character>
     {
-        Task<Character?> GetByCharacterNameAsync(string accountName);
+        Task<Character?> GetCharacterByNameAsync(string accountName);
+        Task<IEnumerable<Character?>> GetCharactersByNameAsync(IEnumerable<string> characterNames);
     }
 }

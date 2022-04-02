@@ -14,5 +14,6 @@ namespace RuneSharper.Data.Repositories
         void Insert(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
+        Task<bool> Complete();
     }
 }

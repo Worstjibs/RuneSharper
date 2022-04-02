@@ -12,10 +12,12 @@ namespace RuneSharper.Data.Repositories
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseIntEntity
     {
         protected DbSet<TEntity> DbSet;
+        private readonly RuneSharperContext _context;
 
         public Repository(RuneSharperContext context)
         {
             DbSet = context.Set<TEntity>();
+            _context = context;
         }
 
         public void Delete(TEntity entity)
@@ -41,6 +43,11 @@ namespace RuneSharper.Data.Repositories
         public void Update(TEntity entity)
         {
             DbSet.Update(entity);
+        }
+
+        public async Task<bool> Complete()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

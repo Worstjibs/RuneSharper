@@ -9,11 +9,19 @@ namespace RuneSharper.Data.Repositories
         {
         }
 
-        public async Task<Character?> GetByCharacterNameAsync(string accountName)
+        public async Task<Character?> GetCharacterByNameAsync(string accountName)
         {
             return await DbSet
                 .Include(x => x.Snapshots)
                 .SingleOrDefaultAsync(x => x.UserName == accountName.ToLower());
+        }
+
+        public async Task<IEnumerable<Character?>> GetCharactersByNameAsync(IEnumerable<string> accountNames)
+        {
+            return await DbSet
+                .Include(x => x.Snapshots)
+                .Where(x => accountNames.Contains(x.UserName))
+                .ToListAsync();
         }
     }
 }

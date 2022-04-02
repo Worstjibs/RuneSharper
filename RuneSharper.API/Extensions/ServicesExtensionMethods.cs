@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
-using RuneSharper.Services.HostedServices;
 using RuneSharper.Services.Stats;
 using RuneSharper.Services.Token;
 using RuneSharper.Shared.Entities;
@@ -16,20 +15,16 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class ServicesExtensionMethods {
     public static IServiceCollection AddRuneSharperServices(this IServiceCollection services, IConfiguration config) {
         services.Configure<RuneSharperSettings>(config.GetSection("RuneSharperSettings"));
-
         services.AddSingleton<IOsrsApiService, OsrsApiService>();
-
         services.AddScoped<CharacterRepository, CharacterRepository>();
-
-        services.AddScoped<ITokenService, TokenService>();
-
-        services.AddHostedService<StatsTimerService>();
 
         return services;
     }
 
     public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
     {
+        services.AddScoped<ITokenService, TokenService>();
+
         services.AddIdentityCore<AppUser>(options =>
         {
             // Password Settings
