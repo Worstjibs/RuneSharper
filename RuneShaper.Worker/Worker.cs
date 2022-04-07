@@ -24,7 +24,7 @@ namespace RuneShaper.Worker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            while (!stoppingToken.IsCancellationRequested && _settings.OsrsApiPollingTime > 0)
             {
                 _logger.LogInformation("Fetching stats for configured players", DateTimeOffset.Now);
 
