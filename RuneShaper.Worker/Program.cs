@@ -13,9 +13,12 @@ var log = new LoggerConfiguration()
 
 try
 {
+    Log.Information("Starting RuneSharper.Worker");
+
     IHost host = Host.CreateDefaultBuilder(args)
         .UseSerilog((ctx, lc) => lc
-            .ReadFrom.Configuration(ctx.Configuration))
+            .ReadFrom.Configuration(ctx.Configuration)
+            .WriteTo.Console())
         .ConfigureServices((hostContext, services) =>
         {
             var config = hostContext.Configuration;
@@ -31,8 +34,11 @@ try
 
             services.AddHostedService<Worker>();
         })
+        .UseWindowsService(options =>
+        {
+            options.ServiceName = "RuneSharper Worker Service";
+        })
         .Build();
-
 
     await host.RunAsync();
 } catch (Exception ex)

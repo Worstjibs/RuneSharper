@@ -39,6 +39,8 @@ namespace RuneShaper.Worker
 
                 await saveStatsService.SaveStatsForUsers(ACCOUNT_NAMES);
 
+                _logger.LogInformation("Stats fetched for users", DateTimeOffset.Now);
+
                 await Task.Delay(_settings.OsrsApiPollingTime * 1000, stoppingToken);
             }
         }
