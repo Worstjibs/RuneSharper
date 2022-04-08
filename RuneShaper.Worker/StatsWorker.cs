@@ -4,14 +4,14 @@ using RuneSharper.Shared.Settings;
 
 namespace RuneShaper.Worker
 {
-    public class Worker : BackgroundService
+    public class StatsWorker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
+        private readonly ILogger<StatsWorker> _logger;
         private readonly IServiceProvider _serviceProvider;
         private readonly RuneSharperSettings _settings;
 
-        public Worker(
-            ILogger<Worker> logger,
+        public StatsWorker(
+            ILogger<StatsWorker> logger,
             IServiceProvider serviceProvider,
             IOptions<RuneSharperSettings> options)
         {

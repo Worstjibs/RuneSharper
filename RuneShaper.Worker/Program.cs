@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using RuneShaper.Worker;
 using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
@@ -32,7 +33,20 @@ try
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddHostedService<Worker>();
+            services.AddAzureClients(builder =>
+            {
+                var connectionString = hostContext.HostingEnvironment.EnvironmentName switch
+                {
+                    "Development" => "ServiceBusDev",
+                    "Production" => "ServiceBusProd",
+                    _ => throw new Exception("EnvironmentName is invalid")
+                };
+                    
+                builder.AddServiceBusClient(config.GetConnectionString(connectionString));
+            });
+
+            services.AddHostedService<StatsWorker>();
+            services.AddHostedService<RuneSharperMessageWorker>();
         })
         .UseWindowsService(options =>
         {
