@@ -10,8 +10,6 @@ namespace RuneShaper.Worker
         private readonly IServiceProvider _serviceProvider;
         private readonly RuneSharperSettings _settings;
 
-        private readonly string[] ACCOUNT_NAMES = { "worstjibs" };
-
         public Worker(
             ILogger<Worker> logger,
             IServiceProvider serviceProvider,
@@ -37,7 +35,7 @@ namespace RuneShaper.Worker
                     throw new ArgumentNullException("Save Stats Service is null, review DI Configuration");
                 }
 
-                await saveStatsService.SaveStatsForUsers(ACCOUNT_NAMES);
+                await saveStatsService.SaveStatsForUsers(_settings.CharacterNames);
 
                 _logger.LogInformation("Stats fetched for users", DateTimeOffset.Now);
 
