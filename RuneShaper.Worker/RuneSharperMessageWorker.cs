@@ -45,7 +45,7 @@ namespace RuneShaper.Worker
                 throw new ArgumentNullException("Save Stats Service is null, review DI Configuration");
             }
 
-            await saveStatsService.SaveStatsForUsers(new[] { message });
+            await saveStatsService.SaveStatsForCharacters(new[] { message });
 
             // complete the message. message is deleted from the queue. 
             await args.CompleteMessageAsync(args.Message);

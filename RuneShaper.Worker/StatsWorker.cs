@@ -35,7 +35,7 @@ namespace RuneShaper.Worker
                     throw new ArgumentNullException("Save Stats Service is null, review DI Configuration");
                 }
 
-                await saveStatsService.SaveStatsForUsers(_settings.CharacterNames);
+                await saveStatsService.SaveStatsForCharacters(_settings.CharacterNames);
 
                 _logger.LogInformation("Stats fetched for users", DateTimeOffset.Now);
 
