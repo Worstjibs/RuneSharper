@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
 using RuneSharper.Services.Characters;
+using RuneSharper.Services.LineCharts;
 using RuneSharper.Services.SaveStats;
 using RuneSharper.Services.Stats;
 using RuneSharper.Services.Token;
@@ -23,6 +24,8 @@ public static class ServicesExtensionMethods {
 
         services.AddScoped<ISaveStatsService, SaveStatsService>();
         services.AddScoped<ICharactersService, CharactersService>();
+
+        services.AddScoped<ILineChartService, LineChartService>();
 
         return services;
     }

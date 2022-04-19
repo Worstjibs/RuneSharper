@@ -25,7 +25,7 @@ async Task Start()
 void ConfigureServices(IServiceCollection services, IConfiguration config) {
     services.AddControllers().AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        //options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
     });
 
     services.AddEndpointsApiExplorer();
@@ -62,6 +62,8 @@ void ConfigureMiddleware(IApplicationBuilder app, IWebHostEnvironment env) {
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
     app.UseHttpsRedirection();
 

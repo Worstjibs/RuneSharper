@@ -13,8 +13,9 @@ namespace RuneSharper.Data.Repositories
         public async Task<IEnumerable<SkillSnapshot>> GetByUsername(string username, DateRange dateRange)
         {
             return await DbSet
-                .Where(x => x.DateCreated >= dateRange.DateFrom
-                    && x.DateCreated <= dateRange.DateTo
+                .Include(x => x.Snapshot)
+                .Where(x => x.Snapshot.DateCreated.Date >= dateRange.DateFrom
+                    && x.Snapshot.DateCreated.Date <= dateRange.DateTo
                     && x.Snapshot.Character.UserName == username)
                 .ToListAsync();
         }
