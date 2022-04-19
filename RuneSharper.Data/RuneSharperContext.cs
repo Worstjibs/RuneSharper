@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RuneSharper.Shared.Entities;
+using RuneSharper.Shared.Entities.Snapshots;
+using RuneSharper.Shared.Entities.Users;
 using System.Reflection;
 
 namespace RuneSharper.Data

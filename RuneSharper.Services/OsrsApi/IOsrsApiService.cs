@@ -1,11 +1,5 @@
-﻿using DotnetOsrsApiWrapper;
-using RuneSharper.Shared;
-using RuneSharper.Shared.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RuneSharper.Shared.Entities;
+using RuneSharper.Shared.Entities.Snapshots;
 
 namespace RuneSharper.Services.Stats {
     public interface IOsrsApiService {

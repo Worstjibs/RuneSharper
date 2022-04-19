@@ -1,4 +1,4 @@
-﻿using RuneSharper.Shared.Entities;
+﻿using RuneSharper.Shared.Entities.Users;
 
 namespace RuneSharper.Services.Token
 {

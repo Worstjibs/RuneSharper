@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using RuneSharper.Services.Stats;
-using RuneSharper.Shared.Entities;
-using RuneSharper.Shared.Settings;
+using RuneSharper.Shared.Entities.Users;
 using System.ComponentModel.DataAnnotations;
 
 namespace RuneSharper.API.Controllers

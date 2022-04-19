@@ -8,7 +8,7 @@ using RuneSharper.Services.Characters;
 using RuneSharper.Services.SaveStats;
 using RuneSharper.Services.Stats;
 using RuneSharper.Services.Token;
-using RuneSharper.Shared.Entities;
+using RuneSharper.Shared.Entities.Users;
 using RuneSharper.Shared.Settings;
 using System.Text;
 

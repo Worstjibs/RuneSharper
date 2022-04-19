@@ -1,13 +1,7 @@
 ﻿using DotnetOsrsApiWrapper;
-using RuneSharper.Data;
-using RuneSharper.Shared;
 using RuneSharper.Shared.Entities;
+using RuneSharper.Shared.Entities.Snapshots;
 using RuneSharper.Shared.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RuneSharper.Services.Stats
 {
