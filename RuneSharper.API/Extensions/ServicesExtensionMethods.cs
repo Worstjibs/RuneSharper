@@ -16,10 +16,11 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ServicesExtensionMethods {
     public static IServiceCollection AddRuneSharperServices(this IServiceCollection services, IConfiguration config) {
-        services.Configure<RuneSharperSettings>(config.GetSection("RuneSharperSettings"));
         services.AddSingleton<IOsrsApiService, OsrsApiService>();
 
         services.AddScoped<ICharacterRepository, CharacterRepository>();
+        services.AddScoped<ISkillSnapshotRepository, SkillSnapshotRepository>();
+
         services.AddScoped<ISaveStatsService, SaveStatsService>();
         services.AddScoped<ICharactersService, CharactersService>();
 
