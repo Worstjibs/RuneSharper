@@ -7,9 +7,16 @@ namespace RuneSharper.Services.Stats
 {
     public class OsrsApiService : IOsrsApiService
     {
-        public Snapshot QueryHiScoresByAccount(Character account)
+        private readonly IPlayerInfoService _playerInfoService;
+
+        public OsrsApiService(IPlayerInfoService playerInfoService)
         {
-            var playerInfo = new PlayerInfo(account.UserName);
+            _playerInfoService = playerInfoService;
+        }
+
+        public async Task<Snapshot> QueryHiScoresByAccount(Character account)
+        {
+            var playerInfo = await _playerInfoService.GetPlayerInfoAsync(account.UserName);
 
             var snapshot = new Snapshot { Character = account };
 

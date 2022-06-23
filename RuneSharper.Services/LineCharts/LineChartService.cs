@@ -19,7 +19,7 @@ namespace RuneSharper.Services.LineCharts
             _skillSnapshotRepository = skillSnapshotRepository;
         }
 
-        public async Task<IEnumerable<LineChartData>> GetSkillSnapshotData(string username, DateRange dateRange, bool includeOverall)
+        public async Task<IEnumerable<LineChartModels>> GetSkillSnapshotData(string username, DateRange dateRange, bool includeOverall)
         {
             var skillSnapshotData = await _skillSnapshotRepository.GetByUsername(username, dateRange);
 
@@ -30,7 +30,7 @@ namespace RuneSharper.Services.LineCharts
 
             var lineChartData = skillSnapshotData
                 .GroupBy(x => new { x.Type })
-                .Select(x => new LineChartData
+                .Select(x => new LineChartModels
                 {
                     Name = x.Key.Type.ToString(),
                     Series = x.GroupBy(g => g.DateCreated.ToString("yyyy-MM-dd"))

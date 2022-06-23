@@ -1,0 +1,28 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark h-100">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <span class="fs-4">RuneSharper</span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <a class="nav-link active" routerLink="">Home</a>
+    </li>
+    <li>
+      <a class="nav-link text-white" >Characters</a>
+    </li>
+    <li>
+      <a class="nav-link text-white" routerLink="/line-chart">Line Chart</a>
+    </li>
+  </ul>
+  <hr>
+  <div class="btn-group" dropdown [dropup]="isDropup">
+    <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+            aria-controls="dropdown-animated">
+      My Profile<span class="caret"></span>
+    </button>
+    <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
+        role="menu" aria-labelledby="button-animated">
+      <li role="menuitem"><a class="dropdown-item">Login</a></li>
+    </ul>
+  </div>
+</div>

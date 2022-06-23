@@ -15,7 +15,7 @@ namespace RuneSharper.API.Controllers
         }
 
         [HttpGet("{username}")]
-        public async Task<ActionResult<IEnumerable<LineChartData>>> GetSkillSnapshotData(string username, [FromQuery] DateRange dateRange, bool includeOverall = false)
+        public async Task<ActionResult<IEnumerable<LineChartModels>>> GetSkillSnapshotData(string username, [FromQuery] DateRange dateRange, bool includeOverall = false)
         {
             var data = await _lineChartService.GetSkillSnapshotData(username, dateRange, includeOverall);
 

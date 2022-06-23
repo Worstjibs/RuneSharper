@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using DotnetOsrsApiWrapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -18,8 +19,10 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class ServicesExtensionMethods {
     public static IServiceCollection AddRuneSharperServices(this IServiceCollection services, IConfiguration config) {
         services.AddSingleton<IOsrsApiService, OsrsApiService>();
+        services.AddOsrsWrapper();
 
         services.AddScoped<ICharacterRepository, CharacterRepository>();
+        services.AddScoped<ISnapshotRepository, SnapshotRepository>();
         services.AddScoped<ISkillSnapshotRepository, SkillSnapshotRepository>();
 
         services.AddScoped<ISaveStatsService, SaveStatsService>();

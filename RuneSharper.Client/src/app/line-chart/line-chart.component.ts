@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LineChartService } from '../_services/line-chart.service';
-import { multi } from './data';
+import { LineChartModel } from '@app/models/line-chart-model';
+import { Color } from '@swimlane/ngx-charts';
+import { Observable } from 'rxjs';
+import { LineChartService } from '../_services/line-chart/line-chart.service';
 
 @Component({
   selector: 'app-line-chart',
@@ -8,8 +10,8 @@ import { multi } from './data';
   styleUrls: ['./line-chart.component.css']
 })
 export class LineChartComponent implements OnInit {
-  multi: any[] = multi;
-  view: [number, number] = [700, 300];
+  multi: Observable<LineChartModel[]> | undefined;
+  view: [number, number] = [1000, 500];
 
   data: any;
 
@@ -27,7 +29,7 @@ export class LineChartComponent implements OnInit {
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
-  };
+  } as Color;
 
   constructor(private readonly lineChartService: LineChartService) {
     //Object.assign(this, { multi });
@@ -36,12 +38,17 @@ export class LineChartComponent implements OnInit {
   ngOnInit(): void {
     const dateTo = new Date();
     const dateFrom = new Date();
-    dateFrom.setDate(dateTo.getDate() - 7);
+    dateFrom.setDate(dateTo.getDate() - 30);
 
-    this.lineChartService.getData('worstjibs', dateFrom, dateTo)
-      .subscribe(data => {
-        this.multi = data;
-      });
+    this.multi = this.lineChartService.getData('worstjibs', dateFrom, dateTo, false)
+      // .pipe(
+      //   map(data => {
+      //     return data.filter(d => d.name === 'Overall')
+      //   })
+      // )
+      // .subscribe(data => {
+      //   this.multi = data;
+      // });
   }
 
   onSelect(data: any): void {

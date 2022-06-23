@@ -1,3 +1,4 @@
+using DotnetOsrsApiWrapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using RuneShaper.Worker;
@@ -46,7 +47,9 @@ try
             });
 
             services.AddHostedService<StatsWorker>();
-            services.AddHostedService<RuneSharperMessageWorker>();
+            //services.AddHostedService<RuneSharperMessageWorker>();
+
+            services.AddOsrsWrapper();
         })
         .UseWindowsService(options =>
         {

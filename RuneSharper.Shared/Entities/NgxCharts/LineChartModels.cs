@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RuneSharper.Shared.Entities.NgxCharts
 {
-    public class LineChartData
+    public class LineChartModels
     {
         public string Name { get; set; } = default!;
         public IEnumerable<LineChartSeriesData> Series { get; set; } = default!;

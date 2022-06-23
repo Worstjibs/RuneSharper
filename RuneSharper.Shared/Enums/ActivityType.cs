@@ -20,6 +20,7 @@ namespace RuneSharper.Shared.Enums
         MasterClueScrolls,
         LastManStanding,
         SoulWarsZeal,
+        RiftsClosed,
         AbyssalSire,
         AlchemicalHydra,
         BarrowsChests,
@@ -47,7 +48,9 @@ namespace RuneSharper.Shared.Enums
         Kree,
         Kril,
         Mimic,
+        Nex,
         Nightmare,
+        PhosanisNightmare,
         Obor,
         Sarachnis,
         Scorpia,
@@ -56,6 +59,7 @@ namespace RuneSharper.Shared.Enums
         Gauntlet,
         CorruptedGauntlet,
         TheatreofBlood,
+        TheatreofBloodHardMode,
         ThermonuclearSmokeDevil,
         Zuk,
         Jad,
@@ -63,6 +67,7 @@ namespace RuneSharper.Shared.Enums
         Vetion,
         Vorkath,
         Wintertodt,
-        Zalcano
+        Zalcano,
+        Zulrah
     }
 }

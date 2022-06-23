@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RuneSharper.Shared.Models;
 using RuneSharper.Data.Repositories;
 using RuneSharper.Shared.Entities.Snapshots;
 using RuneSharper.Shared.Helpers;
@@ -15,11 +16,20 @@ namespace RuneSharper.API.Controllers
         }
 
         [HttpGet("{username}")]
-        public async Task<ActionResult<IEnumerable<SkillSnapshot>>> GetSkillSnapshotsForUser(string username, [FromQuery] DateRange dateRange)
+        public async Task<ActionResult<IEnumerable<SkillSnapshotModel>>> GetSkillSnapshotsForUser(string username, [FromQuery] DateRange dateRange)
         {
             var result = await _skillSnapshotRepository.GetByUsername(username, dateRange);
 
-            return Ok(result);
+            var models = result.Select(x => new SkillSnapshotModel
+            {
+                Type = x.Type.ToString(),
+                DateCreated = x.DateCreated,
+                Experience = x.Experience,
+                Level = x.Level,
+                Rank = x.Rank
+            });
+
+            return Ok(models);
         }
     }
 }

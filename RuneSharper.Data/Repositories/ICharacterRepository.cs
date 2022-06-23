@@ -1,4 +1,5 @@
 ﻿using RuneSharper.Shared.Entities;
+using RuneSharper.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace RuneSharper.Data.Repositories
     public interface ICharacterRepository : IRepository<Character>
     {
         Task<Character?> GetCharacterByNameAsync(string accountName);
-        Task<IEnumerable<Character?>> GetCharactersByNameAsync(IEnumerable<string> characterNames);
+        Task<IEnumerable<Character>> GetCharactersByNameAsync(IEnumerable<string> characterNames);
+        //Task<IEnumerable<CharacterListModel>> GetCharacterListModelsAsync();
     }
 }

@@ -34,7 +34,7 @@ namespace RuneSharper.Services.SaveStats
                     _characterRepository.Insert(account);
                 }
 
-                account.Snapshots.Add(_osrsApiService.QueryHiScoresByAccount(account));
+                account.Snapshots.Add(await _osrsApiService.QueryHiScoresByAccount(account));
             }
 
             await SaveCharacters();

@@ -1,10 +1,6 @@
-﻿using DotnetOsrsApiWrapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using RuneSharper.Data.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
+using RuneSharper.Shared.Models;
 using RuneSharper.Services.Characters;
-using RuneSharper.Services.Stats;
-using RuneSharper.Shared;
 using RuneSharper.Shared.Entities;
 
 namespace RuneSharper.API.Controllers {
@@ -49,6 +45,17 @@ namespace RuneSharper.API.Controllers {
             }
 
             return Ok(character);
+        }
+
+        /// <summary>
+        /// Gets all Characters
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        [HttpGet("list")]
+        public async Task<ActionResult<IEnumerable<CharacterListModel>>> GetList()
+        {
+            return Ok(await _charactersService.GetCharacterListModels());
         }
     }
 }

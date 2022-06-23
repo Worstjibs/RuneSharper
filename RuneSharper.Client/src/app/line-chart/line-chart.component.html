@@ -1,16 +1,21 @@
-<ngx-charts-line-chart [view]="view"
-                       [legend]="legend"
-                       [showXAxisLabel]="showXAxisLabel"
-                       [showYAxisLabel]="showYAxisLabel"
-                       [xAxis]="xAxis"
-                       [yAxis]="yAxis"
-                       [xAxisLabel]="xAxisLabel"
-                       [yAxisLabel]="yAxisLabel"
-                       [timeline]="timeline"
-                       [results]="multi"
-                       (select)="onSelect($event)"
-                       (activate)="onActivate($event)"
-                       (deactivate)="onDeactivate($event)">
-</ngx-charts-line-chart>
+<!-- <div class="px-4 py-5 my-5 text-center"> -->
+    <ngx-charts-line-chart [view]="view"
+        [legend]="legend"
+        [scheme]="colorScheme"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [timeline]="timeline"
+        [results]="multi | async"
+        [autoScale]="true"
+        (select)="onSelect($event)"
+        (activate)="onActivate($event)"
+        (deactivate)="onDeactivate($event)">
+    </ngx-charts-line-chart>
+<!-- </div> -->
+
 
 <!--[scheme]="colorScheme"-->

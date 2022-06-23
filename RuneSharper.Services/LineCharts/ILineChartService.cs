@@ -5,6 +5,6 @@ namespace RuneSharper.Services.LineCharts
 {
     public interface ILineChartService
     {
-        Task<IEnumerable<LineChartData>> GetSkillSnapshotData(string username, DateRange dateRange, bool includeOverall);
+        Task<IEnumerable<LineChartModels>> GetSkillSnapshotData(string username, DateRange dateRange, bool includeOverall);
     }
 }

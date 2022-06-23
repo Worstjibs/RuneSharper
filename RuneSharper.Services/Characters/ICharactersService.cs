@@ -1,4 +1,5 @@
 ﻿using RuneSharper.Shared.Entities;
+using RuneSharper.Shared.Models;
 
 namespace RuneSharper.Services.Characters
 {
@@ -6,5 +7,6 @@ namespace RuneSharper.Services.Characters
     {
         Task<Character?> GetCharacterAsync(string username);
         Task<Character?> UpdateCharacterStats(string username);
+        Task<IEnumerable<CharacterListModel>> GetCharacterListModels();
     }
 }
