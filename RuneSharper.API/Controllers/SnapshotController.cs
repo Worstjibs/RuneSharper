@@ -23,7 +23,7 @@ namespace RuneSharper.API.Controllers
             var models = result.Select(x => new SkillSnapshotModel
             {
                 Type = x.Type.ToString(),
-                DateCreated = x.DateCreated,
+                DateCreated = x.Snapshot.DateCreated,
                 Experience = x.Experience,
                 Level = x.Level,
                 Rank = x.Rank

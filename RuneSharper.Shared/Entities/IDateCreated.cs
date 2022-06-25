@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RuneSharper.Shared.Entities;
 
-public abstract class BaseEntity<T>
+public interface IDateCreated
 {
-    public abstract T Id { get; init; }
+    public DateTime DateCreated { get; init; }
 }

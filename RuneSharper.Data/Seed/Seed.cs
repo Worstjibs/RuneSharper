@@ -39,7 +39,6 @@ namespace RuneSharper.Data.Seed {
                         {
                             Snapshot = newSnapshot,
                             Type = x,
-                            DateCreated = newSnapshot.DateCreated,
                             Experience = lastSnapshot != null ? lastSnapshot.Skills.First(s => s.Type == x).Experience + random.Next(10000) : 0
                         }).ToList();
 

@@ -15,7 +15,7 @@ namespace RuneSharper.Data.Repositories
             return await DbSet
                 .Include(x => x.Snapshot)
                 .Where(x => x.Snapshot.DateCreated.Date >= dateRange.DateFrom
-                    && x.Snapshot.DateCreated.Date <= dateRange.DateTo
+                    && x.Snapshot.DateCreated.Date < dateRange.DateTo
                     && x.Snapshot.Character.UserName == username)
                 .ToListAsync();
         }

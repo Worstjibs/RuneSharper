@@ -33,7 +33,7 @@ public class LineChartService : ILineChartService
             .Select(x => new LineChartModels
             {
                 Name = x.Key.Type.ToString(),
-                Series = x.GroupBy(g => g.DateCreated.ToString("yyyy-MM-dd"))
+                Series = x.GroupBy(g => g.Snapshot.DateCreated.ToString("yyyy-MM-dd"))
                     .Select(g => new LineChartSeriesData { 
                         Name = g.Key,
                         Value = g.Max(s => s.Experience).ToString()
