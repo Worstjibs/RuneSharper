@@ -1,11 +1,10 @@
-﻿namespace RuneSharper.Shared.Models
+﻿namespace RuneSharper.Shared.Models;
+
+public class SkillSnapshotModel
 {
-    public class SkillSnapshotModel
-    {
-        public string Type { get; set; } = default!;
-        public int Experience { get; set; }
-        public int Level { get; set; }
-        public int Rank { get; set; }
-        public DateTime DateCreated { get; set; }
-    }
+    public string Type { get; set; } = default!;
+    public int Experience { get; set; }
+    public int Level { get; set; }
+    public int Rank { get; set; }
+    public DateTime DateCreated { get; set; }
 }

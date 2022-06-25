@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace RuneSharper.Shared.Entities.Users
+namespace RuneSharper.Shared.Entities.Users;
+
+public class AppRole : IdentityRole<int>
 {
-    public class AppRole : IdentityRole<int>
-    {
-    }
 }

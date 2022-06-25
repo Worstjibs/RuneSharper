@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RuneSharper.Shared.Settings
+namespace RuneSharper.Shared.Settings;
+
+public class JwtTokenSettings
 {
-    public class JwtTokenSettings
-    {
-        public string SecretKey { get; init; }
-    }
+    public string SecretKey { get; init; }
 }

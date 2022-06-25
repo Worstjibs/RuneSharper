@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RuneSharper.Data;
 
@@ -11,9 +12,10 @@ using RuneSharper.Data;
 namespace RuneSharper.Data.Migrations
 {
     [DbContext(typeof(RuneSharperContext))]
-    partial class RuneSharperContextModelSnapshot : ModelSnapshot
+    [Migration("20220625185200_Drop DateCreated on SnapshotEntity")]
+    partial class DropDateCreatedonSnapshotEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

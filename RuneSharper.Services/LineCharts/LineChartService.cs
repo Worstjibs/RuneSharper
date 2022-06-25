@@ -8,39 +8,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RuneSharper.Services.LineCharts
+namespace RuneSharper.Services.LineCharts;
+
+public class LineChartService : ILineChartService
 {
-    public class LineChartService : ILineChartService
+    private readonly ISkillSnapshotRepository _skillSnapshotRepository;
+
+    public LineChartService(ISkillSnapshotRepository skillSnapshotRepository)
     {
-        private readonly ISkillSnapshotRepository _skillSnapshotRepository;
+        _skillSnapshotRepository = skillSnapshotRepository;
+    }
 
-        public LineChartService(ISkillSnapshotRepository skillSnapshotRepository)
+    public async Task<IEnumerable<LineChartModels>> GetSkillSnapshotData(string username, DateRange dateRange, bool includeOverall)
+    {
+        var skillSnapshotData = await _skillSnapshotRepository.GetByUsername(username, dateRange);
+
+        if (!includeOverall)
         {
-            _skillSnapshotRepository = skillSnapshotRepository;
+            skillSnapshotData = skillSnapshotData.Where(x => x.Type != SkillType.Overall);
         }
 
-        public async Task<IEnumerable<LineChartModels>> GetSkillSnapshotData(string username, DateRange dateRange, bool includeOverall)
-        {
-            var skillSnapshotData = await _skillSnapshotRepository.GetByUsername(username, dateRange);
-
-            if (!includeOverall)
+        var lineChartData = skillSnapshotData
+            .GroupBy(x => new { x.Type })
+            .Select(x => new LineChartModels
             {
-                skillSnapshotData = skillSnapshotData.Where(x => x.Type != SkillType.Overall);
-            }
+                Name = x.Key.Type.ToString(),
+                Series = x.GroupBy(g => g.DateCreated.ToString("yyyy-MM-dd"))
+                    .Select(g => new LineChartSeriesData { 
+                        Name = g.Key,
+                        Value = g.Max(s => s.Experience).ToString()
+                    }).ToList()
+            }).ToList();
 
-            var lineChartData = skillSnapshotData
-                .GroupBy(x => new { x.Type })
-                .Select(x => new LineChartModels
-                {
-                    Name = x.Key.Type.ToString(),
-                    Series = x.GroupBy(g => g.DateCreated.ToString("yyyy-MM-dd"))
-                        .Select(g => new LineChartSeriesData { 
-                            Name = g.Key,
-                            Value = g.Max(s => s.Experience).ToString()
-                        }).ToList()
-                }).ToList();
-
-            return lineChartData;
-        }
+        return lineChartData;
     }
 }

@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RuneSharper.Shared.Entities.Snapshots
+namespace RuneSharper.Shared.Entities.Snapshots;
+
+public class ActivitySnapshot : SnapshotEntity<ActivityType>
 {
-    public record ActivitySnapshot : SnapshotEntity<ActivityType>
-    {
-        public int Score { get; set; }
-    }
+    public int Score { get; set; }
 }

@@ -1,8 +1,7 @@
-﻿namespace RuneSharper.Shared.Helpers
+﻿namespace RuneSharper.Shared.Helpers;
+
+public class DateRange
 {
-    public class DateRange
-    {
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
-    }
+    public DateTime DateFrom { get; set; }
+    public DateTime DateTo { get; set; }
 }

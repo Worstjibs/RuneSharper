@@ -1,6 +1,6 @@
-﻿namespace RuneSharper.Shared.Entities {
-    public record BaseIntEntity {
-        public int Id { get; set; }
-        public virtual DateTime DateCreated { get; set; } = DateTime.UtcNow;
-    }
+﻿namespace RuneSharper.Shared.Entities;
+
+public class BaseIntEntity : BaseEntity<int>
+{
+    public override int Id { get; init; }
 }

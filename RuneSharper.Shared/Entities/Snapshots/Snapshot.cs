@@ -1,8 +1,8 @@
-﻿namespace RuneSharper.Shared.Entities.Snapshots
+﻿namespace RuneSharper.Shared.Entities.Snapshots;
+
+public class Snapshot : BaseIntEntity
 {
-    public record Snapshot : BaseIntEntity {
-        public Character Character { get; set; } = default!;
-        public ICollection<SkillSnapshot> Skills { get; set; } = default!;
-        public ICollection<ActivitySnapshot> Activities { get; set; } = default!;
-    }
+    public Character Character { get; set; } = default!;
+    public ICollection<SkillSnapshot> Skills { get; set; } = default!;
+    public ICollection<ActivitySnapshot> Activities { get; set; } = default!;
 }
