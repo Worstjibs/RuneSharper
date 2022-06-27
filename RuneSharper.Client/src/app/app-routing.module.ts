@@ -5,9 +5,9 @@ import { HomeComponent } from './home/home.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
   { path: 'line-chart', component: LineChartComponent },
-  { path: 'characters', component: CharacterListComponent },
-  { path: '', component: HomeComponent }
+  { path: 'characters', component: CharacterListComponent }
 ]
 
 @NgModule({

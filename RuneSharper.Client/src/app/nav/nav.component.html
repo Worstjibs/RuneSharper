@@ -5,23 +5,22 @@
   <hr>
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
-      <a class="nav-link active" routerLink="">Home</a>
+      <a class="nav-link text-white" routerLink="/" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">Home</a>
     </li>
-    <li>
-      <a class="nav-link text-white" >Characters</a>
+    <li class="nav-item">
+      <a class="nav-link text-white" routerLink="/characters" routerLinkActive="active">Characters</a>
     </li>
-    <li>
-      <a class="nav-link text-white" routerLink="/line-chart">Line Chart</a>
+    <li class="nav-item">
+      <a class="nav-link text-white" routerLink="/line-chart" routerLinkActive="active">Line Chart</a>
     </li>
   </ul>
   <hr>
   <div class="btn-group" dropdown [dropup]="isDropup">
     <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-            aria-controls="dropdown-animated">
-      My Profile<span class="caret"></span>
+      aria-controls="dropdown-animated">My Profile<span class="caret"></span>
     </button>
-    <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
-        role="menu" aria-labelledby="button-animated">
+    <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-animated">
       <li role="menuitem"><a class="dropdown-item">Login</a></li>
     </ul>
   </div>

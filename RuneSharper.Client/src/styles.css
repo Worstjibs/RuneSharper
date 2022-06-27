@@ -3,3 +3,19 @@ body {
     background-color: rgb(52, 56, 59);
     color: white;
 }
+
+.table > thead > tr > :first-child {
+    border-top-left-radius: 0.25rem;
+}
+
+.table > thead > tr > :last-child {
+    border-top-right-radius: 0.25rem;
+}
+
+.table > tbody > tr:last-of-type > :first-child {
+    border-bottom-left-radius: 0.25rem;
+}
+
+.table > tbody > tr:last-of-type > :last-child {
+    border-bottom-right-radius: 0.25rem;
+}
