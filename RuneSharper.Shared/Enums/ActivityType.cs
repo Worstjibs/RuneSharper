@@ -13,6 +13,7 @@ public enum ActivityType
     EliteClueScrolls,
     MasterClueScrolls,
     LastManStanding,
+    PvPArena,
     SoulWarsZeal,
     RiftsClosed,
     AbyssalSire,

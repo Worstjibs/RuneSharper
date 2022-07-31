@@ -4,76 +4,81 @@ using RuneSharper.Services.Stats;
 using RuneSharper.Shared.Entities;
 using RuneSharper.Shared.Entities.Snapshots;
 
-namespace RuneSharper.Services.SaveStats
+namespace RuneSharper.Services.SaveStats;
+
+public class SaveStatsService : ISaveStatsService
 {
-    public class SaveStatsService : ISaveStatsService
+    private readonly IOsrsApiService _osrsApiService;
+    private readonly ICharacterRepository _characterRepository;
+
+    public SaveStatsService(IOsrsApiService osrsApiService, ICharacterRepository characterRepository)
     {
-        private readonly IOsrsApiService _osrsApiService;
-        private readonly ICharacterRepository _characterRepository;
+        _osrsApiService = osrsApiService;
+        _characterRepository = characterRepository;
+    }
 
-        public SaveStatsService(IOsrsApiService osrsApiService, ICharacterRepository characterRepository)
-        {
-            _osrsApiService = osrsApiService;
-            _characterRepository = characterRepository;
-        }
+    public async Task SaveStatsForCharacters(IEnumerable<string> usernames)
+    {
+        var accounts = (List<Character>) await _characterRepository.GetCharactersByNameAsync(usernames);
 
-        public async Task SaveStatsForCharacters(IEnumerable<string> usernames)
+        var missingAccounts = usernames.Except(accounts.Select(x => x.UserName));
+
+        foreach (var username in missingAccounts)
         {
-            foreach (var username in usernames)
+            var account = new Character
             {
-                var account = await _characterRepository.GetCharacterByNameAsync(username);
+                UserName = username.ToLower(),
+                Snapshots = new List<Snapshot>()
+            };
 
-                if (account is null)
-                {
-                    account = new Character
-                    {
-                        UserName = username.ToLower(),
-                        Snapshots = new List<Snapshot>()
-                    };
-
-                    _characterRepository.Insert(account);
-                }
-
-                account.Snapshots.Add(await _osrsApiService.QueryHiScoresByAccount(account));
-            }
-
-            await SaveCharacters();
+            accounts.Add(account);
+            _characterRepository.Insert(account);
         }
+        
+        var snapshots = await _osrsApiService.QueryHiScoresByAccountsAsync(accounts);
 
-        public async Task<Character> SaveStatsForCharacter(string username)
+        accounts.Join(snapshots, x => x.UserName, x => x.Character.UserName, (x, y) =>
         {
-            var character = await CreateSnapshotForCharacter(username);
+            x.Snapshots.Add(y);
+            return x;
+        }).ToList();
 
-            await SaveCharacters();
+        await SaveCharacters();
+    }
 
-            return character;
-        }
+    public async Task<Character> SaveStatsForCharacter(string username)
+    {
+        var character = await CreateSnapshotForCharacter(username);
 
-        private async Task<Character> CreateSnapshotForCharacter(string username)
+        await SaveCharacters();
+
+        return character;
+    }
+
+    private async Task<Character> CreateSnapshotForCharacter(string username)
+    {
+        var character = await _characterRepository.GetCharacterByNameAsync(username);
+
+        if (character is null)
         {
-            var character = await _characterRepository.GetCharacterByNameAsync(username);
-
-            if (character is null)
+            character = new Character
             {
-                character = new Character
-                {
-                    UserName = username.ToLower(),
-                    Snapshots = new List<Snapshot>()
-                };
+                UserName = username.ToLower(),
+                Snapshots = new List<Snapshot>()
+            };
 
-                _characterRepository.Insert(character);
-            }
-            character.Snapshots.Add(await Task.Run(() => _osrsApiService.QueryHiScoresByAccount(character)));
-
-            return character;
+            _characterRepository.Insert(character);
         }
+        character.Snapshots.Add(await Task.Run(() => _osrsApiService.QueryHiScoresByAccountAsync(character)));
 
-        private async Task SaveCharacters()
+        return character;
+    }
+
+    private async Task SaveCharacters()
+    {
+        if (!await _characterRepository.Complete())
         {
-            if (!await _characterRepository.Complete())
-            {
-                throw new DbUpdateException("No records updated");
-            }
+            throw new DbUpdateException("No records updated");
         }
     }
 }

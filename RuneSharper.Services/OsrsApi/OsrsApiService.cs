@@ -3,24 +3,61 @@ using RuneSharper.Shared.Entities;
 using RuneSharper.Shared.Entities.Snapshots;
 using RuneSharper.Shared.Enums;
 
-namespace RuneSharper.Services.Stats
+namespace RuneSharper.Services.Stats;
+
+public class OsrsApiService : IOsrsApiService
 {
-    public class OsrsApiService : IOsrsApiService
+    private readonly IPlayerInfoService _playerInfoService;
+
+    public OsrsApiService(IPlayerInfoService playerInfoService)
     {
-        private readonly IPlayerInfoService _playerInfoService;
+        _playerInfoService = playerInfoService;
+    }
 
-        public OsrsApiService(IPlayerInfoService playerInfoService)
+    public async Task<Snapshot> QueryHiScoresByAccountAsync(Character account)
+    {
+        var playerInfo = await _playerInfoService.GetPlayerInfoAsync(account.UserName);
+
+        var snapshot = new Snapshot { Character = account };
+
+        snapshot.Skills = playerInfo.Skills().Select(x =>
         {
-            _playerInfoService = playerInfoService;
-        }
+            _ = Enum.TryParse<SkillType>(x.Name, out var type);
 
-        public async Task<Snapshot> QueryHiScoresByAccount(Character account)
+            return new SkillSnapshot
+            {
+                Type = type,
+                Experience = x.Experience,
+                Level = x.Level,
+                Rank = x.Rank
+            };
+        }).ToList();
+
+        snapshot.Activities = playerInfo.Minigames().Select(x =>
         {
-            var playerInfo = await _playerInfoService.GetPlayerInfoAsync(account.UserName);
+            _ = Enum.TryParse<ActivityType>(x.Name, out var type);
 
-            var snapshot = new Snapshot { Character = account };
+            return new ActivitySnapshot
+            {
+                Rank = x.Rank,
+                Score = x.Score,
+                Type = type,
+                Snapshot = snapshot
+            };
+        }).ToList();
 
-            snapshot.Skills = playerInfo.Skills().Select(x =>
+        return snapshot;
+    }
+
+    public async Task<IEnumerable<Snapshot>> QueryHiScoresByAccountsAsync(IEnumerable<Character> accounts)
+    {
+        var playerInfos = await _playerInfoService.GetPlayerInfoAsync(accounts.Select(x => x.UserName).ToArray());
+
+        var snapshots = playerInfos.Select(x =>
+        {
+            var snapshot = new Snapshot { Character = accounts.First(a => a.UserName == x.Name) };
+
+            snapshot.Skills = x.Skills().Select(x =>
             {
                 _ = Enum.TryParse<SkillType>(x.Name, out var type);
 
@@ -33,7 +70,7 @@ namespace RuneSharper.Services.Stats
                 };
             }).ToList();
 
-            snapshot.Activities = playerInfo.Minigames().Select(x =>
+            snapshot.Activities = x.Minigames().Select(x =>
             {
                 _ = Enum.TryParse<ActivityType>(x.Name, out var type);
 
@@ -47,6 +84,8 @@ namespace RuneSharper.Services.Stats
             }).ToList();
 
             return snapshot;
-        }
+        });
+
+        return snapshots;
     }
 }

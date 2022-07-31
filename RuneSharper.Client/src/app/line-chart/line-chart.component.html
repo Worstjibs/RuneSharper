@@ -1,6 +1,5 @@
 <!-- <div class="px-4 py-5 my-5 text-center"> -->
-    <ngx-charts-line-chart [view]="view"
-        [legend]="legend"
+    <ngx-charts-line-chart [view]="view"        
         [scheme]="colorScheme"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
@@ -15,6 +14,11 @@
         (activate)="onActivate($event)"
         (deactivate)="onDeactivate($event)">
     </ngx-charts-line-chart>
+    <ngx-charts-legend class="chart-legend"
+        [data]="legendData"
+        [colors]="chartColors"
+        (labelClick)="onSelect($event)">        
+    </ngx-charts-legend>
 <!-- </div> -->
 
 

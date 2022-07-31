@@ -14,8 +14,8 @@ export class LineChartService {
 
   getData(username: string, dateFrom: Date, dateTo: Date, includeOverall: boolean): Observable<LineChartModel[]> {
     var params = new HttpParams();
-    params = params.set('dateFrom', dateFrom.toISOString().slice(0, 10));
-    params = params.set('dateTo', dateTo.toISOString().slice(0, 10));
+    params = params.set('dateFrom', dateFrom.toISOString());
+    params = params.set('dateTo', dateTo.toISOString());
     params = params.set('includeOverall', includeOverall);
 
     return this.http.get<any[]>(this.baseUrl + username, { params: params });

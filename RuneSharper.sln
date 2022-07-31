@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Shared", "RuneS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Data", "RuneSharper.Data\RuneSharper.Data.csproj", "{53AF74CE-DD81-47FA-8E33-2802FAF2D760}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneShaper.Worker", "RuneShaper.Worker\RuneShaper.Worker.csproj", "{AF75C98B-2439-4EFC-B40D-A1029FBAD6EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Worker", "RuneSharper.Worker\RuneSharper.Worker.csproj", "{AF75C98B-2439-4EFC-B40D-A1029FBAD6EE}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "RuneSharper.Client", "RuneSharper.Client\RuneSharper.Client.esproj", "{C7C41C80-39A0-40FA-8863-640515B45862}"
 EndProject

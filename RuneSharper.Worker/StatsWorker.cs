@@ -1,16 +1,15 @@
 using Microsoft.Extensions.Options;
 using RuneSharper.Services.SaveStats;
 using RuneSharper.Shared.Settings;
+using RuneSharper.Worker;
 
 namespace RuneShaper.Worker;
 
-public class StatsWorker : BackgroundService
+public class StatsWorker : BaseTimedService
 {
     private readonly ILogger<StatsWorker> _logger;
     private readonly IServiceProvider _serviceProvider;
     private readonly RuneSharperSettings _settings;
-
-    private readonly PeriodicTimer _timer;
 
     public StatsWorker(
         ILogger<StatsWorker> logger,
@@ -20,19 +19,11 @@ public class StatsWorker : BackgroundService
         _logger = logger;
         _serviceProvider = serviceProvider;
         _settings = options.Value;
-        _timer = new PeriodicTimer(TimeSpan.FromSeconds(_settings.OsrsApiPollingTime));
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        do
-        {
-            await DoWorkAsync();
-        } while (await _timer.WaitForNextTickAsync(stoppingToken)
-            && !stoppingToken.IsCancellationRequested);
-    }
+    protected override int Interval => _settings.OsrsApiPollingTime;
 
-    private async Task DoWorkAsync()
+    protected override async Task DoWorkAsync()
     {
         _logger.LogInformation("Fetching stats for configured players", DateTimeOffset.Now);
 
