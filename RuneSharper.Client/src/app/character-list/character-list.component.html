@@ -1,23 +1,36 @@
 <div class="container">
     <h1>Character List</h1>
     <div>
-        <table class="table table-dark table-striped table-hover">
+        <!-- <table class="table table-dark table-striped table-hover">
+            <app-sortable-header></app-sortable-header>
             <thead class="table-light">
                 <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Total Level</th>
-                    <th scope="col">Total Experience</th>
-                    <th scope="col">First Tracked</th>
+                    <th>UserName</th>
+                    <th>UserName</th>
+                    <th>UserName</th>
+                    <th>UserName</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let character of characters$ | async">
-                    <th scope="row">{{character.name}}</th>
+                    <th>{{character.userName}}</th>
                     <td>{{character.totalLevel}}</td>
                     <td>{{character.totalExperience}}</td>
-                    <td>{{character.dateCreated | date : 'mediumDate'}}</td>
+                    <td>{{character.firstTracked | date : 'mediumDate'}}</td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
+
+        <ngx-datatable
+            class="material"
+            [rows]="rows"
+            [loadingIndicator]="loadingIndicator"
+            [columns]="columns"
+            [columnMode]="ColumnMode.force"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            rowHeight="auto"
+            [reorderable]="reorderable">
+      </ngx-datatable>
     </div>
 </div>

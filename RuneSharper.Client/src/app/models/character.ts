@@ -1,6 +1,6 @@
-export interface Character {
-    name: string;
+export interface CharacterListModel {
+    userName: string;
     totalLevel: number;
     totalExperience: number;
-    dateCreated: Date;
+    firstTracked: Date;
 }

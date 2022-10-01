@@ -21,7 +21,7 @@ public class SaveStatsService : ISaveStatsService
     {
         var accounts = (List<Character>) await _characterRepository.GetCharactersByNameAsync(usernames);
 
-        var missingAccounts = usernames.Except(accounts.Select(x => x.UserName));
+        var missingAccounts = usernames.Select(x => x.ToLower()).Except(accounts.Select(x => x.UserName.ToLower()));
 
         foreach (var username in missingAccounts)
         {

@@ -28,6 +28,9 @@
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
+              "./node_modules/@boring.devs/ngx-datatable/themes/material.css",
+              "./node_modules/@boring.devs/ngx-datatable/assets/icons.css",
               "src/styles.css"
             ],
             "scripts": []

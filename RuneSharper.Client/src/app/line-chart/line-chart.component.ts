@@ -12,7 +12,7 @@ import { LineChartService } from '../_services/line-chart/line-chart.service';
 export class LineChartComponent implements OnInit {
   initMulti: LineChartModel[] | undefined;
   multi: Observable<LineChartModel[]> | undefined;
-  view: [number, number] = [1000, 800];
+  view: [number, number] = [800, 800];
 
   legendData: string[] = [];
 
@@ -40,17 +40,21 @@ export class LineChartComponent implements OnInit {
 
   ngOnInit(): void {
     const dateTo = new Date();
-    const dateFrom = new Date();
-    dateFrom.setDate(dateTo.getDate() - 90);
+    dateTo.setDate(dateTo.getDate() - 100);
+    const dateFrom = new Date(dateTo);
+    dateFrom.setDate(dateFrom.getDate() - 10);
 
-    this.multi = this.lineChartService.getData('worstjibs', dateFrom, dateTo, true);
-    this.multi.subscribe(x => {
-      this.initMulti = x;
-      this.legendData = x.map(y => y.name);
+    this.multi = this.lineChartService.getData('worstjibs', dateFrom, dateTo, true)
+      .pipe(
+        map(model => {
+          this.legendData = model.map(y => y.name);
 
-      this.chartColors = new ColorHelper('neons', ScaleType.Ordinal, this.legendData, null);
-      this.colorScheme.domain = this.chartColors.colorDomain;
-    });
+          this.chartColors = new ColorHelper('neons', ScaleType.Ordinal, this.legendData, null);
+          this.colorScheme.domain = this.chartColors.colorDomain;
+
+          return model.filter(x => x.name == 'Overall');;
+        })
+      );
   }
 
   onSelect(data: any): void {
@@ -74,7 +78,7 @@ export class LineChartComponent implements OnInit {
               return d;
             });
           }
-          
+
           return model
         })
       )
@@ -89,5 +93,5 @@ export class LineChartComponent implements OnInit {
     // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
-  isLegend = (event : any) => typeof event === 'string';
+  isLegend = (event: any) => typeof event === 'string';
 }

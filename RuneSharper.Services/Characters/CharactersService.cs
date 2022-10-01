@@ -10,48 +10,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RuneSharper.Services.Characters
+namespace RuneSharper.Services.Characters;
+
+public class CharactersService : ICharactersService
 {
-    public class CharactersService : ICharactersService
+    private readonly ICharacterRepository _characterRepository;
+    private readonly ISnapshotRepository _snapshotRepository;
+    private readonly ISaveStatsService _saveStatsService;
+
+    public CharactersService(
+        ICharacterRepository characterRepository,
+        ISnapshotRepository snapshotRepository,
+        ISaveStatsService saveStatsService)
     {
-        private readonly ICharacterRepository _characterRepository;
-        private readonly ISnapshotRepository _snapshotRepository;
-        private readonly ISaveStatsService _saveStatsService;
+        _characterRepository = characterRepository;
+        _snapshotRepository = snapshotRepository;
+        _saveStatsService = saveStatsService;
+    }
 
-        public CharactersService(
-            ICharacterRepository characterRepository,
-            ISnapshotRepository snapshotRepository,
-            ISaveStatsService saveStatsService)
+    public async Task<Character?> GetCharacterAsync(string username)
+    {
+        return await _characterRepository.GetCharacterByNameAsync(username);
+    }
+
+    public async Task<Character?> UpdateCharacterStats(string username)
+    {
+        // NOTE: This should create message on Azure Service Bus
+        // I need to write a RuneSharper Message Service to wrap this properly
+        return await _saveStatsService.SaveStatsForCharacter(username);
+    }
+
+    public async Task<IEnumerable<CharacterListModel>> GetCharacterListModels()
+    {
+        var characters = await _characterRepository.GetAllAsync();
+        var latestSnapshots = await _snapshotRepository.GetLatestSnapshotByCharacter(characters.Select(x => x.UserName));
+
+        var characterModels = characters.Select(x => new CharacterListModel
         {
-            _characterRepository = characterRepository;
-            _snapshotRepository = snapshotRepository;
-            _saveStatsService = saveStatsService;
-        }
+            UserName = x.UserName,
+            TotalExperience = latestSnapshots[x.UserName].Skills.First(x => x.Type == SkillType.Overall).Experience,
+            TotalLevel = latestSnapshots[x.UserName].Skills.First(x => x.Type == SkillType.Overall).Level,
+            FirstTracked = x.DateCreated
+        }).ToList();
 
-        public async Task<Character?> GetCharacterAsync(string username)
-        {
-            return await _characterRepository.GetCharacterByNameAsync(username);
-        }
-
-        public async Task<Character?> UpdateCharacterStats(string username)
-        {
-            // NOTE: This should create message on Azure Service Bus
-            // I need to write a RuneSharper Message Service to wrap this properly
-            return await _saveStatsService.SaveStatsForCharacter(username);
-        }
-
-        public async Task<IEnumerable<CharacterListModel>> GetCharacterListModels()
-        {
-            var characters = await _characterRepository.GetAllAsync();
-            var latestSnapshots = await _snapshotRepository.GetLatestSnapshots(characters.Select(x => x.UserName));
-
-            var characterModels = characters.Select(x => new CharacterListModel
-            {
-                UserName = x.UserName,
-                Stats = new StatsModel(latestSnapshots[x.UserName])
-            }).ToList();
-
-            return characterModels;
-        }
+        return characterModels;
     }
 }

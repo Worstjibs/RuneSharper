@@ -9,8 +9,14 @@ namespace RuneSharper.Worker;
 public abstract class BaseTimedService : BackgroundService
 {
     private PeriodicTimer? _timer;
+    protected readonly ILogger _logger;
 
     protected abstract int Interval { get; }
+
+    protected BaseTimedService(ILogger logger)
+    {
+        _logger = logger;
+    }
 
     public override Task StartAsync(CancellationToken cancellationToken)
     {
@@ -23,7 +29,13 @@ public abstract class BaseTimedService : BackgroundService
     {
         do
         {
-            await DoWorkAsync();
+            try
+            {
+                await DoWorkAsync();
+            } catch (Exception ex)
+            {
+                _logger.LogError("Timed Service run failed.", ex);
+            }            
         } while (await _timer!.WaitForNextTickAsync(stoppingToken)
             && !stoppingToken.IsCancellationRequested);
     }

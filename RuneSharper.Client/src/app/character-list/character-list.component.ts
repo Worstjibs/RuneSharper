@@ -1,7 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Character } from '@app/models/character';
+import { CharacterListModel } from '@app/models/character';
 import { CharacterService } from '@app/_services/character/character.service';
-import { Observable } from 'rxjs';
+import { ColumnMode, TableColumn } from '@boring.devs/ngx-datatable';
 
 @Component({
   selector: 'app-character-list',
@@ -9,12 +10,32 @@ import { Observable } from 'rxjs';
   styleUrls: ['./character-list.component.css']
 })
 export class CharacterListComponent implements OnInit {
-  characters$: Observable<Character[]> | undefined;
+  rows: CharacterListModel[] = [];
+  loadingIndicator = true;
+  reorderable = true;
 
-  constructor(private readonly characterService : CharacterService) { }
+  columns: TableColumn[] = [];
+
+  constructor(
+    private readonly characterService: CharacterService,
+    private readonly datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.characters$ = this.characterService.getCharacterList();
+    this.columns = [
+      { prop: 'userName' },
+      { prop: 'totalLevel' },
+      { prop: 'totalExperience' },
+      { prop: 'firstTracked', pipe: this.datePipe }
+    ];
+
+    this.characterService.getCharacterList()
+      .subscribe(data => {
+        this.rows = data;
+
+        this.loadingIndicator = false;
+      });
   }
+
+  ColumnMode = ColumnMode;
 
 }

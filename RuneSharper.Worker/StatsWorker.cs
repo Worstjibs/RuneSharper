@@ -3,20 +3,18 @@ using RuneSharper.Services.SaveStats;
 using RuneSharper.Shared.Settings;
 using RuneSharper.Worker;
 
-namespace RuneShaper.Worker;
+namespace RuneSharper.Worker;
 
 public class StatsWorker : BaseTimedService
 {
-    private readonly ILogger<StatsWorker> _logger;
     private readonly IServiceProvider _serviceProvider;
     private readonly RuneSharperSettings _settings;
 
     public StatsWorker(
         ILogger<StatsWorker> logger,
         IServiceProvider serviceProvider,
-        IOptions<RuneSharperSettings> options)
+        IOptions<RuneSharperSettings> options) : base(logger)
     {
-        _logger = logger;
         _serviceProvider = serviceProvider;
         _settings = options.Value;
     }

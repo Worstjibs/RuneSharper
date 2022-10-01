@@ -10,7 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AppRoutingModule } from './app-routing.module';
-import { CharacterListComponent } from './character-list/character-list.component'
+import { CharacterListComponent } from './character-list/character-list.component';
+import { NgxDatatableModule } from '@boring.devs/ngx-datatable';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -25,10 +27,11 @@ import { CharacterListComponent } from './character-list/character-list.componen
     BrowserModule,
     BrowserAnimationsModule,
     NgxChartsModule,
+    NgxDatatableModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule    
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

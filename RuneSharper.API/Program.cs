@@ -1,8 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using RuneSharper.Data;
-using RuneSharper.Data.Seed;
-using System.Text.Json.Serialization;
 
 await Start();
 
@@ -49,10 +46,10 @@ async Task MigrateDatabase(IServiceProvider services, IWebHostEnvironment env) {
         await context.Database.MigrateAsync();
 
         if (env.IsDevelopment()) {
-            await Seed.SeedDataAsync(context);
+            //await Seed.SeedDataAsync(context);
         }
     } catch (Exception ex) {
-        var logger = servicesCollection.GetService<ILogger<Program>>();
+        var logger = servicesCollection.GetRequiredService<ILogger<Program>>();
 
         logger.LogError(ex, "An error occured during migration");
     }

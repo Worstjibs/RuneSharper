@@ -14,7 +14,7 @@ namespace RuneSharper.Data.Repositories
         {
         }
 
-        public async Task<Dictionary<string, Snapshot>> GetLatestSnapshots(IEnumerable<string> userNames)
+        public async Task<Dictionary<string, Snapshot>> GetLatestSnapshotByCharacter(IEnumerable<string> userNames)
         {
             var grouping = await DbSet
                 .Include(x => x.Skills)

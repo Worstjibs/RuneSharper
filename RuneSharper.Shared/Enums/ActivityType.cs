@@ -56,6 +56,8 @@ public enum ActivityType
     TheatreofBlood,
     TheatreofBloodHardMode,
     ThermonuclearSmokeDevil,
+    TombsOfAmascut,
+    TombsOfAmascutExpertMode,
     Zuk,
     Jad,
     Venenatis,

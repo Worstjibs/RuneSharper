@@ -7,13 +7,6 @@
       "name": "localhost (Chrome)",
       "url": "http://localhost:4200",
       "webRoot": "${workspaceFolder}"
-    },
-    {
-      "type": "edge",
-      "request": "launch",
-      "name": "localhost (Edge)",
-      "url": "http://localhost:4200",
-      "webRoot": "${workspaceFolder}"
     }
   ]
 }

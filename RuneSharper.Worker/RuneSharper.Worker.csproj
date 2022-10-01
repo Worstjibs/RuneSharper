@@ -4,7 +4,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<UserSecretsId>dotnet-RuneShaper.Worker-AC923DEF-FDBA-423E-B370-F23843415245</UserSecretsId>
+		<UserSecretsId>dotnet-RuneSharper.Worker-AC923DEF-FDBA-423E-B370-F23843415245</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -26,5 +26,9 @@
 	<ItemGroup>
 		<ProjectReference Include="..\RuneSharper.Services\RuneSharper.Services.csproj" />
 		<ProjectReference Include="..\RuneSharper.Shared\RuneSharper.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Properties\PublishProfiles\" />
 	</ItemGroup>
 </Project>

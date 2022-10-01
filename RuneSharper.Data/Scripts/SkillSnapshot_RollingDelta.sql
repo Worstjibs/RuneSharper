@@ -15,7 +15,8 @@ GO
 CREATE VIEW [dbo].[SkillSnapshot_RollingDelta]
 AS 
 	SELECT 
-		SS.Id, 
+		S.Id SnapshotId,
+		SS.Id SkillSnapshotId,
 		SS.Experience, 
 		SS.Type,
 		SS.Experience - LAG(SS.Experience, 1) OVER (PARTITION BY S.CharacterId, SS.Type ORDER BY S.DateCreated) Delta,

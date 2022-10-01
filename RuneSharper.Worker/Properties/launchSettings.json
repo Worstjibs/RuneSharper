@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "RuneShaper.Worker": {
+    "RuneSharper.Worker": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {

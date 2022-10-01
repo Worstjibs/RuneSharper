@@ -1,7 +1,7 @@
 using DotnetOsrsApiWrapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
-using RuneShaper.Worker;
+using RuneSharper.Worker;
 using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
 using RuneSharper.Services.SaveStats;
