@@ -2,60 +2,64 @@
 using RuneSharper.Shared.Models;
 using RuneSharper.Services.Characters;
 using RuneSharper.Shared.Entities;
+using RuneSharper.Shared.Enums;
 
-namespace RuneSharper.API.Controllers {
-    public class CharacterController : BaseApiController {
-        private readonly ICharactersService _charactersService;
+namespace RuneSharper.API.Controllers;
 
-        public CharacterController(ICharactersService charactersService) {
-            _charactersService = charactersService;
-        }
+public class CharacterController : BaseApiController
+{
+    private readonly ICharactersService _charactersService;
 
-        /// <summary>
-        /// Get the Character with specified Username
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        [HttpGet("{username}")]
-        public async Task<ActionResult<Character>> Get(string username) {
-            var character = await _charactersService.GetCharacterAsync(username);
+    public CharacterController(ICharactersService charactersService)
+    {
+        _charactersService = charactersService;
+    }
 
-            if (character == null)
-            {
-                return NotFound();
-            }
+    /// <summary>
+    /// Get the Character with specified Username
+    /// </summary>
+    /// <param name="username"></param>
+    /// <returns></returns>
+    [HttpGet("{username}")]
+    public async Task<ActionResult<Character>> Get(string username)
+    {
+        var character = await _charactersService.GetCharacterAsync(username);
 
-            return Ok(character);
-        }
-
-        /// <summary>
-        /// Update stats for the specified Username,
-        /// adding a new Snapshot node
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        [HttpPut("{username}/update")]
-        public async Task<ActionResult<Character>> UpdateCharacterStats(string username)
+        if (character == null)
         {
-            var character = await _charactersService.UpdateCharacterStats(username);
-
-            if (character is null)
-            {
-                return NotFound();
-            }
-
-            return Ok(character);
+            return NotFound();
         }
 
-        /// <summary>
-        /// Gets all Characters
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        [HttpGet("list")]
-        public async Task<ActionResult<IEnumerable<CharacterListModel>>> GetList()
+        return Ok(character);
+    }
+
+    /// <summary>
+    /// Update stats for the specified Username,
+    /// adding a new Snapshot node
+    /// </summary>
+    /// <param name="username"></param>
+    /// <returns></returns>
+    [HttpPut("{username}/update")]
+    public async Task<ActionResult<Character>> UpdateCharacterStats(string username)
+    {
+        var character = await _charactersService.UpdateCharacterStats(username);
+
+        if (character is null)
         {
-            return Ok(await _charactersService.GetCharacterListModels());
+            return NotFound();
         }
+
+        return Ok(character);
+    }
+
+    /// <summary>
+    /// Gets all Characters
+    /// </summary>
+    /// <param name="username"></param>
+    /// <returns></returns>
+    [HttpGet("list")]
+    public async Task<ActionResult<IEnumerable<CharacterListModel>>> GetList([FromQuery] string? sort, [FromQuery] SortDirection direction)
+    {
+        return Ok(await _charactersService.GetCharacterListModels(sort, direction));
     }
 }

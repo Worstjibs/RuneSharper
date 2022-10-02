@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { CharacterListModel } from '@app/models/character';
+import { CharacterListModel } from '@app/models/character-list-model';
 import { CharacterService } from '@app/_services/character/character.service';
-import { ColumnMode, TableColumn } from '@boring.devs/ngx-datatable';
+import { ColumnMode, SortDirection, TableColumn } from '@boring.devs/ngx-datatable';
 
 @Component({
   selector: 'app-character-list',
@@ -15,6 +15,8 @@ export class CharacterListComponent implements OnInit {
   reorderable = true;
 
   columns: TableColumn[] = [];
+
+  ColumnMode = ColumnMode;
 
   constructor(
     private readonly characterService: CharacterService,
@@ -36,6 +38,20 @@ export class CharacterListComponent implements OnInit {
       });
   }
 
-  ColumnMode = ColumnMode;
+  onSort($event: any) {
+    this.sort($event.column.prop, $event.newValue);
+  }
+
+  sort(sort: string, direction: SortDirection) {
+    const directionNum = Object.keys(SortDirection).indexOf(direction);
+
+    this.characterService.getCharacterList(sort, directionNum)
+      .subscribe(data => {
+        this.rows = data;
+
+        this.loadingIndicator = false;
+      });
+  }
+
 
 }

@@ -22,7 +22,7 @@
         </table> -->
 
         <ngx-datatable
-            class="material"
+            class="bootstrap"
             [rows]="rows"
             [loadingIndicator]="loadingIndicator"
             [columns]="columns"
@@ -30,7 +30,9 @@
             [headerHeight]="50"
             [footerHeight]="50"
             rowHeight="auto"
-            [reorderable]="reorderable">
+            [reorderable]="reorderable"
+            [externalSorting]="true"
+            (sort)="onSort($event)">
       </ngx-datatable>
     </div>
 </div>

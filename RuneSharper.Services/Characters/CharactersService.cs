@@ -1,14 +1,8 @@
 ﻿using RuneSharper.Data.Repositories;
 using RuneSharper.Services.SaveStats;
 using RuneSharper.Shared.Entities;
-using RuneSharper.Shared.Entities.Snapshots;
 using RuneSharper.Shared.Enums;
 using RuneSharper.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RuneSharper.Services.Characters;
 
@@ -40,7 +34,7 @@ public class CharactersService : ICharactersService
         return await _saveStatsService.SaveStatsForCharacter(username);
     }
 
-    public async Task<IEnumerable<CharacterListModel>> GetCharacterListModels()
+    public async Task<IEnumerable<CharacterListModel>> GetCharacterListModels(string? sort, SortDirection direction)
     {
         var characters = await _characterRepository.GetAllAsync();
         var latestSnapshots = await _snapshotRepository.GetLatestSnapshotByCharacter(characters.Select(x => x.UserName));
@@ -51,8 +45,29 @@ public class CharactersService : ICharactersService
             TotalExperience = latestSnapshots[x.UserName].Skills.First(x => x.Type == SkillType.Overall).Experience,
             TotalLevel = latestSnapshots[x.UserName].Skills.First(x => x.Type == SkillType.Overall).Level,
             FirstTracked = x.DateCreated
-        }).ToList();
+        });
+
+        if (!string.IsNullOrEmpty(sort))
+        {
+            characterModels = direction == SortDirection.Ascending
+                ? characterModels.OrderBy(x => GetProperty(sort, x))
+                : characterModels.OrderByDescending(x => GetProperty(sort, x));
+        }
 
         return characterModels;
+    }
+
+    private object GetProperty(string sort, CharacterListModel model)
+    {
+        sort = $"{char.ToUpperInvariant(sort[0])}{sort.Substring(1)}";
+
+        var property = typeof(CharacterListModel).GetProperty(sort);
+
+        if (property != null)
+        {
+            return property.GetValue(model)!;
+        }
+
+        throw new ArgumentException($"Sort expression {sort} is invalid");
     }
 }
