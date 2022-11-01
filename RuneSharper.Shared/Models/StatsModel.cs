@@ -1,88 +1,82 @@
 ﻿using RuneSharper.Shared.Attributes;
 using RuneSharper.Shared.Entities.Snapshots;
 using RuneSharper.Shared.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RuneSharper.Shared.Models;
 
 public class StatsModel
 {
-    [SkillType(Enums.SkillType.Overall)]
+    [SkillType(SkillType.Overall)]
     public int Overall { get; set; }
 
-    [SkillType(Enums.SkillType.Attack)]
+    [SkillType(SkillType.Attack)]
     public int Attack { get; set; }
 
-    [SkillType(Enums.SkillType.Defence)]
+    [SkillType(SkillType.Defence)]
     public int Defence { get; set; }
 
-    [SkillType(Enums.SkillType.Strength)]
+    [SkillType(SkillType.Strength)]
     public int Strength { get; set; }
 
-    [SkillType(Enums.SkillType.Hitpoints)]
+    [SkillType(SkillType.Hitpoints)]
     public int Hitpoints { get; set; }
 
-    [SkillType(Enums.SkillType.Ranged)]
+    [SkillType(SkillType.Ranged)]
     public int Ranged { get; set; }
 
-    [SkillType(Enums.SkillType.Prayer)]
+    [SkillType(SkillType.Prayer)]
     public int Prayer { get; set; }
 
-    [SkillType(Enums.SkillType.Magic)]
+    [SkillType(SkillType.Magic)]
     public int Magic { get; set; }
 
-    [SkillType(Enums.SkillType.Cooking)]
+    [SkillType(SkillType.Cooking)]
     public int Cooking { get; set; }
 
-    [SkillType(Enums.SkillType.Woodcutting)]
+    [SkillType(SkillType.Woodcutting)]
     public int Woodcutting { get; set; }
 
-    [SkillType(Enums.SkillType.Fletching)]
+    [SkillType(SkillType.Fletching)]
     public int Fletching { get; set; }
 
-    [SkillType(Enums.SkillType.Fishing)]
+    [SkillType(SkillType.Fishing)]
     public int Fishing { get; set; }
 
-    [SkillType(Enums.SkillType.Firemaking)]
+    [SkillType(SkillType.Firemaking)]
     public int Firemaking { get; set; }
 
-    [SkillType(Enums.SkillType.Crafting)]
+    [SkillType(SkillType.Crafting)]
     public int Crafting { get; set; }
 
-    [SkillType(Enums.SkillType.Smithing)]
+    [SkillType(SkillType.Smithing)]
     public int Smithing { get; set; }
 
-    [SkillType(Enums.SkillType.Mining)]
+    [SkillType(SkillType.Mining)]
     public int Mining { get; set; }
 
-    [SkillType(Enums.SkillType.Herblore)]
+    [SkillType(SkillType.Herblore)]
     public int Herblore { get; set; }
 
-    [SkillType(Enums.SkillType.Agility)]
+    [SkillType(SkillType.Agility)]
     public int Agility { get; set; }
 
-
-    [SkillType(Enums.SkillType.Thieving)]
+    [SkillType(SkillType.Thieving)]
     public int Thieving { get; set; }
 
-    [SkillType(Enums.SkillType.Slayer)]
+    [SkillType(SkillType.Slayer)]
     public int Slayer { get; set; }
 
-    [SkillType(Enums.SkillType.Farming)]
+    [SkillType(SkillType.Farming)]
     public int Farming { get; set; }
 
-    [SkillType(Enums.SkillType.Runecrafting)]
+    [SkillType(SkillType.Runecrafting)]
     public int Runecrafting { get; set; }
 
-    [SkillType(Enums.SkillType.Hunter)]
+    [SkillType(SkillType.Hunter)]
     public int Hunter { get; set; }
 
-    [SkillType(Enums.SkillType.Construction)]
+    [SkillType(SkillType.Construction)]
     public int Construction { get; set; }
 
     public StatsModel(Snapshot snapshot)

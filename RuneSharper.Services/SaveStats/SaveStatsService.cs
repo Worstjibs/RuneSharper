@@ -69,7 +69,7 @@ public class SaveStatsService : ISaveStatsService
 
             _characterRepository.Insert(character);
         }
-        character.Snapshots.Add(await Task.Run(() => _osrsApiService.QueryHiScoresByAccountAsync(character)));
+        character.Snapshots.Add(await _osrsApiService.QueryHiScoresByAccountAsync(character));
 
         return character;
     }

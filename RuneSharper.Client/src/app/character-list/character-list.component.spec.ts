@@ -9,7 +9,7 @@ import { CharacterListComponent } from './character-list.component';
 describe('CharacterListComponent', () => {
   let component: CharacterListComponent;
   let fixture: ComponentFixture<CharacterListComponent>;
-  
+
   let characterList = [
     {
       userName: 'Worstjibs',
@@ -44,7 +44,7 @@ describe('CharacterListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [],
       providers: [
-        DatePipe, 
+        DatePipe,
         { provide: CharacterService, useValue: spy }
       ],
       declarations: [CharacterListComponent]

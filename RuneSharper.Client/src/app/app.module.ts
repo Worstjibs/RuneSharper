@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CharacterListComponent } from './character-list/character-list.component';
 import { NgxDatatableModule } from '@boring.devs/ngx-datatable';
 import { DatePipe } from '@angular/common';
+import { CharacterViewComponent } from './character-view/character-view.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DatePipe } from '@angular/common';
     LineChartComponent,
     HomeComponent,
     NavComponent,
-    CharacterListComponent
+    CharacterListComponent,
+    CharacterViewComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),

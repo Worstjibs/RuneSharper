@@ -42,7 +42,7 @@ public class CharacterController : BaseApiController
     [HttpPut("{username}/update")]
     public async Task<ActionResult<Character>> UpdateCharacterStats(string username)
     {
-        var character = await _charactersService.UpdateCharacterStats(username);
+        var character = await _charactersService.UpdateCharacterStatsAsync(username);
 
         if (character is null)
         {
@@ -58,8 +58,19 @@ public class CharacterController : BaseApiController
     /// <param name="username"></param>
     /// <returns></returns>
     [HttpGet("list")]
-    public async Task<ActionResult<IEnumerable<CharacterListModel>>> GetList([FromQuery] string? sort, [FromQuery] SortDirection direction)
+    public async Task<ActionResult<IEnumerable<CharacterListModel>>> GetListModels([FromQuery] string? sort, [FromQuery] SortDirection direction)
     {
-        return Ok(await _charactersService.GetCharacterListModels(sort, direction));
+        return Ok(await _charactersService.GetCharacterListModelsAsync(sort, direction));
+    }
+
+    /// <summary>
+    /// Gets View Model for Character
+    /// </summary>
+    /// <param name="username"></param>
+    /// <returns></returns>
+    [HttpGet("{username}/view")]
+    public async Task<ActionResult<CharacterViewModel>> GetViewModel(string username)
+    {
+        return Ok(await _charactersService.GetCharacterViewModelAsync(username));
     }
 }

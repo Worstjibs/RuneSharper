@@ -6,7 +6,8 @@ namespace RuneSharper.Services.Characters;
 
 public interface ICharactersService
 {
-    Task<Character?> GetCharacterAsync(string username);
-    Task<Character?> UpdateCharacterStats(string username);
-    Task<IEnumerable<CharacterListModel>> GetCharacterListModels(string? sort, SortDirection direction);
+    Task<Character?> GetCharacterAsync(string userName);
+    Task<Character?> UpdateCharacterStatsAsync(string userName);
+    Task<IEnumerable<CharacterListModel>> GetCharacterListModelsAsync(string? sort, SortDirection direction);
+    Task<CharacterViewModel?> GetCharacterViewModelAsync(string userName);
 }

@@ -22,19 +22,19 @@ public class CharactersService : ICharactersService
         _saveStatsService = saveStatsService;
     }
 
-    public async Task<Character?> GetCharacterAsync(string username)
+    public async Task<Character?> GetCharacterAsync(string userName)
     {
-        return await _characterRepository.GetCharacterByNameAsync(username);
+        return await _characterRepository.GetCharacterByNameAsync(userName);
     }
 
-    public async Task<Character?> UpdateCharacterStats(string username)
+    public async Task<Character?> UpdateCharacterStatsAsync(string userName)
     {
         // NOTE: This should create message on Azure Service Bus
         // I need to write a RuneSharper Message Service to wrap this properly
-        return await _saveStatsService.SaveStatsForCharacter(username);
+        return await _saveStatsService.SaveStatsForCharacter(userName);
     }
 
-    public async Task<IEnumerable<CharacterListModel>> GetCharacterListModels(string? sort, SortDirection direction)
+    public async Task<IEnumerable<CharacterListModel>> GetCharacterListModelsAsync(string? sort, SortDirection direction)
     {
         var characters = await _characterRepository.GetAllAsync();
         var latestSnapshots = await _snapshotRepository.GetLatestSnapshotByCharacter(characters.Select(x => x.UserName));
@@ -57,9 +57,30 @@ public class CharactersService : ICharactersService
         return characterModels;
     }
 
-    private object GetProperty(string sort, CharacterListModel model)
+    public async Task<CharacterViewModel?> GetCharacterViewModelAsync(string userName)
     {
-        sort = $"{char.ToUpperInvariant(sort[0])}{sort.Substring(1)}";
+        var character = await _characterRepository.GetCharacterByNameAsync(userName);
+
+        if (character is null)
+            return null;
+
+        var latestSnapshot = await _snapshotRepository.GetLatestSnapshotAsync(userName);
+
+        var characterModel = new CharacterViewModel
+        {
+            UserName = character.UserName,
+            FirstTracked = character.DateCreated
+        };
+
+        if (latestSnapshot is not null)
+            characterModel.Stats = new StatsModel(latestSnapshot);
+
+        return characterModel;
+    }
+
+    private static object GetProperty(string sort, CharacterListModel model)
+    {
+        sort = $"{char.ToUpperInvariant(sort[0])}{sort[1..]}";
 
         var property = typeof(CharacterListModel).GetProperty(sort);
 
