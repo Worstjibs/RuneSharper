@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CharacterListModel } from '@app/models/character-list-model';
+import { CharacterList } from '@app/models/character-list.model';
 import { CharacterService } from '@app/_services/character/character.service';
 import { of } from 'rxjs';
 
@@ -35,7 +35,7 @@ describe('CharacterListComponent', () => {
       totalExperience: 31788806,
       firstTracked: new Date('2020-01-01')
     }
-  ] as CharacterListModel[];
+  ] as CharacterList[];
 
   beforeEach(async () => {
     const spy = jasmine.createSpyObj('CharacterService', ['getCharacterList']);

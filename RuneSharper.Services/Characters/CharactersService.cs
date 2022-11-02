@@ -39,13 +39,22 @@ public class CharactersService : ICharactersService
         var characters = await _characterRepository.GetAllAsync();
         var latestSnapshots = await _snapshotRepository.GetLatestSnapshotsAsync(characters.Select(x => x.UserName));
 
-        var characterModels = characters.Select(x => new CharacterListModel
-        {
-            UserName = x.UserName,
-            TotalExperience = latestSnapshots[x.UserName].Skills.First(x => x.Type == SkillType.Overall).Experience,
-            TotalLevel = latestSnapshots[x.UserName].Skills.First(x => x.Type == SkillType.Overall).Level,
-            FirstTracked = x.DateCreated
-        });
+        var characterModels = characters.Join(
+            latestSnapshots,
+            c => c.Id,
+            s => s.Character.Id,
+            (c, s) =>
+            {
+                var overallSkill = s.Skills.FirstOrDefault(x => x.Type == SkillType.Overall);
+
+                return new CharacterListModel
+                {
+                    UserName = c.UserName,
+                    FirstTracked = c.DateCreated,
+                    TotalExperience = overallSkill?.Experience ?? 0,
+                    TotalLevel = overallSkill?.Level ?? 0
+                };
+            });
 
         if (!string.IsNullOrEmpty(sort))
         {

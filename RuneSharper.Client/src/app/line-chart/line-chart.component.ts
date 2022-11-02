@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LineChartModel } from '@app/models/line-chart-model';
+import { LineChartModel } from '@app/models/line-chart.model';
 import { Color, ColorHelper, ScaleType } from '@swimlane/ngx-charts';
 import { map, Observable, of } from 'rxjs';
 import { LineChartService } from '../_services/line-chart/line-chart.service';

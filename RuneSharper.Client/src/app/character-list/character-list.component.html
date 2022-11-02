@@ -11,7 +11,8 @@
             rowHeight="auto"
             [reorderable]="reorderable"
             [externalSorting]="true"
-            (sort)="onSort($event)">
+            (sort)="onSort($event)"
+            (activate)="onActivate($event)">
         </ngx-datatable>
     </div>
 </div>

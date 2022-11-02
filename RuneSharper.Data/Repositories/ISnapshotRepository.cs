@@ -5,5 +5,5 @@ namespace RuneSharper.Data.Repositories;
 public interface ISnapshotRepository : IRepository<Snapshot>
 {
     public Task<Snapshot?> GetLatestSnapshotAsync(string userName);
-    public Task<Dictionary<string, Snapshot>> GetLatestSnapshotsAsync(IEnumerable<string> userNames);
+    public Task<IEnumerable<Snapshot>> GetLatestSnapshotsAsync(IEnumerable<string> userNames);
 }

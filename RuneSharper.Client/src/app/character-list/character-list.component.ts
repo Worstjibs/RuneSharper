@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { CharacterListModel } from '@app/models/character-list-model';
+import { Router } from '@angular/router';
+import { CharacterList } from '@app/models/character-list.model';
 import { CharacterService } from '@app/_services/character/character.service';
 import { ColumnMode, SortDirection, TableColumn } from '@boring.devs/ngx-datatable';
 
@@ -10,7 +11,7 @@ import { ColumnMode, SortDirection, TableColumn } from '@boring.devs/ngx-datatab
   styleUrls: ['./character-list.component.css']
 })
 export class CharacterListComponent implements OnInit {
-  rows: CharacterListModel[] = [];
+  rows: CharacterList[] = [];
   loadingIndicator = true;
   reorderable = true;
 
@@ -20,7 +21,9 @@ export class CharacterListComponent implements OnInit {
 
   constructor(
     private readonly characterService: CharacterService,
-    private readonly datePipe: DatePipe) { }
+    private readonly datePipe: DatePipe,
+    private readonly router: Router
+  ) { }
 
   ngOnInit(): void {
     this.columns = [
@@ -42,7 +45,14 @@ export class CharacterListComponent implements OnInit {
     this.sort($event.column.prop, $event.newValue);
   }
 
-  sort(sort: string, direction: SortDirection) {
+  onActivate($event: any) {
+    if ($event.type == 'click') {
+      let character = $event.row as CharacterList;
+      this.router.navigateByUrl(`/characters/${character.userName}`);
+    }
+  }
+
+  private sort(sort: string, direction: SortDirection) {
     const directionNum = Object.keys(SortDirection).indexOf(direction);
 
     this.characterService.getCharacterList(sort, directionNum)
@@ -52,6 +62,4 @@ export class CharacterListComponent implements OnInit {
         this.loadingIndicator = false;
       });
   }
-
-
 }

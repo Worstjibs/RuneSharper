@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LineChartModel } from '@app/models/line-chart-model';
+import { LineChartModel } from '@app/models/line-chart.model';
 import { map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -21,7 +21,7 @@ export class LineChartService {
   constructor(private readonly http: HttpClient) { }
 
   getData(username: string, dateFrom: Date, dateTo: Date, includeOverall: boolean): Observable<LineChartModel[]> {
-    var params = new HttpParams();
+    let params = new HttpParams();
     params = params.set('dateFrom', dateFrom.toISOString());
     params = params.set('dateTo', dateTo.toISOString());
     params = params.set('includeOverall', includeOverall);

@@ -17,15 +17,16 @@ public class SnapshotRepository : Repository<Snapshot>, ISnapshotRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<Dictionary<string, Snapshot>> GetLatestSnapshotsAsync(IEnumerable<string> userNames)
+    public async Task<IEnumerable<Snapshot>> GetLatestSnapshotsAsync(IEnumerable<string> userNames)
     {
-        var grouping = await DbSet
+        var result = await DbSet
             .Include(x => x.Skills)
+            .Include(x => x.Character)
             .Where(x => userNames.Contains(x.Character.UserName))
-            .GroupBy(x => x.Character.UserName)
-            .Select(g => g.OrderByDescending(s => s.DateCreated).Take(1))
+            .GroupBy(x => new { x.Character.UserName })
+            .Select(g => g.OrderByDescending(s => s.DateCreated).Take(1))            
             .ToListAsync();
 
-        return grouping.SelectMany(x => x).ToDictionary(x => x.Character.UserName, x => x);
+        return result.SelectMany(x => x).ToList();
     }
 }

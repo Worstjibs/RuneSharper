@@ -16,21 +16,25 @@ public class CharacterController : BaseApiController
     }
 
     /// <summary>
-    /// Get the Character with specified Username
+    /// Gets Character with given Username
     /// </summary>
     /// <param name="username"></param>
     /// <returns></returns>
     [HttpGet("{username}")]
-    public async Task<ActionResult<Character>> Get(string username)
+    public async Task<ActionResult<CharacterViewModel>> GetViewModel(string username)
     {
-        var character = await _charactersService.GetCharacterAsync(username);
+        return Ok(await _charactersService.GetCharacterViewModelAsync(username));
+    }
 
-        if (character == null)
-        {
-            return NotFound();
-        }
-
-        return Ok(character);
+    /// <summary>
+    /// Gets all Characters
+    /// </summary>
+    /// <param name="username"></param>
+    /// <returns></returns>
+    [HttpGet()]
+    public async Task<ActionResult<IEnumerable<CharacterListModel>>> GetListModels([FromQuery] string? sort, [FromQuery] SortDirection direction)
+    {
+        return Ok(await _charactersService.GetCharacterListModelsAsync(sort, direction));
     }
 
     /// <summary>
@@ -50,27 +54,5 @@ public class CharacterController : BaseApiController
         }
 
         return Ok(character);
-    }
-
-    /// <summary>
-    /// Gets all Characters
-    /// </summary>
-    /// <param name="username"></param>
-    /// <returns></returns>
-    [HttpGet("list")]
-    public async Task<ActionResult<IEnumerable<CharacterListModel>>> GetListModels([FromQuery] string? sort, [FromQuery] SortDirection direction)
-    {
-        return Ok(await _charactersService.GetCharacterListModelsAsync(sort, direction));
-    }
-
-    /// <summary>
-    /// Gets View Model for Character
-    /// </summary>
-    /// <param name="username"></param>
-    /// <returns></returns>
-    [HttpGet("{username}/view")]
-    public async Task<ActionResult<CharacterViewModel>> GetViewModel(string username)
-    {
-        return Ok(await _charactersService.GetCharacterViewModelAsync(username));
     }
 }
