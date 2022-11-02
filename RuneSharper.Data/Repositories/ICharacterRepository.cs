@@ -6,12 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RuneSharper.Data.Repositories
+namespace RuneSharper.Data.Repositories;
+
+public interface ICharacterRepository : IRepository<Character>
 {
-    public interface ICharacterRepository : IRepository<Character>
-    {
-        Task<Character?> GetCharacterByNameAsync(string accountName);
-        Task<IEnumerable<Character>> GetCharactersByNameAsync(IEnumerable<string> characterNames);
-        //Task<IEnumerable<CharacterListModel>> GetCharacterListModelsAsync();
-    }
+    Task<Character?> GetCharacterByNameAsync(string userName);
+    Task<IEnumerable<Character>> GetCharactersByNameAsync(IEnumerable<string> userNames);
 }

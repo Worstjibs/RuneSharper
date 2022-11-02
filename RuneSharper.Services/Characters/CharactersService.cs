@@ -37,7 +37,7 @@ public class CharactersService : ICharactersService
     public async Task<IEnumerable<CharacterListModel>> GetCharacterListModelsAsync(string? sort, SortDirection direction)
     {
         var characters = await _characterRepository.GetAllAsync();
-        var latestSnapshots = await _snapshotRepository.GetLatestSnapshotByCharacter(characters.Select(x => x.UserName));
+        var latestSnapshots = await _snapshotRepository.GetLatestSnapshotsAsync(characters.Select(x => x.UserName));
 
         var characterModels = characters.Select(x => new CharacterListModel
         {
@@ -73,7 +73,10 @@ public class CharactersService : ICharactersService
         };
 
         if (latestSnapshot is not null)
+        {
             characterModel.Stats = new StatsModel(latestSnapshot);
+            characterModel.Activities = new ActivitiesModel(latestSnapshot.Activities);
+        }
 
         return characterModel;
     }

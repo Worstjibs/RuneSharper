@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RuneSharper.Data.Specifications;
 using RuneSharper.Shared.Entities;
 using RuneSharper.Shared.Entities.Snapshots;
 using RuneSharper.Shared.Models;
@@ -11,18 +12,15 @@ public class CharacterRepository : Repository<Character>, ICharacterRepository
     {
     }
 
-    public async Task<Character?> GetCharacterByNameAsync(string accountName)
+    public async Task<Character?> GetCharacterByNameAsync(string userName)
     {
-        return await DbSet
-            .Include(x => x.Snapshots)
-            .SingleOrDefaultAsync(x => x.UserName == accountName.ToLower());
+        return await ApplySpecification(new CharacterByUserNameWithSnapshotsSpecification(userName))
+            .FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<Character>> GetCharactersByNameAsync(IEnumerable<string> accountNames)
+    public async Task<IEnumerable<Character>> GetCharactersByNameAsync(IEnumerable<string> userNames)
     {
-        return await DbSet
-            .Include(x => x.Snapshots)
-            .Where(x => accountNames.Contains(x.UserName))
+        return await ApplySpecification(new CharacterByUserNameWithSnapshotsSpecification(userNames))
             .ToListAsync();
     }
 }
