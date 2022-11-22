@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RuneSharper.Worker;
+﻿namespace RuneSharper.Worker;
 
 public abstract class BaseTimedService : BackgroundService
 {
@@ -31,7 +25,7 @@ public abstract class BaseTimedService : BackgroundService
         {
             try
             {
-                await DoWorkAsync();
+                await DoWorkAsync(stoppingToken);
             } catch (Exception ex)
             {
                 _logger.LogError("Timed Service run failed.", ex);
@@ -40,5 +34,5 @@ public abstract class BaseTimedService : BackgroundService
             && !stoppingToken.IsCancellationRequested);
     }
 
-    protected abstract Task DoWorkAsync();
+    protected abstract Task DoWorkAsync(CancellationToken stoppingToken);
 }

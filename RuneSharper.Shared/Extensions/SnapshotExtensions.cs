@@ -35,6 +35,6 @@ public static class SnapshotExtensions
 
     public static bool IsBoss(this ActivityType type)
     {
-        return !_clueTypes.Contains(type) && _other.Contains(type);
+        return !_clueTypes.Contains(type) && !_other.Contains(type);
     }
 }

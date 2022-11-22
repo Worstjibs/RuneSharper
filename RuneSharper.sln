@@ -15,7 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Worker", "RuneS
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "RuneSharper.Client", "RuneSharper.Client\RuneSharper.Client.esproj", "{C7C41C80-39A0-40FA-8863-640515B45862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{E7224843-6D7B-4819-BB60-B875DC0144CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp", "TestApp\TestApp.csproj", "{E7224843-6D7B-4819-BB60-B875DC0144CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4272D90C-090C-46E1-83F3-F00494E83C16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuneSharper.Services.Tests", "Tests\RuneSharper.Services.Tests\RuneSharper.Services.Tests.csproj", "{8DA143B3-2392-4C3F-8CD3-E177E17FB715}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,9 +57,16 @@ Global
 		{E7224843-6D7B-4819-BB60-B875DC0144CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7224843-6D7B-4819-BB60-B875DC0144CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7224843-6D7B-4819-BB60-B875DC0144CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA143B3-2392-4C3F-8CD3-E177E17FB715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA143B3-2392-4C3F-8CD3-E177E17FB715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA143B3-2392-4C3F-8CD3-E177E17FB715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA143B3-2392-4C3F-8CD3-E177E17FB715}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8DA143B3-2392-4C3F-8CD3-E177E17FB715} = {4272D90C-090C-46E1-83F3-F00494E83C16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {913A73E3-EE3B-4403-96B7-B3FA424CDBD0}

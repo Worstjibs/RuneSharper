@@ -17,61 +17,60 @@ public class SaveStatsService : ISaveStatsService
         _characterRepository = characterRepository;
     }
 
+    public async Task<Character> SaveStatsForCharacter(string username)
+    {
+        var character = await _characterRepository.GetCharacterByNameAsync(username);
+
+        character ??= new Character
+        {
+            UserName = username.ToLower(),
+            Snapshots = new List<Snapshot>()
+        };
+
+        var snapshot = await _osrsApiService.QueryHiScoresByAccountAsync(character);
+
+        ProcessCharacter(character, snapshot);
+
+        await SaveCharacters();
+
+        return character;
+    }
+
     public async Task SaveStatsForCharacters(IEnumerable<string> usernames)
     {
-        var accounts = (List<Character>) await _characterRepository.GetCharactersByNameAsync(usernames);
+        var accounts = (List<Character>)await _characterRepository.GetCharactersByNameAsync(usernames);
 
         var missingAccounts = usernames.Select(x => x.ToLower()).Except(accounts.Select(x => x.UserName.ToLower()));
 
         foreach (var username in missingAccounts)
         {
-            var account = new Character
-            {
-                UserName = username.ToLower(),
-                Snapshots = new List<Snapshot>()
-            };
-
+            var account = new Character { UserName = username.ToLower() };
             accounts.Add(account);
-            _characterRepository.Insert(account);
         }
-        
-        var snapshots = await _osrsApiService.QueryHiScoresByAccountsAsync(accounts);
 
-        accounts.Join(snapshots, x => x.UserName, x => x.Character.UserName, (x, y) =>
+        var results = await _osrsApiService.QueryHiScoresByAccountsAsync(accounts);
+
+        foreach (var result in results)
         {
-            x.Snapshots.Add(y);
-            return x;
-        }).ToList();
+            ProcessCharacter(result.Key, result.Value);
+        }
 
         await SaveCharacters();
     }
 
-    public async Task<Character> SaveStatsForCharacter(string username)
+    private void ProcessCharacter(Character character, Snapshot? snapshot)
     {
-        var character = await CreateSnapshotForCharacter(username);
-
-        await SaveCharacters();
-
-        return character;
-    }
-
-    private async Task<Character> CreateSnapshotForCharacter(string username)
-    {
-        var character = await _characterRepository.GetCharacterByNameAsync(username);
-
-        if (character is null)
+        if (snapshot is null)
         {
-            character = new Character
-            {
-                UserName = username.ToLower(),
-                Snapshots = new List<Snapshot>()
-            };
+            character.NameChanged = true;
+            return;
+        }
 
+        character.Snapshots.Add(snapshot);
+        snapshot.Character = character;
+
+        if (character.Id == 0)
             _characterRepository.Insert(character);
-        }
-        character.Snapshots.Add(await _osrsApiService.QueryHiScoresByAccountAsync(character));
-
-        return character;
     }
 
     private async Task SaveCharacters()

@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Options;
 using RuneSharper.Services.SaveStats;
 using RuneSharper.Shared.Settings;
-using RuneSharper.Worker;
 
 namespace RuneSharper.Worker;
 
@@ -21,18 +20,16 @@ public class StatsWorker : BaseTimedService
 
     protected override int Interval => _settings.OsrsApiPollingTime;
 
-    protected override async Task DoWorkAsync()
+    protected override async Task DoWorkAsync(CancellationToken stoppingToken)
     {
+        if (stoppingToken.IsCancellationRequested)
+            return;
+
         _logger.LogInformation("Fetching stats for configured players", DateTimeOffset.Now);
 
         using var scope = _serviceProvider.CreateScope();
 
-        var saveStatsService = scope.ServiceProvider.GetService<ISaveStatsService>();
-
-        if (saveStatsService == null)
-        {
-            throw new ArgumentNullException("Save Stats Service is null, review DI Configuration");
-        }
+        var saveStatsService = scope.ServiceProvider.GetRequiredService<ISaveStatsService>();
 
         await saveStatsService.SaveStatsForCharacters(_settings.CharacterNames);
 

@@ -38,12 +38,7 @@ public class RuneSharperMessageWorker : BackgroundService
 
         using var scope = _serviceProvider.CreateScope();
 
-        var saveStatsService = scope.ServiceProvider.GetService<ISaveStatsService>();
-
-        if (saveStatsService == null)
-        {
-            throw new ArgumentNullException("Save Stats Service is null, review DI Configuration");
-        }
+        var saveStatsService = scope.ServiceProvider.GetRequiredService<ISaveStatsService>();
 
         await saveStatsService.SaveStatsForCharacters(new[] { message });
 

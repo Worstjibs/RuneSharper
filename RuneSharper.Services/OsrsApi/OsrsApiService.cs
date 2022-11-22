@@ -14,23 +14,32 @@ public class OsrsApiService : IOsrsApiService
         _playerInfoService = playerInfoService;
     }
 
-    public async Task<Snapshot> QueryHiScoresByAccountAsync(Character account)
+    public async Task<Snapshot?> QueryHiScoresByAccountAsync(Character account)
     {
         var playerInfo = await _playerInfoService.GetPlayerInfoAsync(account.UserName);
 
-        return PlayerInfoToSnapshot(playerInfo, account);
+        return PlayerInfoToSnapshot(playerInfo);
     }
 
-    public async Task<IEnumerable<Snapshot>> QueryHiScoresByAccountsAsync(IEnumerable<Character> accounts)
+    public async Task<Dictionary<Character, Snapshot?>> QueryHiScoresByAccountsAsync(IEnumerable<Character> accounts)
     {
         var playerInfos = await _playerInfoService.GetPlayerInfoAsync(accounts.Select(x => x.UserName).ToArray());
 
-        return playerInfos.Select(x => PlayerInfoToSnapshot(x, accounts.First(a => a.UserName == x.Name)));
+        return accounts
+            .Join(
+                playerInfos,
+                c => c.UserName,
+                p => p.Name,
+                (c, p) => new { Character = c, Snapshot = PlayerInfoToSnapshot(p) })
+            .ToDictionary(x => x.Character, x => x.Snapshot);
     }
 
-    private Snapshot PlayerInfoToSnapshot(PlayerInfo playerInfo, Character account)
+    private static Snapshot? PlayerInfoToSnapshot(PlayerInfo playerInfo)
     {
-        var snapshot = new Snapshot { Character = account };
+        if (playerInfo.Status == PlayerInfoStatus.NotFound)
+            return null;
+
+        var snapshot = new Snapshot();
 
         snapshot.Skills = playerInfo.Skills().Select(x =>
         {
