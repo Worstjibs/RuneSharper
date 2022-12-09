@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RuneSharper.Data;
+using RuneSharper.Data.Seed;
 
 await Start();
 

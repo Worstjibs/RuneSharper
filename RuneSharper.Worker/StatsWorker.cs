@@ -25,7 +25,7 @@ public class StatsWorker : BaseTimedService
         if (stoppingToken.IsCancellationRequested)
             return;
 
-        _logger.LogInformation("Fetching stats for configured players", DateTimeOffset.Now);
+        _logger.LogInformation("{Timestamp}: Fetching stats for configured players", DateTimeOffset.Now);
 
         using var scope = _serviceProvider.CreateScope();
 
@@ -33,6 +33,6 @@ public class StatsWorker : BaseTimedService
 
         await saveStatsService.SaveStatsForCharacters(_settings.CharacterNames);
 
-        _logger.LogInformation("Stats fetched for users", DateTimeOffset.Now);
+        _logger.LogInformation("{Timestamp}: Stats fetched for users", DateTimeOffset.Now);
     }
 }

@@ -1,0 +1,36 @@
+{
+    "Serilog": {
+        "MinimumLevel": {
+            "Default": "Warning",
+            "Override": {
+                "Microsoft": "Warning",
+                "Microsoft.Hosting.Lifetime": "Information",
+                "Azure": "Warning",
+                "RuneSharper": "Information"
+            }
+        },
+        "WriteTo": [
+            {
+                "Name": "File",
+                "Args": {
+                    "path": "path/log_.jsonl",
+                    "rollingInterval": "Day",
+                    "formatter": "Serilog.Formatting.Compact.CompactJsonFormatter, Serilog.Formatting.Compact",
+                    "shared": true
+                }
+            }
+        ]
+    },
+    "ElasticConfiguration": {
+        "Uri": "http://queendale:9200"
+    },
+    "ConnectionStrings": {
+        "DefaultConnection": "",
+        "ServiceBusDev": "",
+        "ServiceBusProd": ""
+    },
+    "RuneSharperSettings": {
+        "OsrsApiPollingTime": 900,
+        "CharacterNames": []
+    }
+}
