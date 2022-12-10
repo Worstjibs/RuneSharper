@@ -1,12 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using RuneSharper.Data;
-using RuneSharper.Data.Seed;
+using Serilog;
+using RuneSharper.Shared.Extensions;
+using System.Reflection;
 
 await Start();
 
 async Task Start()
 {
     var builder = WebApplication.CreateBuilder(args);
+
+    builder.Host.ConfigureSerilog(Assembly.GetExecutingAssembly());
 
     ConfigureServices(builder.Services, builder.Configuration);
 
@@ -62,6 +66,8 @@ void ConfigureMiddleware(IApplicationBuilder app, IWebHostEnvironment env) {
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    app.UseSerilogRequestLogging();
 
     app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 

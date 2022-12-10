@@ -22,11 +22,6 @@ try
     IHost host = Host.CreateDefaultBuilder(args)
         .UseSerilog((ctx, lc) =>
         {
-            var indexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name!.ToLower().Replace(".", "-")}" +
-                         $"-logs" +
-                         $"-{ctx.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}" +
-                         $"-{DateTime.UtcNow:yyyy-MM}";
-
             lc.ReadFrom.Configuration(ctx.Configuration)
                 .Enrich.FromLogContext()
                 .Enrich.WithMachineName()

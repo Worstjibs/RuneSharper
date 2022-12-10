@@ -19,3 +19,10 @@ body {
 .table > tbody > tr:last-of-type > :last-child {
     border-bottom-right-radius: 0.25rem;
 }
+
+.ngx-datatable.bootstrap:not(.cell-selection) .datatable-body-row:hover,
+.ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group
+{ 
+   cursor: pointer;
+   background-color: #002761
+}
