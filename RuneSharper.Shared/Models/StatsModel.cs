@@ -20,6 +20,16 @@ public class StatsModel
         }
     }
 
+    public StatsModel(IEnumerable<SkillSnapshot> skillSnapshots)
+    {
+        _properties = GetType().GetProperties();
+
+        foreach (var skill in skillSnapshots)
+        {
+            SetProperty(skill);
+        }
+    }
+
     [SkillType(SkillType.Overall)]
     public SkillModel Overall { get; set; }
 

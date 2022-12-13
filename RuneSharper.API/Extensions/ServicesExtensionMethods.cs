@@ -8,6 +8,7 @@ using RuneSharper.Data.Repositories;
 using RuneSharper.Services.Characters;
 using RuneSharper.Services.LineCharts;
 using RuneSharper.Services.SaveStats;
+using RuneSharper.Services.Snapshots;
 using RuneSharper.Services.Stats;
 using RuneSharper.Services.Token;
 using RuneSharper.Shared.Entities.Users;
@@ -26,7 +27,9 @@ public static class ServicesExtensionMethods {
         services.AddScoped<ISkillSnapshotRepository, SkillSnapshotRepository>();
 
         services.AddScoped<ISaveStatsService, SaveStatsService>();
+
         services.AddScoped<ICharactersService, CharactersService>();
+        services.AddScoped<ISnapshotsService, SnapshotsService>();
 
         services.AddScoped<ILineChartService, LineChartService>();
 
