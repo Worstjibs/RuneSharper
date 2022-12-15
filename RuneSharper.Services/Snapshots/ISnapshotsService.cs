@@ -4,5 +4,6 @@ using RuneSharper.Shared.Models;
 namespace RuneSharper.Services.Snapshots;
 public interface ISnapshotsService
 {
-    Task<StatsModel?> GetSnapshotChangeForUser(string userName, DateRange dateRange);
+    Task<StatsModel?> GetStatsChangeForUser(string userName, DateRange dateRange);
+    Task<ActivitiesModel?> GetActivitesChangeForUser(string username, DateRange dateRange);
 }

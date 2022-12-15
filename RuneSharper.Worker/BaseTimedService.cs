@@ -28,7 +28,7 @@ public abstract class BaseTimedService : BackgroundService
                 await DoWorkAsync(stoppingToken);
             } catch (Exception ex)
             {
-                _logger.LogError("Timed Service run failed.", ex);
+                _logger.LogError(ex, "Timed Service run failed.");
             }            
         } while (await _timer!.WaitForNextTickAsync(stoppingToken)
             && !stoppingToken.IsCancellationRequested);

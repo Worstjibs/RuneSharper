@@ -15,6 +15,7 @@ internal class SnapshotBetweenDateRangeSpecification : Specification<Snapshot>
     {
         AddInclude(s => s.Character);
         AddInclude(s => s.Skills);
+        AddInclude(s => s.Activities);
 
         if (firstLast == FirstLast.First)
             AddOrderBy(snapshot => snapshot.DateCreated);

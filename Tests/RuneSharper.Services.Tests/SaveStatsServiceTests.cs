@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.Extensions.Logging;
+using Moq;
 using RuneSharper.Data.Repositories;
 using RuneSharper.Services.SaveStats;
 using RuneSharper.Services.Stats;
@@ -20,7 +21,7 @@ public class SaveStatsServiceTests
         _osrsApiService = new Mock<IOsrsApiService>();
         _characterRepository = new Mock<ICharacterRepository>();
 
-        _saveStatsService = new SaveStatsService(_osrsApiService.Object, _characterRepository.Object);
+        _saveStatsService = new SaveStatsService(_osrsApiService.Object, _characterRepository.Object, Mock.Of<ILogger<SaveStatsService>>());
     }
 
     [Test]

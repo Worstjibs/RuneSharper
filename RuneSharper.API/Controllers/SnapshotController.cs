@@ -38,14 +38,14 @@ public class SnapshotController : BaseApiController
     }
 
     [HttpGet("{username}/stats-change")]
-    public async Task<ActionResult<StatsModel>> GetStatsChangeForUser(string userName, [FromQuery] DateRange dateRange)
+    public async Task<ActionResult<StatsModel>> GetStatsChangeForUser(string username, [FromQuery] DateRange dateRange)
     {
-        var user = await _charactersService.GetCharacterAsync(userName);
+        var user = await _charactersService.GetCharacterAsync(username);
 
         if (user is null)
-            return NotFound($"Character with name {userName} not found in RuneSharper.");
+            return NotFound($"Character with name {username} not found in RuneSharper.");
 
-        var model = await _snapshotsService.GetSnapshotChangeForUser(userName, dateRange);
+        var model = await _snapshotsService.GetStatsChangeForUser(username, dateRange);
 
         if (model is null)
             return NotFound("No Snapshots between date range");

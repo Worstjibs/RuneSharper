@@ -14,7 +14,7 @@ public class SnapshotsService : ISnapshotsService
         _snapshotRepository = snapshotRepository;
     }
 
-    public async Task<StatsModel?> GetSnapshotChangeForUser(string userName, DateRange dateRange)
+    public async Task<StatsModel?> GetStatsChangeForUser(string userName, DateRange dateRange)
     {
         var (first, last) = await _snapshotRepository.GetFirstAndLastSnapshots(userName, dateRange);
 
@@ -34,5 +34,26 @@ public class SnapshotsService : ISnapshotsService
             }).ToList();
 
         return new StatsModel(deltaList);
+    }
+
+    public async Task<ActivitiesModel?> GetActivitesChangeForUser(string username, DateRange dateRange)
+    {
+        var (first, last) = await _snapshotRepository.GetFirstAndLastSnapshots(username, dateRange);
+
+        if (first is null)
+            return null;
+
+        var deltaList = first.Activities.Join(
+            last!.Activities,
+            f => f.Type,
+            l => l.Type,
+            (f, l) => new ActivitySnapshot
+            {
+                Rank = f.Rank - l.Rank,
+                Score = l.Score - f.Score,
+                Type = f.Type
+            }).ToList();
+
+        return new ActivitiesModel(deltaList);
     }
 }

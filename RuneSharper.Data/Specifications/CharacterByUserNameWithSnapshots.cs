@@ -11,8 +11,8 @@ internal class CharacterByUserNameWithSnapshotsSpecification : Specification<Cha
         AddInclude(c => c.Snapshots);
     }
 
-    public CharacterByUserNameWithSnapshotsSpecification(IEnumerable<string> userNames)
-        : base(character => userNames.Contains(character.UserName))
+    public CharacterByUserNameWithSnapshotsSpecification(IEnumerable<string> userNames, bool includeNamedChanged = false)
+        : base(character => userNames.Contains(character.UserName) && character.NameChanged == includeNamedChanged)
     {
         AddInclude(c => c.Snapshots);
     }

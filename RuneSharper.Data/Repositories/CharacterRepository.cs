@@ -18,7 +18,7 @@ public class CharacterRepository : Repository<Character>, ICharacterRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<Character>> GetCharactersByNameAsync(IEnumerable<string> userNames)
+    public async Task<IEnumerable<Character>> GetCharactersByNameAsync(IEnumerable<string> userNames, bool includeNameChanged = true)
     {
         return await ApplySpecification(new CharacterByUserNameWithSnapshotsSpecification(userNames))
             .ToListAsync();

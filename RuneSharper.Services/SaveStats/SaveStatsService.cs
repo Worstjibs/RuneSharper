@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RuneSharper.Data.Repositories;
 using RuneSharper.Services.Stats;
 using RuneSharper.Shared.Entities;
@@ -10,11 +11,16 @@ public class SaveStatsService : ISaveStatsService
 {
     private readonly IOsrsApiService _osrsApiService;
     private readonly ICharacterRepository _characterRepository;
+    private readonly ILogger<SaveStatsService> _logger;
 
-    public SaveStatsService(IOsrsApiService osrsApiService, ICharacterRepository characterRepository)
+    public SaveStatsService(
+        IOsrsApiService osrsApiService,
+        ICharacterRepository characterRepository,
+        ILogger<SaveStatsService> logger)
     {
         _osrsApiService = osrsApiService;
         _characterRepository = characterRepository;
+        _logger = logger;
     }
 
     public async Task<Character> SaveStatsForCharacter(string username)
@@ -62,6 +68,7 @@ public class SaveStatsService : ISaveStatsService
     {
         if (snapshot is null)
         {
+            _logger.LogWarning("Character with username {username} not found. Marking as named changed", character.UserName);
             character.NameChanged = true;
             return;
         }
