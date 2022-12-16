@@ -40,11 +40,11 @@ export class LineChartComponent implements OnInit {
 
   ngOnInit(): void {
     const dateTo = new Date();
-    dateTo.setDate(dateTo.getDate() - 100);
+    dateTo.setDate(dateTo.getDate());
     const dateFrom = new Date(dateTo);
-    dateFrom.setDate(dateFrom.getDate() - 10);
+    dateFrom.setDate(dateFrom.getDate() - 30);
 
-    this.multi = this.lineChartService.getData('worstjibs', dateFrom, dateTo, true)
+    this.multi = this.lineChartService.getData('dr groege', dateFrom, dateTo, true)
       .pipe(
         map(model => {
           this.legendData = model.map(y => y.name);
@@ -52,7 +52,7 @@ export class LineChartComponent implements OnInit {
           this.chartColors = new ColorHelper('neons', ScaleType.Ordinal, this.legendData, null);
           this.colorScheme.domain = this.chartColors.colorDomain;
 
-          return model.filter(x => x.name == 'Overall');;
+          return model.filter(x => x.name == 'Overall');
         })
       );
   }

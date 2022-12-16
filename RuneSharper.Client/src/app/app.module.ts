@@ -14,6 +14,8 @@ import { CharacterListComponent } from './character-list/character-list.componen
 import { NgxDatatableModule } from '@boring.devs/ngx-datatable';
 import { DatePipe } from '@angular/common';
 import { CharacterViewComponent } from './character-view/character-view.component';
+import { SkillsGridComponent } from './skills-grid/skills-grid.component';
+import { SkillCellComponent } from './skills-grid/skill-cell/skill-cell.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { CharacterViewComponent } from './character-view/character-view.componen
     HomeComponent,
     NavComponent,
     CharacterListComponent,
-    CharacterViewComponent
+    CharacterViewComponent,
+    SkillsGridComponent,
+    SkillCellComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),

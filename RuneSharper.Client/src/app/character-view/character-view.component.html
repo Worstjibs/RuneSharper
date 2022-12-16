@@ -1,46 +1,10 @@
 <div *ngIf="character">
-    <p>{{character.userName}}</p>
+    <h1>{{character.userName}}</h1>
 
-    <div class="container" *ngIf="character.stats; let stats">
-        <div class="row">
-            <div class="col-4">Attack: {{stats.attack.level}}</div>
-            <div class="col-4">Hitpoints: {{stats.hitpoints.level}}</div>
-            <div class="col-4">Mining: {{stats.mining.level}}</div>
-        </div>
-        <div class="row">
-            <div class="col-4">Strength: {{stats.strength.level}}</div>
-            <div class="col-4">Agility: {{stats.agility.level}}</div>
-            <div class="col-4">Smithing: {{stats.smithing.level}}</div>
-        </div>
-        <div class="row">
-            <div class="col-4">Defence: {{stats.defence.level}}</div>
-            <div class="col-4">Herblore: {{stats.herblore.level}}</div>
-            <div class="col-4">Fishing: {{stats.fishing.level}}</div>
-        </div>
-        <div class="row">
-            <div class="col-4">Ranged: {{stats.ranged.level}}</div>
-            <div class="col-4">Thieving: {{stats.thieving.level}}</div>
-            <div class="col-4">Cooking: {{stats.cooking.level}}</div>
-        </div>
-        <div class="row">
-            <div class="col-4">Prayer: {{stats.prayer.level}}</div>
-            <div class="col-4">Crafting: {{stats.crafting.level}}</div>
-            <div class="col-4">Firemaking: {{stats.firemaking.level}}</div>
-        </div>
-        <div class="row">
-            <div class="col-4">Magic: {{stats.magic.level}}</div>
-            <div class="col-4">Fletching: {{stats.fletching.level}}</div>
-            <div class="col-4">Woodcutting: {{stats.woodcutting.level}}</div>
-        </div>
-        <div class="row">
-            <div class="col-4">Runecrafting: {{stats.runecrafting.level}}</div>
-            <div class="col-4">Slayer: {{stats.slayer.level}}</div>
-            <div class="col-4">Farming: {{stats.farming.level}}</div>
-        </div>
-        <div class="row">
-            <div class="col-4">Construction: {{stats.construction.level}}</div>
-            <div class="col-4">Hunter: {{stats.hunter.level}}</div>
-            <div class="col-4">Total: {{stats.overall.level}}</div>
-        </div>
+    <div class="d-flex justify-content-around">
+        <ul>
+            <li *ngFor="let boss of character.activities.bosses">{{boss.name}} - Score: {{boss.score}}, Rank: {{boss.rank}}</li>
+        </ul>
+        <app-skills-grid [stats]="character.stats"></app-skills-grid>
     </div>
 </div>
