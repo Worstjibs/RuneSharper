@@ -12,7 +12,7 @@ public class ActivitiesModel
             var model = new ActivityModel
             {
                 Score = activity.Score,
-                Name = activity.Type.ToString(),
+                Name = activity.Type.GetDisplayName(),
                 Rank = activity.Rank
             };
 
