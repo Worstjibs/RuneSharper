@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using System.Reflection;
@@ -11,10 +12,8 @@ public static class SerilogExtensions
         builder.UseSerilog((ctx, lc) =>
         {
             lc.ReadFrom.Configuration(ctx.Configuration)
-                .Enrich.FromLogContext()
-                .Enrich.WithMachineName()
                 .WriteTo.Console()
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(ctx.Configuration["ElasticConfiguration:Uri"]))
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(ctx.Configuration.GetRequiredSection("ElasticConfiguration:Uri").Value!))
                 {
                     IndexFormat = $"runesharper" +
                         $"-logs" +
@@ -25,7 +24,9 @@ public static class SerilogExtensions
                     NumberOfReplicas = 1
                 })
                 .Enrich.WithProperty("Environment", ctx.HostingEnvironment.EnvironmentName)
-                .Enrich.WithProperty("ServiceName", executingAssemly.GetName().Name!.ToLower().Replace(".", "-"));
+                .Enrich.WithProperty("ServiceName", executingAssemly.GetName().Name!.ToLower().Replace(".", "-"))
+                .Enrich.FromLogContext()
+                .Enrich.WithMachineName();
         });
 
         return builder;
