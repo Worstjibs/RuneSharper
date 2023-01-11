@@ -19,6 +19,8 @@ public abstract class BaseTimedService : BackgroundService
     {
         _timer = new PeriodicTimer(TimeSpan.FromSeconds(Interval));
 
+        _logger.LogInformation("Configured time interval for timed service is: {TimedServiceInterval}", Interval);
+
         return base.StartAsync(cancellationToken);
     }
 
@@ -38,7 +40,7 @@ public abstract class BaseTimedService : BackgroundService
             } catch (Exception ex)
             {
                 _logger.LogError(ex, "Timed Service run failed.");
-            }            
+            }
         } while (await _timer!.WaitForNextTickAsync(stoppingToken)
             && !stoppingToken.IsCancellationRequested);
     }

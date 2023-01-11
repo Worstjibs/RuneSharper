@@ -84,6 +84,7 @@ public enum ActivityType
     [Display(Name = "Phosanis Nightmare")]
     PhosanisNightmare,
     Obor,
+    PhantomMuspah,
     Sarachnis,
     Scorpia,
     Skotizo,
