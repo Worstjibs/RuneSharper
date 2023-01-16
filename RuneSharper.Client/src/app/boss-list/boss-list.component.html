@@ -1,0 +1,13 @@
+<ngx-datatable id="table"
+    class="bootstrap"
+    style="height: 40vh;"
+    [rows]="bosses"
+    [loadingIndicator]="loadingIndicator"
+    [columns]="columns"
+    [columnMode]="ColumnMode.force"
+    [headerHeight]="50"
+    [scrollbarV]="true"
+    [rowHeight]="50"
+    [sorts]="[{ prop: 'score', dir: 'desc' }]"
+    [reorderable]="reorderable">
+</ngx-datatable>

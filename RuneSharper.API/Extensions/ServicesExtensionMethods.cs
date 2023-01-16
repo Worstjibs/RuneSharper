@@ -18,7 +18,7 @@ using System.Text;
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ServicesExtensionMethods {
-    public static IServiceCollection AddRuneSharperServices(this IServiceCollection services, IConfiguration config) {
+    public static IServiceCollection AddRuneSharperServices(this IServiceCollection services) {
         services.AddSingleton<IOsrsApiService, OsrsApiService>();
         services.AddOsrsWrapper();
 
@@ -84,7 +84,7 @@ public static class ServicesExtensionMethods {
 
     public static IServiceCollection AddRuneSharperDatabase(this IServiceCollection services, IConfiguration config) {
         services.AddDbContext<RuneSharperContext>(options => {
-            options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            options.UseSqlServer(config.GetConnectionString("DefaultConnection")!);
         });
 
         return services;

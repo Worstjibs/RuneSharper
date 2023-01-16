@@ -1,10 +1,8 @@
 <div *ngIf="character">
     <h1>{{character.userName}}</h1>
 
-    <div class="d-flex justify-content-around">
-        <ul>
-            <li *ngFor="let boss of character.activities.bosses">{{boss.name}} - Score: {{boss.score}}, Rank: {{boss.rank}}</li>
-        </ul>
-        <app-skills-grid [stats]="character.stats"></app-skills-grid>
+    <div class="row">
+        <app-boss-list class="col-9" [bosses]="character.activities.bosses"></app-boss-list>
+        <app-skills-grid class="col-3" [stats]="character.stats"></app-skills-grid>
     </div>
 </div>

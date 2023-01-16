@@ -35,7 +35,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration config) {
     services.AddSwaggerGen();
 
     services
-        .AddRuneSharperServices(config)
+        .AddRuneSharperServices()
         .AddIdentityServices(config)
         .AddRuneSharperDatabase(config);
 }

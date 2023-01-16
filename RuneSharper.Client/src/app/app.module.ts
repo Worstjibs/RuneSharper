@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
 import { CharacterViewComponent } from './character-view/character-view.component';
 import { SkillsGridComponent } from './skills-grid/skills-grid.component';
 import { SkillCellComponent } from './skills-grid/skill-cell/skill-cell.component';
+import { BossListComponent } from './boss-list/boss-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SkillCellComponent } from './skills-grid/skill-cell/skill-cell.componen
     CharacterListComponent,
     CharacterViewComponent,
     SkillsGridComponent,
-    SkillCellComponent
+    SkillCellComponent,
+    BossListComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
