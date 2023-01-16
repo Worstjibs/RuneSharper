@@ -8,5 +8,5 @@ public class CharacterViewModel
     public DateTime FirstTracked { get; set; }
     public StatsModel? Stats { get; set; }
     public ActivitiesModel? Activities { get; set; }
-    public List<KeyValuePair<Frequency, ActivitiesModel?>> ActivitiesChange { get; set; } = new();
+    public IEnumerable<ActivitiesChangeModel> ActivitiesChange { get; set; } = Enumerable.Empty<ActivitiesChangeModel>();
 }

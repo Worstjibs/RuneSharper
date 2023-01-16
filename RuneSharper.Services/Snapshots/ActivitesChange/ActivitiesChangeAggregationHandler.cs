@@ -1,5 +1,4 @@
-﻿using RuneSharper.Data.Repositories;
-using RuneSharper.Services.Snapshots.ActivitesChange.Strategies;
+﻿using RuneSharper.Services.Snapshots.ActivitesChange.Strategies;
 using RuneSharper.Shared.Enums;
 using RuneSharper.Shared.Models;
 
@@ -18,24 +17,25 @@ public class ActivitiesChangeAggregationHandler : IActivitiesChangeAggregationHa
         _snapshotsService = snapshotsService;
     }
 
-    public async Task<ActivitiesModel?> GetActivitiesChangeAggregationForUser(string userName, Frequency frequency)
+    public async Task<ActivitiesChangeModel> GetActivitiesChangeAggregationForUser(string userName, Frequency frequency)
     {
         var strategy = _strategies.First(x => x.Frequency == frequency);
 
-        return await _snapshotsService.GetActivitesChangeForUser(userName, strategy.DateRange);
+        var model = await _snapshotsService.GetActivitesChangeForUser(userName, strategy.DateRange);
+
+        return new ActivitiesChangeModel(frequency, strategy.DateRange, model);
     }
 
-    public async Task<Dictionary<Frequency, ActivitiesModel?>> GetActivitiesChangeAggregationsForUser(string userName)
+    public async Task<IEnumerable<ActivitiesChangeModel>> GetActivitiesChangeAggregationsForUser(string userName)
     {
-        var dictionary = new Dictionary<Frequency, ActivitiesModel?>();
+        var list = new List<ActivitiesChangeModel>();
 
         foreach (var strategy in _strategies)
         {
-            dictionary.Add(
-                strategy.Frequency,
-                await _snapshotsService.GetActivitesChangeForUser(userName, strategy.DateRange));
+            var model = await _snapshotsService.GetActivitesChangeForUser(userName, strategy.DateRange);
+            list.Add(new ActivitiesChangeModel(strategy.Frequency, strategy.DateRange, model));
         }
 
-        return dictionary;
+        return list;
     }
 }

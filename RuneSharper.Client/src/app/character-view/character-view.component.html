@@ -8,16 +8,16 @@
             <h3>Boss Changes</h3>
             <tabset>
                 <tab heading="Day">
-                    <app-boss-list [bosses]="activitiesChangeMap.get(frequency.Day)!.bosses"></app-boss-list>
+                    <app-boss-list [bosses]="getBosses(Frequency.Day)"></app-boss-list>
                 </tab>
                 <tab heading="Week">
-                    <app-boss-list [bosses]="activitiesChangeMap.get(frequency.Week)!.bosses"></app-boss-list>
+                    <app-boss-list [bosses]="getBosses(Frequency.Week)"></app-boss-list>
                 </tab>
                 <tab heading="Month">
-                    <app-boss-list [bosses]="activitiesChangeMap.get(frequency.Month)!.bosses"></app-boss-list>
+                    <app-boss-list [bosses]="getBosses(Frequency.Month)"></app-boss-list>
                 </tab>
                 <tab heading="Year">
-                    <app-boss-list [bosses]="activitiesChangeMap.get(frequency.Year)!.bosses"></app-boss-list>
+                    <app-boss-list [bosses]="getBosses(Frequency.Year)"></app-boss-list>
                 </tab>
             </tabset>
         </div>

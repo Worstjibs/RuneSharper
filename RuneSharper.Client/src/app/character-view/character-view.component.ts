@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Activities } from '@app/models/activities.model';
+import { Activities, Activity } from '@app/models/activities.model';
 import { CharacterView } from '@app/models/character-view.model';
-import { Frequency } from '@app/models/frequency';
+import { Frequency } from '@app/enums/frequency';
 
 @Component({
   selector: 'app-character-view',
@@ -13,9 +13,7 @@ import { Frequency } from '@app/models/frequency';
 export class CharacterViewComponent implements OnInit {
   character: CharacterView | undefined;
 
-  frequency = Frequency;
-
-  activitiesChangeMap: Map<Frequency, Activities>;
+  Frequency = Frequency;
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
@@ -25,12 +23,10 @@ export class CharacterViewComponent implements OnInit {
         return;
 
       this.character = data.character as CharacterView;
-
-      this.activitiesChangeMap = new Map();
-
-      this.character.activitiesChange.forEach(x => {
-        this.activitiesChangeMap.set(x.key, x.value);
-      });
     });
+  }
+
+  getBosses(frequency: Frequency) : Activity[] {
+    return this.character?.activitiesChange.find(x => x.frequency == frequency)?.model.bosses ?? [];
   }
 }

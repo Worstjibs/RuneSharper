@@ -91,9 +91,7 @@ public class CharactersService : ICharactersService
         characterModel.Stats = new StatsModel(latestSnapshot);
         characterModel.Activities = new ActivitiesModel(latestSnapshot.Activities);
 
-        var activitiesChange = await _activitiesChangeAggregationHandler.GetActivitiesChangeAggregationsForUser(userName);
-
-        characterModel.ActivitiesChange = activitiesChange.ToList();
+        characterModel.ActivitiesChange = await _activitiesChangeAggregationHandler.GetActivitiesChangeAggregationsForUser(userName);
 
         return characterModel;
     }

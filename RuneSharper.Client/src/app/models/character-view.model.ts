@@ -1,5 +1,4 @@
-import { Activities } from "./activities.model";
-import { Frequency } from "./frequency";
+import { Activities, ActivitiesChange } from "./activities.model";
 import { Stats } from "./stats.model";
 
 export interface CharacterView {
@@ -7,5 +6,5 @@ export interface CharacterView {
     firstTracked: Date;
     stats: Stats;
     activities: Activities;
-    activitiesChange: { key: Frequency, value: Activities }[]
+    activitiesChange: ActivitiesChange[];
 }
