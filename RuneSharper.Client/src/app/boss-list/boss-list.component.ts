@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Activity } from '@app/models/activity.model';
 import { ColumnMode, TableColumn } from '@boring.devs/ngx-datatable';
 

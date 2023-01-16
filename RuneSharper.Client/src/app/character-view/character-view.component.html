@@ -2,7 +2,25 @@
     <h1>{{character.userName}}</h1>
 
     <div class="row">
-        <app-boss-list class="col-9" [bosses]="character.activities.bosses"></app-boss-list>
+        <div class="col-9">
+            <h3>Boss Totals</h3>
+            <app-boss-list class="col-9 mb-5" [bosses]="character.activities.bosses"></app-boss-list>
+            <h3>Boss Changes</h3>
+            <tabset>
+                <tab heading="Day">
+                    <app-boss-list [bosses]="activitiesChangeMap.get(frequency.Day)!.bosses"></app-boss-list>
+                </tab>
+                <tab heading="Week">
+                    <app-boss-list [bosses]="activitiesChangeMap.get(frequency.Week)!.bosses"></app-boss-list>
+                </tab>
+                <tab heading="Month">
+                    <app-boss-list [bosses]="activitiesChangeMap.get(frequency.Month)!.bosses"></app-boss-list>
+                </tab>
+                <tab heading="Year">
+                    <app-boss-list [bosses]="activitiesChangeMap.get(frequency.Year)!.bosses"></app-boss-list>
+                </tab>
+            </tabset>
+        </div>
         <app-skills-grid class="col-3" [stats]="character.stats"></app-skills-grid>
     </div>
 </div>

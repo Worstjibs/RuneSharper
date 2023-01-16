@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppRoutingModule } from './app-routing.module';
 import { CharacterListComponent } from './character-list/character-list.component';
 import { NgxDatatableModule } from '@boring.devs/ngx-datatable';
@@ -32,6 +33,7 @@ import { BossListComponent } from './boss-list/boss-list.component';
   ],
   imports: [
     BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,
     NgxChartsModule,

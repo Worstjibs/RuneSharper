@@ -36,9 +36,9 @@ public class SnapshotsService : ISnapshotsService
         return new StatsModel(deltaList);
     }
 
-    public async Task<ActivitiesModel?> GetActivitesChangeForUser(string username, DateRange dateRange)
+    public async Task<ActivitiesModel?> GetActivitesChangeForUser(string userName, DateRange dateRange)
     {
-        var (first, last) = await _snapshotRepository.GetFirstAndLastSnapshots(username, dateRange);
+        var (first, last) = await _snapshotRepository.GetFirstAndLastSnapshots(userName, dateRange);
 
         if (first is null)
             return null;

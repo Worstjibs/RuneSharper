@@ -9,6 +9,8 @@ using RuneSharper.Services.Characters;
 using RuneSharper.Services.LineCharts;
 using RuneSharper.Services.SaveStats;
 using RuneSharper.Services.Snapshots;
+using RuneSharper.Services.Snapshots.ActivitesChange;
+using RuneSharper.Services.Snapshots.ActivitesChange.Strategies;
 using RuneSharper.Services.Stats;
 using RuneSharper.Services.Token;
 using RuneSharper.Shared.Entities.Users;
@@ -32,6 +34,12 @@ public static class ServicesExtensionMethods {
         services.AddScoped<ISnapshotsService, SnapshotsService>();
 
         services.AddScoped<ILineChartService, LineChartService>();
+
+        services.AddScoped<IActivitiesChangeAggregationHandler, ActivitiesChangeAggregationHandler>();
+        services.AddScoped<IActivitiesChangeAggregationStrategy, DayActivitiesChangeStrategy>();
+        services.AddScoped<IActivitiesChangeAggregationStrategy, WeekActivitiesChangeStrategy>();
+        services.AddScoped<IActivitiesChangeAggregationStrategy, MonthActivitiesChangeStrategy>();
+        services.AddScoped<IActivitiesChangeAggregationStrategy, YearActivitiesChangeStrategy>();
 
         return services;
     }

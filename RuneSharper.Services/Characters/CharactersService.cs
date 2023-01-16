@@ -1,5 +1,6 @@
 ﻿using RuneSharper.Data.Repositories;
 using RuneSharper.Services.SaveStats;
+using RuneSharper.Services.Snapshots.ActivitesChange;
 using RuneSharper.Shared.Entities;
 using RuneSharper.Shared.Enums;
 using RuneSharper.Shared.Models;
@@ -11,15 +12,18 @@ public class CharactersService : ICharactersService
     private readonly ICharacterRepository _characterRepository;
     private readonly ISnapshotRepository _snapshotRepository;
     private readonly ISaveStatsService _saveStatsService;
+    private readonly IActivitiesChangeAggregationHandler _activitiesChangeAggregationHandler;
 
     public CharactersService(
         ICharacterRepository characterRepository,
         ISnapshotRepository snapshotRepository,
-        ISaveStatsService saveStatsService)
+        ISaveStatsService saveStatsService,
+        IActivitiesChangeAggregationHandler activitiesChangeAggregationHandler)
     {
         _characterRepository = characterRepository;
         _snapshotRepository = snapshotRepository;
         _saveStatsService = saveStatsService;
+        _activitiesChangeAggregationHandler = activitiesChangeAggregationHandler;
     }
 
     public async Task<Character?> GetCharacterAsync(string userName)
@@ -81,11 +85,15 @@ public class CharactersService : ICharactersService
             FirstTracked = character.DateCreated
         };
 
-        if (latestSnapshot is not null)
-        {
-            characterModel.Stats = new StatsModel(latestSnapshot);
-            characterModel.Activities = new ActivitiesModel(latestSnapshot.Activities);
-        }
+        if (latestSnapshot is null)
+            return characterModel;
+
+        characterModel.Stats = new StatsModel(latestSnapshot);
+        characterModel.Activities = new ActivitiesModel(latestSnapshot.Activities);
+
+        var activitiesChange = await _activitiesChangeAggregationHandler.GetActivitiesChangeAggregationsForUser(userName);
+
+        characterModel.ActivitiesChange = activitiesChange.ToList();
 
         return characterModel;
     }
