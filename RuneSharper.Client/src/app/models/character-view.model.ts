@@ -1,5 +1,5 @@
 import { Activities, ActivitiesChange } from "./activities.model";
-import { Stats } from "./stats.model";
+import { Stats, StatsChange } from "./stats.model";
 
 export interface CharacterView {
     userName: string;
@@ -7,4 +7,5 @@ export interface CharacterView {
     stats: Stats;
     activities: Activities;
     activitiesChange: ActivitiesChange[];
+    statsChange: StatsChange[];
 }

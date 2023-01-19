@@ -109,6 +109,7 @@ public class StatsModel
 
         var skillModel = new SkillModel
         {
+            Name = skillSnapshot.Type.ToString(),
             Experience = skillSnapshot.Experience,
             Level = skillSnapshot.Level,
             Rank = skillSnapshot.Rank

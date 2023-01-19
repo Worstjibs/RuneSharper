@@ -1,4 +1,4 @@
-import { Skill } from "./skill.model";
+import { Frequency } from "@app/enums/frequency";
 
 export interface Stats {
     overall: Skill;
@@ -25,4 +25,17 @@ export interface Stats {
     runecrafting: Skill;
     hunter: Skill;
     construction: Skill;
+}
+
+export interface Skill {
+    name: string,
+    level: number;
+    experience: number;
+    rank: number;
+}
+
+export interface StatsChange {
+    frequency: Frequency,
+    dateRange: { DateFrom: Date, DateTo: Date },
+    model: Stats;
 }

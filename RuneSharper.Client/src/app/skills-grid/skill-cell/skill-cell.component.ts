@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Skill } from '@app/models/skill.model';
+import { Component, Input } from '@angular/core';
+import { Skill } from '@app/models/stats.model';
 
 @Component({
   selector: 'app-skill-cell',

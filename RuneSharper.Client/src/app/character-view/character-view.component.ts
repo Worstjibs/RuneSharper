@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Activities, Activity } from '@app/models/activities.model';
+import { Activity } from '@app/models/activities.model';
 import { CharacterView } from '@app/models/character-view.model';
 import { Frequency } from '@app/enums/frequency';
+import { Skill, Stats } from '@app/models/stats.model';
 
 @Component({
   selector: 'app-character-view',
@@ -28,5 +29,9 @@ export class CharacterViewComponent implements OnInit {
 
   getBosses(frequency: Frequency) : Activity[] {
     return this.character?.activitiesChange.find(x => x.frequency == frequency)?.model.bosses ?? [];
+  }
+
+  getStats(frequency: Frequency): Stats {
+    return this.character?.statsChange.find(x => x.frequency ==  frequency)?.model ?? {} as Stats;
   }
 }

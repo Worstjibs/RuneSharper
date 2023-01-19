@@ -1,6 +1,6 @@
 ﻿using RuneSharper.Data.Repositories;
 using RuneSharper.Services.SaveStats;
-using RuneSharper.Services.Snapshots.ActivitesChange;
+using RuneSharper.Services.Snapshots.ChangeAggregation;
 using RuneSharper.Shared.Entities;
 using RuneSharper.Shared.Enums;
 using RuneSharper.Shared.Models;
@@ -12,18 +12,21 @@ public class CharactersService : ICharactersService
     private readonly ICharacterRepository _characterRepository;
     private readonly ISnapshotRepository _snapshotRepository;
     private readonly ISaveStatsService _saveStatsService;
-    private readonly IActivitiesChangeAggregationHandler _activitiesChangeAggregationHandler;
+    private readonly IChangeAggregationHandler<ActivitiesChangeModel> _activitiesChangeAggregationHandler;
+    private readonly IChangeAggregationHandler<StatsChangeModel> _statsChangeAggregationHandler;
 
     public CharactersService(
         ICharacterRepository characterRepository,
         ISnapshotRepository snapshotRepository,
         ISaveStatsService saveStatsService,
-        IActivitiesChangeAggregationHandler activitiesChangeAggregationHandler)
+        IChangeAggregationHandler<ActivitiesChangeModel> activitiesChangeAggregationHandler,
+        IChangeAggregationHandler<StatsChangeModel> statsChangeAggregationHandler)
     {
         _characterRepository = characterRepository;
         _snapshotRepository = snapshotRepository;
         _saveStatsService = saveStatsService;
         _activitiesChangeAggregationHandler = activitiesChangeAggregationHandler;
+        _statsChangeAggregationHandler = statsChangeAggregationHandler;
     }
 
     public async Task<Character?> GetCharacterAsync(string userName)
@@ -91,7 +94,8 @@ public class CharactersService : ICharactersService
         characterModel.Stats = new StatsModel(latestSnapshot);
         characterModel.Activities = new ActivitiesModel(latestSnapshot.Activities);
 
-        characterModel.ActivitiesChange = await _activitiesChangeAggregationHandler.GetActivitiesChangeAggregationsForUser(userName);
+        characterModel.ActivitiesChange = await _activitiesChangeAggregationHandler.GetChangeAggregationsForUser(userName);
+        characterModel.StatsChange = await _statsChangeAggregationHandler.GetChangeAggregationsForUser(userName);
 
         return characterModel;
     }

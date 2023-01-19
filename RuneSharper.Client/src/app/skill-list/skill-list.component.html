@@ -1,12 +1,12 @@
 <ngx-datatable id="table"
     class="bootstrap"
-    style="height: 40vh;"
-    [rows]="bosses"
+    style="height: 80vh;"
+    [rows]="skills"
     [columns]="columns"
     [columnMode]="ColumnMode.force"
     [headerHeight]="50"
     [scrollbarV]="true"
     [rowHeight]="50"
-    [sorts]="[{ prop: 'score', dir: 'desc' }]"
+    [sorts]="[{ prop: 'experience', dir: 'desc' }]"
     [reorderable]="reorderable">
 </ngx-datatable>

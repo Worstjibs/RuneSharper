@@ -18,6 +18,7 @@ import { CharacterViewComponent } from './character-view/character-view.componen
 import { SkillsGridComponent } from './skills-grid/skills-grid.component';
 import { SkillCellComponent } from './skills-grid/skill-cell/skill-cell.component';
 import { BossListComponent } from './boss-list/boss-list.component';
+import { SkillListComponent } from './skill-list/skill-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { BossListComponent } from './boss-list/boss-list.component';
     CharacterViewComponent,
     SkillsGridComponent,
     SkillCellComponent,
-    BossListComponent
+    BossListComponent,
+    SkillListComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),

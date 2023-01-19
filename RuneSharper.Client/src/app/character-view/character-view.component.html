@@ -2,22 +2,44 @@
     <h1>{{character.userName}}</h1>
 
     <div class="row">
-        <div class="col-9">
-            <h3>Boss Totals</h3>
-            <app-boss-list class="col-9 mb-5" [bosses]="character.activities.bosses"></app-boss-list>
-            <h3>Boss Changes</h3>
+        <div class="col-9">            
             <tabset>
-                <tab heading="Day">
-                    <app-boss-list [bosses]="getBosses(Frequency.Day)"></app-boss-list>
+                <tab heading="Skills">
+                    <h3>Skill Changes</h3>                
+                    <tabset>
+                        <tab heading="Day">
+                            <app-skill-list [stats]="getStats(Frequency.Day)"></app-skill-list>
+                        </tab>
+                        <tab heading="Week">
+                            <app-skill-list [stats]="getStats(Frequency.Week)"></app-skill-list>
+                        </tab>
+                        <tab heading="Month">
+                            <app-skill-list [stats]="getStats(Frequency.Month)"></app-skill-list>
+                        </tab>
+                        <tab heading="Year">
+                            <app-skill-list [stats]="getStats(Frequency.Year)"></app-skill-list>
+                        </tab>
+                    </tabset>
                 </tab>
-                <tab heading="Week">
-                    <app-boss-list [bosses]="getBosses(Frequency.Week)"></app-boss-list>
-                </tab>
-                <tab heading="Month">
-                    <app-boss-list [bosses]="getBosses(Frequency.Month)"></app-boss-list>
-                </tab>
-                <tab heading="Year">
-                    <app-boss-list [bosses]="getBosses(Frequency.Year)"></app-boss-list>
+                
+                <tab heading="Bosses">
+                    <h3>Boss Totals</h3>
+                    <app-boss-list class="col-9 mb-5" [bosses]="character.activities.bosses"></app-boss-list>
+                    <h3>Boss Changes</h3>
+                    <tabset>
+                        <tab heading="Day">
+                            <app-boss-list [bosses]="getBosses(Frequency.Day)"></app-boss-list>
+                        </tab>
+                        <tab heading="Week">
+                            <app-boss-list [bosses]="getBosses(Frequency.Week)"></app-boss-list>
+                        </tab>
+                        <tab heading="Month">
+                            <app-boss-list [bosses]="getBosses(Frequency.Month)"></app-boss-list>
+                        </tab>
+                        <tab heading="Year">
+                            <app-boss-list [bosses]="getBosses(Frequency.Year)"></app-boss-list>
+                        </tab>
+                    </tabset>
                 </tab>
             </tabset>
         </div>

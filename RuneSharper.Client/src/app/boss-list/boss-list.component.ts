@@ -10,7 +10,6 @@ import { ColumnMode, TableColumn } from '@boring.devs/ngx-datatable';
 export class BossListComponent implements OnInit {
   @Input() bosses: Activity[];
 
-  loadingIndicator = true;
   reorderable = true;
 
   columns: TableColumn[] = [];

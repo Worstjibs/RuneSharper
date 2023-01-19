@@ -1,32 +1,31 @@
-﻿using RuneSharper.Services.Snapshots.ActivitesChange.Strategies;
+﻿using RuneSharper.Services.Snapshots.ChangeAggregation.Strategies;
 using RuneSharper.Shared.Enums;
 using RuneSharper.Shared.Models;
 
-namespace RuneSharper.Services.Snapshots.ActivitesChange;
+namespace RuneSharper.Services.Snapshots.ChangeAggregation;
 
-public class ActivitiesChangeAggregationHandler : IActivitiesChangeAggregationHandler
+public class ActivitiesChangeAggregationHandler : ChangeAggregationHandler<ActivitiesChangeModel>
 {
-    private readonly IEnumerable<IActivitiesChangeAggregationStrategy> _strategies;
     private readonly ISnapshotsService _snapshotsService;
 
     public ActivitiesChangeAggregationHandler(
-        IEnumerable<IActivitiesChangeAggregationStrategy> strategies,
-        ISnapshotsService snapshotsService)
+        IEnumerable<IChangeAggregationStrategy> strategies,
+        ISnapshotsService snapshotsService) 
+        : base(strategies)
     {
-        _strategies = strategies;
         _snapshotsService = snapshotsService;
     }
 
-    public async Task<ActivitiesChangeModel> GetActivitiesChangeAggregationForUser(string userName, Frequency frequency)
+    public override async Task<ActivitiesChangeModel> GetChangeAggregationForUser(string userName, Frequency frequency)
     {
-        var strategy = _strategies.First(x => x.Frequency == frequency);
+        var strategy = GetStrategy(frequency);
 
         var model = await _snapshotsService.GetActivitesChangeForUser(userName, strategy.DateRange);
 
         return new ActivitiesChangeModel(frequency, strategy.DateRange, model);
     }
 
-    public async Task<IEnumerable<ActivitiesChangeModel>> GetActivitiesChangeAggregationsForUser(string userName)
+    public override async Task<IEnumerable<ActivitiesChangeModel>> GetChangeAggregationsForUser(string userName)
     {
         var list = new List<ActivitiesChangeModel>();
 
