@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/rune-sharper.client'),
+      dir: require('path').join(__dirname, './coverage/runesharper-client'),
       subdir: '.',
       reporters: [
         { type: 'html' },

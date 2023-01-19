@@ -1,5 +1,5 @@
 {
-  "name": "rune-sharper.client",
+  "name": "runesharper-client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -29,9 +29,10 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.1.4",
+    "@angular-devkit/build-angular": "^13.3.10",
     "@angular/cli": "~13.1.4",
     "@angular/compiler-cli": "~13.1.0",
+    "@types/d3": "^7.4.0",
     "@types/d3-scale": "^4.0.2",
     "@types/d3-selection": "^3.0.2",
     "@types/jasmine": "~3.10.0",
