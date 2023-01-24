@@ -10,28 +10,28 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~13.1.0",
-    "@angular/common": "~13.1.0",
-    "@angular/compiler": "~13.1.0",
-    "@angular/core": "~13.1.0",
-    "@angular/forms": "~13.1.0",
-    "@angular/platform-browser": "~13.1.0",
-    "@angular/platform-browser-dynamic": "~13.1.0",
-    "@angular/router": "~13.1.0",
+    "@angular/animations": "^14.2.12",
+    "@angular/common": "^14.2.12",
+    "@angular/compiler": "^14.2.12",
+    "@angular/core": "^14.2.12",
+    "@angular/forms": "^14.2.12",
+    "@angular/platform-browser": "^14.2.12",
+    "@angular/platform-browser-dynamic": "^14.2.12",
+    "@angular/router": "^14.2.12",
     "@boring.devs/ngx-datatable": "^20.0.0",
     "@fortawesome/fontawesome-free": "^6.2.0",
     "@swimlane/ngx-charts": "^20.1.0",
     "bootstrap": "^5.1.3",
     "jest-editor-support": "*",
-    "ngx-bootstrap": "^8.0.0",
+    "ngx-bootstrap": "^10.0.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^13.3.10",
-    "@angular/cli": "~13.1.4",
-    "@angular/compiler-cli": "~13.1.0",
+    "@angular-devkit/build-angular": "^14.2.10",
+    "@angular/cli": "^14.2.10",
+    "@angular/compiler-cli": "^14.2.12",
     "@types/d3": "^7.4.0",
     "@types/d3-scale": "^4.0.2",
     "@types/d3-selection": "^3.0.2",
@@ -43,6 +43,6 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.5.2"
+    "typescript": "~4.8.4"
   }
 }
