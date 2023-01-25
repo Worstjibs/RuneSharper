@@ -28,11 +28,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\RuneSharper.Services\RuneSharper.Services.csproj" />
-		<ProjectReference Include="..\RuneSharper.Shared\RuneSharper.Shared.csproj" />
+	  <Folder Include="Properties\PublishProfiles\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Properties\PublishProfiles\" />
+	  <ProjectReference Include="..\RuneSharper.Services\RuneSharper.Services.csproj" />
+	  <ProjectReference Include="..\RuneSharper.Shared\RuneSharper.Shared.csproj" />
 	</ItemGroup>
 </Project>
