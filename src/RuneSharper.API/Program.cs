@@ -67,6 +67,11 @@ void ConfigureMiddleware(IApplicationBuilder app, IWebHostEnvironment env) {
         app.UseSwaggerUI();
     }
 
+    //app.Use(request =>
+    //{
+    //    return request;
+    //});
+
     app.UseSerilogRequestLogging();
 
     app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());

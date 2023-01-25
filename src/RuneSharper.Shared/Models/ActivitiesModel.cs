@@ -5,6 +5,8 @@ namespace RuneSharper.Shared.Models;
 
 public class ActivitiesModel
 {
+    public ActivitiesModel() { }
+
     public ActivitiesModel(IEnumerable<ActivitySnapshot> activities)
     {
         foreach (var activity in activities)
