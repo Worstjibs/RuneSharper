@@ -1,15 +1,18 @@
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic;
+using RuneSharper.Data;
+using RuneSharper.Data.Seed;
 using RuneSharper.Shared.Models;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace RuneSharper.API.Integration.Tests.Characters;
 
-[Collection("Shared Collection")]
-public class ChracterControllerTests : IClassFixture<RuneSharperApiFactory>
+[Collection("Shared collection")]
+public class ChracterControllerTests : IAsyncLifetime
 {
     private readonly RuneSharperApiFactory _waf;
     private readonly HttpClient _client;
@@ -21,9 +24,10 @@ public class ChracterControllerTests : IClassFixture<RuneSharperApiFactory>
     }
 
     [Fact]
-    public async Task GetCharacter_ShouldReturnAnExistingCharacter()
+    public async Task GetViewModel_ShouldReturnAnExistingCharacterViewModel()
     {
         // Arrange
+        await SeedDb();
         var characterName = "worstjibs";
 
         // Act
@@ -35,4 +39,29 @@ public class ChracterControllerTests : IClassFixture<RuneSharperApiFactory>
         characterModel.Should().NotBeNull();
         characterModel!.UserName.Should().Be(characterName);
     }
+
+    [Fact]
+    public async Task GetViewModel_ShouldReturnBadRequest_WhenCharacterIsNotFound()
+    {
+        // Arrange
+        var characterName = "worstjibs";
+
+        // Act
+        var response = await _client.GetAsync($"api/character/{characterName}");
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+
+    private async Task SeedDb()
+    {
+        using var scope = _waf.Services.CreateScope();
+
+        var context = scope.ServiceProvider.GetRequiredService<RuneSharperContext>();
+        await Seed.SeedDataAsync(context);
+    }
+
+    public Task InitializeAsync() => Task.CompletedTask;
+
+    public async Task DisposeAsync() => await _waf.ResetDb();
 }
