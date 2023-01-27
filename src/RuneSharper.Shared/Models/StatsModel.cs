@@ -8,7 +8,9 @@ namespace RuneSharper.Shared.Models;
 
 public class StatsModel
 {
-    private readonly PropertyInfo[]  _properties;
+    private readonly PropertyInfo[] _properties;
+
+    public StatsModel() { }
 
     public StatsModel(Snapshot snapshot)
     {

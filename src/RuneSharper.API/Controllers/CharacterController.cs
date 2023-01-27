@@ -23,7 +23,12 @@ public class CharacterController : BaseApiController
     [HttpGet("{username}")]
     public async Task<ActionResult<CharacterViewModel>> GetViewModel(string username)
     {
-        return Ok(await _charactersService.GetCharacterViewModelAsync(username));
+        var character = await _charactersService.GetCharacterViewModelAsync(username);
+
+        if (character is null)
+            return NotFound();
+
+        return Ok(character);
     }
 
     /// <summary>
