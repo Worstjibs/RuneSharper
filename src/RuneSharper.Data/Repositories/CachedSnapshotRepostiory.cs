@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using RuneSharper.Data.Extensions;
 using RuneSharper.Shared.Entities.Snapshots;
 using RuneSharper.Shared.Helpers;
 using RuneSharper.Shared.Settings;
@@ -44,27 +45,11 @@ public class CachedSnapshotRepostiory : Repository<Snapshot>, ISnapshotRepositor
 
     public async Task<IEnumerable<Snapshot>> GetLatestSnapshotsAsync(IEnumerable<string> userNames)
     {
-        return await GetOrCreateFromCache(userNames);
-    }
-
-    private async Task<IEnumerable<Snapshot>> GetOrCreateFromCache(IEnumerable<string> userNames)
-    {
-        Func<string, string> keySelector = x => $"snapshot-latest-{x}";
-
-        var cachedSnapshots = userNames.ToDictionary(x => x, x => _memoryCache.Get<Snapshot>(keySelector(x)));
-
-        var nonCachedUserNames = cachedSnapshots.Where(x => x.Value is null).Select(x => x.Key).ToList();
-
-        if (!nonCachedUserNames.Any())
-            return cachedSnapshots.Select(x => x.Value).ToList()!;
-
-        var newSnapshots = await _snapshotRepository.GetLatestSnapshotsAsync(nonCachedUserNames);
-
-        foreach (var snapshot in newSnapshots)
-        {
-            _memoryCache.Set(keySelector(snapshot.Character.UserName), snapshot);
-        }
-
-        return cachedSnapshots.Where(x => x.Value is not null).Select(x => x.Value).Union(newSnapshots).ToList()!;
+        return await _memoryCache.GetOrCreateAsync(
+            userNames,
+            x => $"snapshot-latest-{x}",
+            _snapshotRepository.GetLatestSnapshotsAsync,
+            x => x.Character.UserName,
+            TimeSpan.FromSeconds(_settings.Value.OsrsApiPollingTime));
     }
 }

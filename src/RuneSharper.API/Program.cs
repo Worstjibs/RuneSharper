@@ -3,6 +3,7 @@ using RuneSharper.Data;
 using Serilog;
 using RuneSharper.Shared.Extensions;
 using System.Reflection;
+using RuneSharper.Shared.Settings;
 
 await Start();
 
@@ -38,6 +39,8 @@ void ConfigureServices(IServiceCollection services, IConfiguration config) {
         .AddRuneSharperServices()
         .AddIdentityServices(config)
         .AddRuneSharperDatabase(config);
+
+    services.Configure<RuneSharperSettings>(config.GetRequiredSection("RuneSharperSettings"));
 }
 
 async Task MigrateDatabase(IServiceProvider services, IWebHostEnvironment env) {
