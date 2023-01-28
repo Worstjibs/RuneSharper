@@ -27,9 +27,12 @@ public static class ServicesExtensionMethods {
 
         services.AddMemoryCache();
 
-        services.AddScoped<ICharacterRepository, CharacterRepository>();
+        services.AddScoped<ICharacterRepository, CachedCharacterRepository>();
+        services.AddScoped<CharacterRepository>();
+
         services.AddScoped<ISnapshotRepository, CachedSnapshotRepostiory>();
         services.AddScoped<SnapshotRepository>();
+
         services.AddScoped<ISkillSnapshotRepository, SkillSnapshotRepository>();
 
         services.AddScoped<ISaveStatsService, SaveStatsService>();
