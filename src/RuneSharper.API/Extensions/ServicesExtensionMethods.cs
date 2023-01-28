@@ -25,8 +25,11 @@ public static class ServicesExtensionMethods {
         services.AddSingleton<IOsrsApiService, OsrsApiService>();
         services.AddOsrsWrapper();
 
+        services.AddMemoryCache();
+
         services.AddScoped<ICharacterRepository, CharacterRepository>();
-        services.AddScoped<ISnapshotRepository, SnapshotRepository>();
+        services.AddScoped<ISnapshotRepository, CachedSnapshotRepostiory>();
+        services.AddScoped<SnapshotRepository>();
         services.AddScoped<ISkillSnapshotRepository, SkillSnapshotRepository>();
 
         services.AddScoped<ISaveStatsService, SaveStatsService>();

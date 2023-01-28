@@ -38,6 +38,7 @@ public class SnapshotRepository : Repository<Snapshot>, ISnapshotRepository
     {
         var result = await DbSet
             .Include(x => x.Skills)
+            .Include(x => x.Activities)
             .Include(x => x.Character)
             .Where(x => userNames.Contains(x.Character.UserName))
             .GroupBy(x => new { x.Character.UserName })
