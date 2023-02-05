@@ -45,7 +45,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseIntE
         return await _context.SaveChangesAsync() > 0;
     }
 
-    protected IQueryable<TEntity> ApplySpecification(
+    internal IQueryable<TEntity> ApplySpecification(
         Specification<TEntity> specification)
     {
         return SpecificationEvaluator.GetQuery(

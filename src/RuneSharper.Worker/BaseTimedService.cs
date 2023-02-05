@@ -1,5 +1,7 @@
 ﻿using RuneSharper.Shared.Extensions;
+using Serilog.Context;
 using System.Diagnostics;
+using System.Diagnostics.Tracing;
 
 namespace RuneSharper.Worker;
 
@@ -30,6 +32,8 @@ public abstract class BaseTimedService : BackgroundService
         {
             try
             {
+                using var activityContext = LogContext.PushProperty("ActivityId", Guid.NewGuid());
+
                 _logger.LogInformation("Beginning Timed service {TimedServiceName}", GetType().Name);
                 var startTime = Stopwatch.GetTimestamp();
 

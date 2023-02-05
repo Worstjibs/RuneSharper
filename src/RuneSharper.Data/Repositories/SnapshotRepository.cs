@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RuneSharper.Data.Specifications;
 using RuneSharper.Shared.Entities.Snapshots;
+using RuneSharper.Shared.Enums;
 using RuneSharper.Shared.Helpers;
 
 namespace RuneSharper.Data.Repositories;
@@ -11,20 +12,18 @@ public class SnapshotRepository : Repository<Snapshot>, ISnapshotRepository
     {
     }
 
-    public async Task<(Snapshot?, Snapshot?)> GetFirstAndLastSnapshots(string userName, DateRange dateRange)
+    public async Task<Snapshot?> GetFirstSnapshotAsync(string userName, DateRange dateRange)
     {
-        var first = await ApplySpecification(
-            new SnapshotBetweenDateRangeSpecification(userName, dateRange, Shared.Enums.FirstLast.First))
+        return await ApplySpecification(
+            new SnapshotBetweenDateRangeSpecification(userName, dateRange, FirstLast.First))
             .FirstOrDefaultAsync();
+    }
 
-        if (first is null)
-            return (null, null);
-
-        var last = await ApplySpecification(
-            new SnapshotBetweenDateRangeSpecification(userName, dateRange, Shared.Enums.FirstLast.Last))
+    public async Task<Snapshot?> GetLastSnapshotAsync(string userName, DateRange dateRange)
+    {
+        return await ApplySpecification(
+            new SnapshotBetweenDateRangeSpecification(userName, dateRange, FirstLast.Last))
             .FirstOrDefaultAsync();
-
-        return (first, last);
     }
 
     public async Task<Snapshot?> GetLatestSnapshotAsync(string userName)

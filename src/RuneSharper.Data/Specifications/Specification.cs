@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace RuneSharper.Data.Specifications;
 
-public abstract class Specification<TEntity>
+internal abstract class Specification<TEntity>
     where TEntity : BaseEntity
 {
     protected Specification(Expression<Func<TEntity, bool>>? criteria)

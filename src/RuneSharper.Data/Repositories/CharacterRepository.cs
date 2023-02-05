@@ -12,7 +12,7 @@ public class CharacterRepository : Repository<Character>, ICharacterRepository
 
     public async Task<Character?> GetCharacterByNameAsync(string userName)
     {
-        return await ApplySpecification(new CharacterByUserNameWithSnapshotsSpecification(userName))
+        return await ApplySpecification(new CharacterByUserNameSpecification(userName))
             .FirstOrDefaultAsync();
     }
 

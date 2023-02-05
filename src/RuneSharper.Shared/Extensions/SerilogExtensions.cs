@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
+using System.Diagnostics.Tracing;
 using System.Reflection;
 
 namespace RuneSharper.Shared.Extensions;
