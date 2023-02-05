@@ -28,7 +28,7 @@ export class CharacterViewComponent implements OnInit {
   }
 
   getBosses(frequency: Frequency) : Activity[] {
-    return this.character?.activitiesChange.find(x => x.frequency == frequency)?.model.bosses ?? [];
+    return this.character?.activitiesChange.find(x => x.frequency == frequency)?.model?.bosses ?? [];
   }
 
   getStats(frequency: Frequency): Stats {

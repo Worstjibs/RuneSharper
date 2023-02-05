@@ -1,19 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using RuneSharper.Data.Specifications;
 using RuneSharper.Shared.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RuneSharper.Data.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseIntEntity
 {
-    protected DbSet<TEntity> DbSet;
-    private readonly RuneSharperContext _context;
+    protected readonly DbSet<TEntity> DbSet;
+    protected readonly RuneSharperContext _context;
 
     public Repository(RuneSharperContext context)
     {
@@ -51,7 +45,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseIntE
         return await _context.SaveChangesAsync() > 0;
     }
 
-    protected IQueryable<TEntity> ApplySpecification(
+    internal IQueryable<TEntity> ApplySpecification(
         Specification<TEntity> specification)
     {
         return SpecificationEvaluator.GetQuery(

@@ -16,10 +16,12 @@ public class SnapshotsService : ISnapshotsService
 
     public async Task<StatsModel?> GetStatsChangeForUser(string userName, DateRange dateRange)
     {
-        var (first, last) = await _snapshotRepository.GetFirstAndLastSnapshots(userName, dateRange);
+        var first = await _snapshotRepository.GetFirstSnapshotAsync(userName, dateRange);
 
-        if (first == null)
+        if (first is null)
             return null;
+
+        var last = await _snapshotRepository.GetLastSnapshotAsync(userName, dateRange);
 
         var deltaList = first.Skills.Join(
             last!.Skills,
@@ -38,10 +40,12 @@ public class SnapshotsService : ISnapshotsService
 
     public async Task<ActivitiesModel?> GetActivitesChangeForUser(string userName, DateRange dateRange)
     {
-        var (first, last) = await _snapshotRepository.GetFirstAndLastSnapshots(userName, dateRange);
+        var first = await _snapshotRepository.GetFirstSnapshotAsync(userName, dateRange);
 
         if (first is null)
             return null;
+
+        var last = await _snapshotRepository.GetLastSnapshotAsync(userName, dateRange);
 
         var deltaList = first.Activities.Join(
             last!.Activities,

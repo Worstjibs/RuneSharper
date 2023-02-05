@@ -59,7 +59,7 @@ public class SaveStatsService : ISaveStatsService
         foreach (var result in results)
         {
             ProcessCharacter(result.Key, result.Value);
-        }
+        }        
 
         await SaveCharacters();
     }

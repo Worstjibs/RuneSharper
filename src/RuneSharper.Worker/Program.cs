@@ -10,6 +10,7 @@ using RuneSharper.Shared.Settings;
 using Serilog;
 using System.Reflection;
 using RuneSharper.Shared.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 
 var log = new LoggerConfiguration()
     .WriteTo.Console()
@@ -25,10 +26,17 @@ try
         {
             var config = hostContext.Configuration;
 
+            services.AddMemoryCache();
+
             services.Configure<RuneSharperSettings>(config.GetSection("RuneSharperSettings"));
             services.AddSingleton<IOsrsApiService, OsrsApiService>();
             services.AddScoped<ISaveStatsService, SaveStatsService>();
-            services.AddScoped<ICharacterRepository, CharacterRepository>();
+
+            services.AddScoped<ICharacterRepository, CachedCharacterRepository>();
+            services.AddScoped<CharacterRepository>();
+
+            services.AddScoped<ISnapshotRepository, CachedSnapshotRepostiory>();
+            services.AddScoped<SnapshotRepository>();
 
             services.AddDbContext<RuneSharperContext>(options =>
             {

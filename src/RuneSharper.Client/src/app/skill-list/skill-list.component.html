@@ -1,12 +1,17 @@
-<ngx-datatable id="table"
-    class="bootstrap"
-    style="height: 80vh;"
-    [rows]="skills"
-    [columns]="columns"
-    [columnMode]="ColumnMode.force"
-    [headerHeight]="50"
-    [scrollbarV]="true"
-    [rowHeight]="50"
-    [sorts]="[{ prop: 'experience', dir: 'desc' }]"
-    [reorderable]="reorderable">
-</ngx-datatable>
+<div *ngIf="skills">
+    <ngx-datatable id="table"
+        class="bootstrap"
+        style="height: 80vh;"
+        [rows]="skills"
+        [columns]="columns"
+        [columnMode]="ColumnMode.force"
+        [headerHeight]="50"
+        [scrollbarV]="true"
+        [rowHeight]="50"
+        [sorts]="[{ prop: 'experience', dir: 'desc' }]"
+        [reorderable]="reorderable">
+    </ngx-datatable>
+</div>
+<div *ngIf="!skills">
+    No data for selected data range
+</div>

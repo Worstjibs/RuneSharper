@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
 using RuneSharper.Services.Characters;
+using RuneSharper.Services.DateTimeProvider;
 using RuneSharper.Services.LineCharts;
 using RuneSharper.Services.SaveStats;
 using RuneSharper.Services.Snapshots;
@@ -25,8 +26,14 @@ public static class ServicesExtensionMethods {
         services.AddSingleton<IOsrsApiService, OsrsApiService>();
         services.AddOsrsWrapper();
 
-        services.AddScoped<ICharacterRepository, CharacterRepository>();
-        services.AddScoped<ISnapshotRepository, SnapshotRepository>();
+        services.AddMemoryCache();
+
+        services.AddScoped<ICharacterRepository, CachedCharacterRepository>();
+        services.AddScoped<CharacterRepository>();
+
+        services.AddScoped<ISnapshotRepository, CachedSnapshotRepostiory>();
+        services.AddScoped<SnapshotRepository>();
+
         services.AddScoped<ISkillSnapshotRepository, SkillSnapshotRepository>();
 
         services.AddScoped<ISaveStatsService, SaveStatsService>();
@@ -38,10 +45,12 @@ public static class ServicesExtensionMethods {
 
         services.AddScoped<IChangeAggregationHandler<ActivitiesChangeModel>, ActivitiesChangeAggregationHandler>();
         services.AddScoped<IChangeAggregationHandler<StatsChangeModel>, StatsChangeAggregationHandler>();
-        services.AddScoped<IChangeAggregationStrategy, DayActivitiesChangeStrategy>();
-        services.AddScoped<IChangeAggregationStrategy, WeekActivitiesChangeStrategy>();
-        services.AddScoped<IChangeAggregationStrategy, MonthActivitiesChangeStrategy>();
-        services.AddScoped<IChangeAggregationStrategy, YearActivitiesChangeStrategy>();
+        services.AddScoped<IChangeAggregationStrategy, DayChangeStrategy>();
+        services.AddScoped<IChangeAggregationStrategy, WeekChangeStrategy>();
+        services.AddScoped<IChangeAggregationStrategy, MonthChangeStrategy>();
+        services.AddScoped<IChangeAggregationStrategy, YearChangeStrategy>();
+
+        services.AddScoped<IDateTimeProvider, DateTimeProvider>();
 
         return services;
     }

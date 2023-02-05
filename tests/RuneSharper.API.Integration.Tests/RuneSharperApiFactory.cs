@@ -34,7 +34,7 @@ public class RuneSharperApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
                 Password = "TuxUNPjhIJmttJ1pMhF",
                 Database = "runesharper"
             })
-            .WithPortBinding(1433, 1433)
+            //.WithPortBinding(1433, 1433)
             .Build();
 
     private DbConnection _dbConnection = default!;
