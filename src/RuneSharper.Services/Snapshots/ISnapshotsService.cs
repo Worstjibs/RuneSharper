@@ -1,4 +1,4 @@
-﻿using RuneSharper.Shared.Enums;
+﻿using RuneSharper.Domain.Enums;
 using RuneSharper.Shared.Helpers;
 using RuneSharper.Shared.Models;
 

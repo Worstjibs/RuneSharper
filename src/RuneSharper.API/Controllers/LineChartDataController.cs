@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RuneSharper.Services.LineCharts;
-using RuneSharper.Shared.Entities.NgxCharts;
+using RuneSharper.Domain.Entities.NgxCharts;
 using RuneSharper.Shared.Helpers;
 
 namespace RuneSharper.API.Controllers;

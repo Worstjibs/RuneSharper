@@ -1,10 +1,9 @@
-﻿using RuneSharper.Shared.Entities.Snapshots;
+﻿using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Shared.Helpers;
 
-namespace RuneSharper.Data.Repositories
+namespace RuneSharper.Data.Repositories;
+
+public interface ISkillSnapshotRepository
 {
-    public interface ISkillSnapshotRepository
-    {
-        Task<IEnumerable<SkillSnapshot>> GetByUsername(string username, DateRange dateRange);
-    }
+    Task<IEnumerable<SkillSnapshot>> GetByUsername(string username, DateRange dateRange);
 }

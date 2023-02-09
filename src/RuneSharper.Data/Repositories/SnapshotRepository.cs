@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RuneSharper.Data.Specifications;
-using RuneSharper.Shared.Entities.Snapshots;
+using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Shared.Enums;
 using RuneSharper.Shared.Helpers;
 

@@ -1,6 +1,6 @@
-﻿using RuneSharper.Shared.Enums;
+﻿using RuneSharper.Domain.Enums;
 
-namespace RuneSharper.Shared.Entities.Snapshots;
+namespace RuneSharper.Domain.Entities.Snapshots;
 
 public class SkillSnapshot : SnapshotEntity<SkillType>
 {

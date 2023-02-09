@@ -1,4 +1,4 @@
-﻿namespace RuneSharper.Shared.Entities.Snapshots;
+﻿namespace RuneSharper.Domain.Entities.Snapshots;
 
 public class Snapshot : BaseIntEntity, IDateCreated
 {

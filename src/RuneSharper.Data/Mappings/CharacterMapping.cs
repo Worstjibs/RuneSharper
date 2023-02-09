@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RuneSharper.Shared.Entities;
+using RuneSharper.Domain.Entities;
 
 namespace RuneSharper.Data.Mappings;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RuneSharper.Data.Specifications;
-using RuneSharper.Shared.Entities;
+using RuneSharper.Domain.Entities;
 
 namespace RuneSharper.Data.Repositories;
 

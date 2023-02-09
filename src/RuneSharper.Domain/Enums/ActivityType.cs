@@ -1,7 +1,6 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace RuneSharper.Shared.Enums;
+namespace RuneSharper.Domain.Enums;
 
 public enum ActivityType
 {

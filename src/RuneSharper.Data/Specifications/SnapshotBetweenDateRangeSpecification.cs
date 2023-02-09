@@ -1,6 +1,4 @@
-﻿
-
-using RuneSharper.Shared.Entities.Snapshots;
+﻿using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Shared.Enums;
 using RuneSharper.Shared.Helpers;
 

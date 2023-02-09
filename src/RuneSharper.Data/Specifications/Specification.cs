@@ -1,4 +1,4 @@
-﻿using RuneSharper.Shared.Entities;
+﻿using RuneSharper.Domain.Entities;
 using System.Linq.Expressions;
 
 namespace RuneSharper.Data.Specifications;

@@ -1,7 +1,4 @@
-﻿using RuneSharper.Shared.Entities.Snapshots;
-using RuneSharper.Shared.Enums;
-
-namespace RuneSharper.Shared.Models;
+﻿namespace RuneSharper.Shared.Models;
 
 public class CharacterListModel
 {

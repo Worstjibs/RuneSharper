@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using RuneSharper.Data.Extensions;
-using RuneSharper.Shared.Entities;
+using RuneSharper.Domain.Entities;
 
 namespace RuneSharper.Data.Repositories;
 

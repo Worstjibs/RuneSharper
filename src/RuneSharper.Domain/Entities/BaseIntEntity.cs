@@ -1,4 +1,4 @@
-﻿namespace RuneSharper.Shared.Entities;
+﻿namespace RuneSharper.Domain.Entities;
 
 public class BaseIntEntity : BaseEntity<int>
 {

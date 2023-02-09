@@ -1,6 +1,6 @@
 ﻿using RuneSharper.Data.Repositories;
-using RuneSharper.Shared.Entities.NgxCharts;
-using RuneSharper.Shared.Enums;
+using RuneSharper.Domain.Entities.NgxCharts;
+using RuneSharper.Domain.Enums;
 using RuneSharper.Shared.Helpers;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using RuneSharper.Data.Extensions;
-using RuneSharper.Shared.Entities.Snapshots;
+using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Shared.Extensions;
 using RuneSharper.Shared.Helpers;
 using RuneSharper.Shared.Settings;

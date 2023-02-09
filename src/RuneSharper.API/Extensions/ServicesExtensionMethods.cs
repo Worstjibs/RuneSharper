@@ -14,7 +14,7 @@ using RuneSharper.Services.Snapshots.ChangeAggregation;
 using RuneSharper.Services.Snapshots.ChangeAggregation.Strategies;
 using RuneSharper.Services.Stats;
 using RuneSharper.Services.Token;
-using RuneSharper.Shared.Entities.Users;
+using RuneSharper.Domain.Entities.Users;
 using RuneSharper.Shared.Models;
 using RuneSharper.Shared.Settings;
 using System.Text;
@@ -83,7 +83,7 @@ public static class ServicesExtensionMethods {
             .AddEntityFrameworkStores<RuneSharperContext>();
 
 
-        var jwtSection = config.GetSection("Jwt");
+        var jwtSection = config.GetRequiredSection("Jwt");
         services.Configure<JwtTokenSettings>(jwtSection);
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

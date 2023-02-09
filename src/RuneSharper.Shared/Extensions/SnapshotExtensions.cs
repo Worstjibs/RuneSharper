@@ -1,4 +1,4 @@
-﻿using RuneSharper.Shared.Enums;
+﻿using RuneSharper.Domain.Enums;
 
 namespace RuneSharper.Shared.Extensions;
 

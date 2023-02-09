@@ -1,6 +1,6 @@
-﻿using RuneSharper.Shared.Entities.Snapshots;
+﻿using RuneSharper.Domain.Entities.Snapshots;
 
-namespace RuneSharper.Shared.Entities;
+namespace RuneSharper.Domain.Entities;
 
 public class Character : BaseIntEntity, IDateCreated
 {

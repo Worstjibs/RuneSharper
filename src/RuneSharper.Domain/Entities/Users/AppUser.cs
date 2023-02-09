@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace RuneSharper.Shared.Entities.Users;
+namespace RuneSharper.Domain.Entities.Users;
 
 public class AppUser : IdentityUser<int>
 {

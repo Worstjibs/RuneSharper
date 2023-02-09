@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RuneSharper.Shared.Entities.Snapshots;
+namespace RuneSharper.Domain.Entities.Snapshots;
 
 public class SnapshotEntity<T> : BaseIntEntity where T : Enum
 {

@@ -33,6 +33,5 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\RuneSharper.Services\RuneSharper.Services.csproj" />
-	  <ProjectReference Include="..\RuneSharper.Shared\RuneSharper.Shared.csproj" />
 	</ItemGroup>
 </Project>

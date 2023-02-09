@@ -1,5 +1,5 @@
 ﻿
-using RuneSharper.Shared.Entities;
+using RuneSharper.Domain.Entities;
 
 namespace RuneSharper.Services.SaveStats
 {

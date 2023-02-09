@@ -1,4 +1,4 @@
-﻿namespace RuneSharper.Shared.Enums;
+﻿namespace RuneSharper.Domain.Enums;
 
 public enum CharacterType
 {

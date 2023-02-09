@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using RuneSharper.Shared.Entities.Users;
+using RuneSharper.Domain.Entities.Users;
 using RuneSharper.Shared.Settings;
 
 namespace RuneSharper.Services.Token

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RuneSharper.Data\RuneSharper.Data.csproj" />
+    <ProjectReference Include="..\RuneSharper.Domain\RuneSharper.Domain.csproj" />
     <ProjectReference Include="..\RuneSharper.Shared\RuneSharper.Shared.csproj" />
   </ItemGroup>
 

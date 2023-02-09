@@ -1,5 +1,5 @@
-﻿using RuneSharper.Shared.Entities;
-using RuneSharper.Shared.Entities.Snapshots;
+﻿using RuneSharper.Domain.Entities;
+using RuneSharper.Domain.Entities.Snapshots;
 
 namespace RuneSharper.Services.Stats;
 

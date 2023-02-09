@@ -1,4 +1,4 @@
-﻿using RuneSharper.Shared.Entities.NgxCharts;
+﻿using RuneSharper.Domain.Entities.NgxCharts;
 using RuneSharper.Shared.Helpers;
 
 namespace RuneSharper.Services.LineCharts

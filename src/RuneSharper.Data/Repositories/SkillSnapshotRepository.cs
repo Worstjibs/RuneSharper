@@ -1,23 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RuneSharper.Shared.Entities.Snapshots;
+using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Shared.Helpers;
 
-namespace RuneSharper.Data.Repositories
-{
-    public class SkillSnapshotRepository : Repository<SkillSnapshot>, ISkillSnapshotRepository
-    {
-        public SkillSnapshotRepository(RuneSharperContext context) : base(context)
-        {
-        }
+namespace RuneSharper.Data.Repositories;
 
-        public async Task<IEnumerable<SkillSnapshot>> GetByUsername(string username, DateRange dateRange)
-        {
-            return await DbSet
-                .Include(x => x.Snapshot)
-                .Where(x => x.Snapshot.DateCreated.Date >= dateRange.DateFrom
-                    && x.Snapshot.DateCreated.Date < dateRange.DateTo
-                    && x.Snapshot.Character.UserName == username)
-                .ToListAsync();
-        }
+public class SkillSnapshotRepository : Repository<SkillSnapshot>, ISkillSnapshotRepository
+{
+    public SkillSnapshotRepository(RuneSharperContext context) : base(context)
+    {
+    }
+
+    public async Task<IEnumerable<SkillSnapshot>> GetByUsername(string username, DateRange dateRange)
+    {
+        return await DbSet
+            .Include(x => x.Snapshot)
+            .Where(x => x.Snapshot.DateCreated.Date >= dateRange.DateFrom
+                && x.Snapshot.DateCreated.Date < dateRange.DateTo
+                && x.Snapshot.Character.UserName == username)
+            .ToListAsync();
     }
 }

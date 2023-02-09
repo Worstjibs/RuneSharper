@@ -1,5 +1,5 @@
 ﻿using RuneSharper.Data.Repositories;
-using RuneSharper.Shared.Entities.Snapshots;
+using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Shared.Helpers;
 using RuneSharper.Shared.Models;
 
