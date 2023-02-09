@@ -1,5 +1,5 @@
-﻿using RuneSharper.Shared.Enums;
-using RuneSharper.Shared.Helpers;
+﻿using RuneSharper.Domain.Helpers;
+using RuneSharper.Shared.Enums;
 
 namespace RuneSharper.Services.Snapshots.ChangeAggregation.Strategies;
 

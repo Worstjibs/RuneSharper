@@ -1,7 +1,7 @@
 ﻿using RuneSharper.Domain.Entities.Snapshots;
-using RuneSharper.Shared.Helpers;
+using RuneSharper.Domain.Helpers;
 
-namespace RuneSharper.Data.Repositories;
+namespace RuneSharper.Domain.Interfaces;
 
 public interface ISkillSnapshotRepository
 {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using RuneSharper.Data.Repositories;
-using RuneSharper.Services.Stats;
 using RuneSharper.Domain.Entities;
 using RuneSharper.Domain.Entities.Snapshots;
+using RuneSharper.Domain.Interfaces;
+using RuneSharper.Services.Stats;
 
 namespace RuneSharper.Services.SaveStats;
 

@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
-using RuneSharper.Data.Repositories;
-using RuneSharper.Services.SaveStats;
-using RuneSharper.Services.Stats;
 using RuneSharper.Domain.Entities;
 using RuneSharper.Domain.Entities.Snapshots;
+using RuneSharper.Domain.Interfaces;
+using RuneSharper.Services.SaveStats;
+using RuneSharper.Services.Stats;
 
 namespace RuneSharper.Services.Tests;
 

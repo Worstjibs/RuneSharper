@@ -1,6 +1,6 @@
 ﻿using RuneSharper.Domain.Entities;
 
-namespace RuneSharper.Data.Repositories;
+namespace RuneSharper.Domain.Interfaces;
 
 public interface IRepository<TEntity> where TEntity : BaseIntEntity
 {

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
+using RuneSharper.Domain.Interfaces;
 using RuneSharper.Services.Characters;
 using RuneSharper.Services.DateTimeProvider;
 using RuneSharper.Services.LineCharts;

@@ -1,12 +1,7 @@
-﻿using RuneSharper.Data.Repositories;
-using RuneSharper.Domain.Entities.NgxCharts;
+﻿using RuneSharper.Domain.Entities.NgxCharts;
 using RuneSharper.Domain.Enums;
-using RuneSharper.Shared.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RuneSharper.Domain.Helpers;
+using RuneSharper.Domain.Interfaces;
 
 namespace RuneSharper.Services.LineCharts;
 

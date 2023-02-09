@@ -1,5 +1,4 @@
-﻿using RuneSharper.Domain.Enums;
-using RuneSharper.Shared.Helpers;
+﻿using RuneSharper.Domain.Helpers;
 using RuneSharper.Shared.Models;
 
 namespace RuneSharper.Services.Snapshots;

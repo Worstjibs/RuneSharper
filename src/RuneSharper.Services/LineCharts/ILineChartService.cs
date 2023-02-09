@@ -1,10 +1,9 @@
 ﻿using RuneSharper.Domain.Entities.NgxCharts;
-using RuneSharper.Shared.Helpers;
+using RuneSharper.Domain.Helpers;
 
-namespace RuneSharper.Services.LineCharts
+namespace RuneSharper.Services.LineCharts;
+
+public interface ILineChartService
 {
-    public interface ILineChartService
-    {
-        Task<IEnumerable<LineChartModels>> GetSkillSnapshotData(string username, DateRange dateRange, bool includeOverall);
-    }
+    Task<IEnumerable<LineChartModels>> GetSkillSnapshotData(string username, DateRange dateRange, bool includeOverall);
 }

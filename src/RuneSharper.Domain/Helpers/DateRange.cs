@@ -1,4 +1,4 @@
-﻿namespace RuneSharper.Shared.Helpers;
+﻿namespace RuneSharper.Domain.Helpers;
 
 public class DateRange
 {

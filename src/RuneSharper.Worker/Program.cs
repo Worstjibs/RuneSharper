@@ -1,16 +1,16 @@
-using DotnetOsrsApiWrapper;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
+using DotnetOsrsApiWrapper;
+using Serilog;
 using RuneSharper.Worker;
 using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
+using RuneSharper.Domain.Interfaces;
 using RuneSharper.Services.SaveStats;
 using RuneSharper.Services.Stats;
 using RuneSharper.Shared.Settings;
-using Serilog;
-using System.Reflection;
 using RuneSharper.Shared.Extensions;
-using Microsoft.Extensions.DependencyInjection;
 
 var log = new LoggerConfiguration()
     .WriteTo.Console()

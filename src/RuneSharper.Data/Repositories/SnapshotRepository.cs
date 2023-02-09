@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RuneSharper.Data.Specifications;
 using RuneSharper.Domain.Entities.Snapshots;
+using RuneSharper.Domain.Helpers;
+using RuneSharper.Domain.Interfaces;
 using RuneSharper.Shared.Enums;
-using RuneSharper.Shared.Helpers;
 
 namespace RuneSharper.Data.Repositories;
 

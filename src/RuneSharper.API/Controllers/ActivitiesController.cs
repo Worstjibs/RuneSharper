@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RuneSharper.Domain.Helpers;
 using RuneSharper.Services.Snapshots;
-using RuneSharper.Shared.Helpers;
 using RuneSharper.Shared.Models;
 
 namespace RuneSharper.API.Controllers;

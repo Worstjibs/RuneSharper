@@ -1,8 +1,8 @@
-﻿using RuneSharper.Data.Repositories;
+﻿using RuneSharper.Domain.Entities;
+using RuneSharper.Domain.Enums;
+using RuneSharper.Domain.Interfaces;
 using RuneSharper.Services.SaveStats;
 using RuneSharper.Services.Snapshots.ChangeAggregation;
-using RuneSharper.Domain.Entities;
-using RuneSharper.Domain.Enums;
 using RuneSharper.Shared.Models;
 using RuneSharper.Shared.Enums;
 

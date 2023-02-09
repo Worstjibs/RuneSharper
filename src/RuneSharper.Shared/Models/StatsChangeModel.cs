@@ -1,5 +1,5 @@
 ﻿using RuneSharper.Shared.Enums;
-using RuneSharper.Shared.Helpers;
+using RuneSharper.Domain.Helpers;
 
 namespace RuneSharper.Shared.Models;
 
