@@ -3,7 +3,7 @@ using RuneSharper.Domain.Enums;
 using RuneSharper.Domain.Interfaces;
 using RuneSharper.Services.SaveStats;
 using RuneSharper.Services.Snapshots.ChangeAggregation;
-using RuneSharper.Shared.Models;
+using RuneSharper.Services.Models;
 using RuneSharper.Shared.Enums;
 
 namespace RuneSharper.Services.Characters;

@@ -4,7 +4,7 @@ using RuneSharper.Shared.Attributes;
 using RuneSharper.Domain.Entities.Snapshots;
 using System.Reflection;
 
-namespace RuneSharper.Shared.Models;
+namespace RuneSharper.Services.Models;
 
 public class StatsModel
 {

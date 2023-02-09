@@ -84,7 +84,7 @@ public class SaveStatsService : ISaveStatsService
     {
         if (!await _characterRepository.Complete())
         {
-            throw new DbUpdateException("No records updated");
+            throw new Exception("No records updated");
         }
     }
 }

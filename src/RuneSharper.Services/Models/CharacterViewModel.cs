@@ -1,6 +1,6 @@
 ﻿using RuneSharper.Domain.Enums;
 
-namespace RuneSharper.Shared.Models;
+namespace RuneSharper.Services.Models;
 
 public class CharacterViewModel
 {

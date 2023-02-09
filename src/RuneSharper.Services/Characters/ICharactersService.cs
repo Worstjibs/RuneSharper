@@ -1,6 +1,6 @@
 ﻿using RuneSharper.Domain.Entities;
 using RuneSharper.Shared.Enums;
-using RuneSharper.Shared.Models;
+using RuneSharper.Services.Models;
 
 namespace RuneSharper.Services.Characters;
 

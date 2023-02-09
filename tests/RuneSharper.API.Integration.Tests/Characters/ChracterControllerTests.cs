@@ -1,18 +1,19 @@
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualBasic;
 using RuneSharper.Data;
 using RuneSharper.Data.Seed;
-using RuneSharper.Shared.Models;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
+using RuneSharper.Domain.Entities;
+using RuneSharper.Services.Models;
 
 namespace RuneSharper.API.Integration.Tests.Characters;
 
 [Collection("Shared collection")]
-public class ChracterControllerTests : IAsyncLifetime
+public class ChracterControllerTests
 {
     private readonly RuneSharperApiFactory _waf;
     private readonly HttpClient _client;
@@ -58,10 +59,11 @@ public class ChracterControllerTests : IAsyncLifetime
         using var scope = _waf.Services.CreateScope();
 
         var context = scope.ServiceProvider.GetRequiredService<RuneSharperContext>();
+
         await Seed.SeedDataAsync(context);
     }
 
     public Task InitializeAsync() => Task.CompletedTask;
 
-    public async Task DisposeAsync() => await _waf.ResetDb();
+    public Task DisposeAsync() => Task.CompletedTask;
 }

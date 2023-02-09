@@ -1,4 +1,4 @@
-﻿namespace RuneSharper.Shared.Models;
+﻿namespace RuneSharper.Services.Models;
 
 public class ActivityModel
 {

@@ -16,14 +16,18 @@ using RuneSharper.Services.Snapshots.ChangeAggregation.Strategies;
 using RuneSharper.Services.Stats;
 using RuneSharper.Services.Token;
 using RuneSharper.Domain.Entities.Users;
-using RuneSharper.Shared.Models;
+using RuneSharper.Services.Models;
 using RuneSharper.Shared.Settings;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class ServicesExtensionMethods {
-    public static IServiceCollection AddRuneSharperServices(this IServiceCollection services) {
+public static class ServicesExtensionMethods
+{
+    public static IServiceCollection AddRuneSharperServices(this IServiceCollection services)
+    {
         services.AddSingleton<IOsrsApiService, OsrsApiService>();
         services.AddOsrsWrapper();
 
@@ -102,8 +106,10 @@ public static class ServicesExtensionMethods {
         return services;
     }
 
-    public static IServiceCollection AddRuneSharperDatabase(this IServiceCollection services, IConfiguration config) {
-        services.AddDbContext<RuneSharperContext>(options => {
+    public static IServiceCollection AddRuneSharperDatabase(this IServiceCollection services, IConfiguration config)
+    {
+        services.AddDbContext<RuneSharperContext>(options =>
+        {
             options.UseSqlServer(config.GetConnectionString("DefaultConnection")!);
         });
 

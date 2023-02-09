@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RuneSharper.Shared.Models;
+using RuneSharper.Services.Models;
 using RuneSharper.Domain.Helpers;
 using RuneSharper.Services.Snapshots;
 using RuneSharper.Services.Characters;

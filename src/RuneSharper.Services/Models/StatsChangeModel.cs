@@ -1,7 +1,7 @@
 ﻿using RuneSharper.Shared.Enums;
 using RuneSharper.Domain.Helpers;
 
-namespace RuneSharper.Shared.Models;
+namespace RuneSharper.Services.Models;
 
 public class StatsChangeModel : ChangeModel<StatsModel>
 {

@@ -1,8 +1,8 @@
-using Microsoft.EntityFrameworkCore;
-using RuneSharper.Data;
 using Serilog;
-using RuneSharper.Shared.Extensions;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using RuneSharper.Data;
+using RuneSharper.Shared.Extensions;
 using RuneSharper.Shared.Settings;
 
 await Start();

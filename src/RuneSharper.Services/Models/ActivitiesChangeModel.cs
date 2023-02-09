@@ -1,7 +1,7 @@
 ﻿using RuneSharper.Domain.Helpers;
 using RuneSharper.Shared.Enums;
 
-namespace RuneSharper.Shared.Models;
+namespace RuneSharper.Services.Models;
 
 public class ActivitiesChangeModel : ChangeModel<ActivitiesModel>
 {

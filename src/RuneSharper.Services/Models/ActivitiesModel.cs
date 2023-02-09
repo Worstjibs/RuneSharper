@@ -1,7 +1,7 @@
 ﻿using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Shared.Extensions;
 
-namespace RuneSharper.Shared.Models;
+namespace RuneSharper.Services.Models;
 
 public class ActivitiesModel
 {

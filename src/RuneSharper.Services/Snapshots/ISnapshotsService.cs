@@ -1,5 +1,5 @@
 ﻿using RuneSharper.Domain.Helpers;
-using RuneSharper.Shared.Models;
+using RuneSharper.Services.Models;
 
 namespace RuneSharper.Services.Snapshots;
 public interface ISnapshotsService

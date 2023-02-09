@@ -1,7 +1,7 @@
 ﻿using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Domain.Helpers;
 using RuneSharper.Domain.Interfaces;
-using RuneSharper.Shared.Models;
+using RuneSharper.Services.Models;
 
 namespace RuneSharper.Services.Snapshots;
 

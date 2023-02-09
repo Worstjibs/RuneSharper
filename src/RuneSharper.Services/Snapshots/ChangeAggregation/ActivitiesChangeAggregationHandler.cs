@@ -1,6 +1,6 @@
 ﻿using RuneSharper.Services.Snapshots.ChangeAggregation.Strategies;
 using RuneSharper.Shared.Enums;
-using RuneSharper.Shared.Models;
+using RuneSharper.Services.Models;
 
 namespace RuneSharper.Services.Snapshots.ChangeAggregation;
 

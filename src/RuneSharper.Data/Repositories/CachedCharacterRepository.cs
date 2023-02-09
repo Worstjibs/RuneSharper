@@ -21,11 +21,11 @@ public class CachedCharacterRepository : Repository<Character>, ICharacterReposi
 
     public async Task<Character?> GetCharacterByNameAsync(string userName)
     {
-        var character = await _memoryCache.GetOrCreateAsync($"character-{userName}", entry =>
+        var character = await _memoryCache.GetOrCreateAsync($"character-{userName}", async entry =>
         {
             entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30);
 
-            return _characterRepository.GetCharacterByNameAsync(userName);
+            return await _characterRepository.GetCharacterByNameAsync(userName);
         });
 
         if (character is not null)
