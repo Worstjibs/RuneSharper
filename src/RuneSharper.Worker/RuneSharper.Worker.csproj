@@ -32,6 +32,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\RuneSharper.IoC\RuneSharper.IoC.csproj" />
+	  <ProjectReference Include="..\RuneSharper.IoC\RuneSharper.IoC.csproj" />
 	</ItemGroup>
 </Project>

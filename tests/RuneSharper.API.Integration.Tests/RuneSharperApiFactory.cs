@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
@@ -16,8 +17,6 @@ using DotNet.Testcontainers.Containers;
 using Respawn;
 using Serilog;
 using RuneSharper.Data;
-using RuneSharper.Domain.Interfaces;
-using RuneSharper.Data.Repositories;
 
 namespace RuneSharper.API.Integration.Tests;
 
@@ -56,10 +55,6 @@ public class RuneSharperApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
             services.RemoveAll<RuneSharperContext>();
             services.RemoveAll<DbContextOptions<RuneSharperContext>>();
 
-            services.RemoveAll<ICharacterRepository>();
-            services.RemoveAll<CharacterRepository>();
-            services.AddScoped<ICharacterRepository, CharacterRepository>();
-
             services.AddDbContext<RuneSharperContext>(options =>
             {
                 options.UseSqlServer(ConnectionString);
@@ -88,8 +83,11 @@ public class RuneSharperApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
         await _dbContainer.DisposeAsync();
     }
 
-    public async Task ResetDb()
+    public async Task ResetPersistance()
     {
         await _respawner.ResetAsync(_dbConnection);
+        var cache = Services.GetRequiredService<IMemoryCache>() as MemoryCache;
+
+        cache!.Compact(1.0);
     }
 }

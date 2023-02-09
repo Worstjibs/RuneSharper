@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>1447f471-229f-4a0b-a9a9-c38d4f143ccb</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,11 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RuneSharper.IoC\RuneSharper.IoC.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
+    <ProjectReference Include="..\RuneSharper.IoC\RuneSharper.IoC.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RuneSharper.Services.Models;
-using RuneSharper.Services.Characters;
 using RuneSharper.Domain.Entities;
 using RuneSharper.Shared.Enums;
+using RuneSharper.Services.Services.Characters;
 
 namespace RuneSharper.API.Controllers;
 

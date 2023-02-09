@@ -3,8 +3,8 @@ using Moq;
 using RuneSharper.Domain.Entities;
 using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Domain.Interfaces;
-using RuneSharper.Services.SaveStats;
-using RuneSharper.Services.Stats;
+using RuneSharper.Services.Services.SaveStats;
+using RuneSharper.Services.Services.Stats;
 
 namespace RuneSharper.Services.Tests;
 

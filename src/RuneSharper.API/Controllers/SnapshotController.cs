@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RuneSharper.Services.Models;
 using RuneSharper.Domain.Helpers;
-using RuneSharper.Services.Snapshots;
-using RuneSharper.Services.Characters;
 using RuneSharper.Domain.Interfaces;
+using RuneSharper.Services.Services.Snapshots;
+using RuneSharper.Services.Services.Characters;
 
 namespace RuneSharper.API.Controllers;
 

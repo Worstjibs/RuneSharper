@@ -4,6 +4,7 @@ using System.Reflection;
 using RuneSharper.Data;
 using RuneSharper.Shared.Extensions;
 using RuneSharper.Shared.Settings;
+using Microsoft.Extensions.DependencyInjection;
 
 await Start();
 

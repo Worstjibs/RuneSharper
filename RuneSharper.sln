@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.API.Integration
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuneSharper.Domain", "src\RuneSharper.Domain\RuneSharper.Domain.csproj", "{A68C9C4D-6074-4E25-A5A9-BFE03F746476}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuneSharper.IoC", "RuneSharper.IoC\RuneSharper.IoC.csproj", "{F846C429-845B-429F-AB8F-F424362AA58D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuneSharper.IoC", "src\RuneSharper.IoC\RuneSharper.IoC.csproj", "{F846C429-845B-429F-AB8F-F424362AA58D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
