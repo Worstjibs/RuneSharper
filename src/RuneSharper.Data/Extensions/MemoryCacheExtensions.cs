@@ -19,7 +19,7 @@ public static class MemoryCacheExtensions
         if (!nonCachedEntityKeys.Any())
             return cachedEntities.Select(x => x.Value).ToList()!;
 
-        var newEntities = await entityAsyncDelegate(entityKeys);
+        var newEntities = await entityAsyncDelegate(nonCachedEntityKeys);
 
         foreach (var newEntity in newEntities)
         {

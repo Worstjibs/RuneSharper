@@ -1,10 +1,10 @@
 using Serilog;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using RuneSharper.Application.Settings;
 using RuneSharper.Data;
 using RuneSharper.Data.Seed;
 using RuneSharper.IoC;
-using RuneSharper.Services.Settings;
 
 await Start();
 

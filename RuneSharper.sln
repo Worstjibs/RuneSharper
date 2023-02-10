@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4272D90C-090C-46E1-83F3-F00494E83C16}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Services.Tests", "Tests\RuneSharper.Services.Tests\RuneSharper.Services.Tests.csproj", "{8DA143B3-2392-4C3F-8CD3-E177E17FB715}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Application.Unit.Tests", "Tests\RuneSharper.Application.Unit.Tests\RuneSharper.Application.Unit.Tests.csproj", "{8DA143B3-2392-4C3F-8CD3-E177E17FB715}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E5BCBCCE-95F3-44F6-A104-5F7A70CA24C9}"
 EndProject
@@ -15,7 +15,7 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "RuneSharper.Client", "src\R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Data", "src\RuneSharper.Data\RuneSharper.Data.csproj", "{6DBFD9D6-7C99-437C-A776-D16952E102B5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Services", "src\RuneSharper.Services\RuneSharper.Services.csproj", "{723CA290-0BCA-4D8D-A4FF-E56D310BEA05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Application", "src\RuneSharper.Application\RuneSharper.Application.csproj", "{723CA290-0BCA-4D8D-A4FF-E56D310BEA05}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Shared", "src\RuneSharper.Shared\RuneSharper.Shared.csproj", "{49B485AF-3BF5-4B22-B3B2-A5825622A993}"
 EndProject
@@ -23,9 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Worker", "src\R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.API.Integration.Tests", "tests\RuneSharper.API.Integration.Tests\RuneSharper.API.Integration.Tests.csproj", "{866EB286-313B-43CB-AAEE-CF42AD72F9D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuneSharper.Domain", "src\RuneSharper.Domain\RuneSharper.Domain.csproj", "{A68C9C4D-6074-4E25-A5A9-BFE03F746476}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.Domain", "src\RuneSharper.Domain\RuneSharper.Domain.csproj", "{A68C9C4D-6074-4E25-A5A9-BFE03F746476}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuneSharper.IoC", "src\RuneSharper.IoC\RuneSharper.IoC.csproj", "{F846C429-845B-429F-AB8F-F424362AA58D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuneSharper.IoC", "src\RuneSharper.IoC\RuneSharper.IoC.csproj", "{F846C429-845B-429F-AB8F-F424362AA58D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

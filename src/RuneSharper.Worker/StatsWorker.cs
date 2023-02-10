@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Options;
-using RuneSharper.Services.Services.SaveStats;
-using RuneSharper.Services.Settings;
+using RuneSharper.Application.Services.SaveStats;
+using RuneSharper.Application.Settings;
 
 namespace RuneSharper.Worker;
 

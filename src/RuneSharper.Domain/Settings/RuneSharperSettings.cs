@@ -1,4 +1,4 @@
-﻿namespace RuneSharper.Services.Settings;
+﻿namespace RuneSharper.Application.Settings;
 
 public class RuneSharperSettings
 {

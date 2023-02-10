@@ -1,5 +1,5 @@
 ﻿using Azure.Messaging.ServiceBus;
-using RuneSharper.Services.Services.SaveStats;
+using RuneSharper.Application.Services.SaveStats;
 
 namespace RuneSharper.Worker;
 

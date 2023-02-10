@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace RuneSharper.Services.Extensions;
+namespace RuneSharper.Application.Extensions;
 
 public static class EnumExtensions
 {

@@ -9,11 +9,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RuneSharper.Application\RuneSharper.Application.csproj" />
     <ProjectReference Include="..\RuneSharper.Data\RuneSharper.Data.csproj" />
-    <ProjectReference Include="..\RuneSharper.Services\RuneSharper.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualBasic;
 using RuneSharper.Data;
 using RuneSharper.Data.Seed;
-using RuneSharper.Services.Models;
+using RuneSharper.Application.Models;
 
 namespace RuneSharper.API.Integration.Tests.Characters;
 

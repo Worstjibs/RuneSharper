@@ -5,7 +5,7 @@ using DotnetOsrsApiWrapper;
 using Serilog;
 using RuneSharper.Data;
 using RuneSharper.IoC;
-using RuneSharper.Services.Settings;
+using RuneSharper.Application.Settings;
 using RuneSharper.Worker;
 
 var log = new LoggerConfiguration()
