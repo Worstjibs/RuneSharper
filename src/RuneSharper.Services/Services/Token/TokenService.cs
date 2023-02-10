@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RuneSharper.Domain.Entities.Users;
-using RuneSharper.Shared.Settings;
+using RuneSharper.Services.Settings;
 
 namespace RuneSharper.Services.Services.Token;
 
@@ -20,7 +20,7 @@ public class TokenService : ITokenService
     public string BuildToken(AppUser user)
     {
         var claims = new Claim[] {
-            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.Name, user.UserName ?? string.Empty),
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 

@@ -1,6 +1,6 @@
 ﻿#nullable disable
 using RuneSharper.Domain.Enums;
-using RuneSharper.Shared.Attributes;
+using RuneSharper.Services.Attributes;
 using RuneSharper.Domain.Entities.Snapshots;
 using System.Reflection;
 

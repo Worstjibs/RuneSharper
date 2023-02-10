@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
-using System.Diagnostics.Tracing;
 using System.Reflection;
 
-namespace RuneSharper.Shared.Extensions;
+namespace RuneSharper.IoC;
+
 public static class SerilogExtensions
 {
     public static IHostBuilder ConfigureSerilog(this IHostBuilder builder, Assembly executingAssemly)

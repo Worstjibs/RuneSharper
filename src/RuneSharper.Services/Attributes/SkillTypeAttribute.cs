@@ -1,6 +1,6 @@
 ﻿using RuneSharper.Domain.Enums;
 
-namespace RuneSharper.Shared.Attributes;
+namespace RuneSharper.Services.Attributes;
 
 public class SkillTypeAttribute : Attribute
 {

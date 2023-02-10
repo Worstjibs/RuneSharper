@@ -1,6 +1,6 @@
 ﻿using RuneSharper.Domain.Enums;
 
-namespace RuneSharper.Shared.Extensions;
+namespace RuneSharper.Services.Extensions;
 
 public static class SnapshotExtensions
 {

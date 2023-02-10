@@ -1,7 +1,10 @@
-﻿using DotnetOsrsApiWrapper;
+﻿using System.Text;
+using DotnetOsrsApiWrapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
@@ -17,15 +20,12 @@ using RuneSharper.Services.Services.Stats;
 using RuneSharper.Services.Services.Token;
 using RuneSharper.Domain.Entities.Users;
 using RuneSharper.Services.Models;
-using RuneSharper.Shared.Settings;
-using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 using RuneSharper.Services.Services.Snapshots.ChangeAggregation.Strategies;
+using RuneSharper.Services.Settings;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace RuneSharper.IoC;
 
-public static class ServicesExtensionMethods
+public static class ServicesExtensions
 {
     public static IServiceCollection AddRuneSharperServices(this IServiceCollection services)
     {
@@ -98,7 +98,7 @@ public static class ServicesExtensionMethods
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.Get<JwtTokenSettings>().SecretKey)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection.Get<JwtTokenSettings>()!.SecretKey)),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };

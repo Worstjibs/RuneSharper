@@ -1,5 +1,5 @@
 ﻿using RuneSharper.Domain.Entities.Snapshots;
-using RuneSharper.Shared.Extensions;
+using RuneSharper.Services.Extensions;
 
 namespace RuneSharper.Services.Models;
 

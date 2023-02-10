@@ -2,9 +2,9 @@ using Serilog;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using RuneSharper.Data;
-using RuneSharper.Shared.Extensions;
-using RuneSharper.Shared.Settings;
-using Microsoft.Extensions.DependencyInjection;
+using RuneSharper.Data.Seed;
+using RuneSharper.IoC;
+using RuneSharper.Services.Settings;
 
 await Start();
 
@@ -55,7 +55,7 @@ async Task MigrateDatabase(IServiceProvider services, IWebHostEnvironment env) {
         await context.Database.MigrateAsync();
 
         if (env.IsDevelopment()) {
-            //await Seed.SeedDataAsync(context);
+            await Seed.SeedDataAsync(context);
         }
     } catch (Exception ex) {
         var logger = servicesCollection.GetRequiredService<ILogger<Program>>();

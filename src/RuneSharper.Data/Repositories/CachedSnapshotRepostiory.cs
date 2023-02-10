@@ -5,7 +5,7 @@ using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Domain.Helpers;
 using RuneSharper.Domain.Interfaces;
 using RuneSharper.Shared.Extensions;
-using RuneSharper.Shared.Settings;
+using RuneSharper.Services.Settings;
 
 namespace RuneSharper.Data.Repositories;
 
