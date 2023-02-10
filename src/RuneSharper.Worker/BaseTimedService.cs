@@ -1,7 +1,5 @@
-﻿using RuneSharper.Shared.Extensions;
-using Serilog.Context;
+﻿using Serilog.Context;
 using System.Diagnostics;
-using System.Diagnostics.Tracing;
 
 namespace RuneSharper.Worker;
 

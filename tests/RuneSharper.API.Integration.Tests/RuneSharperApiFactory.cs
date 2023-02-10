@@ -1,24 +1,22 @@
-﻿using DotNet.Testcontainers.Builders;
-using DotNet.Testcontainers.Configurations;
-using DotNet.Testcontainers.Containers;
+﻿using System.Data.Common;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using DotNet.Testcontainers.Builders;
+using DotNet.Testcontainers.Configurations;
+using DotNet.Testcontainers.Containers;
 using Respawn;
-using RuneSharper.Data;
-using RuneSharper.Data.Seed;
 using Serilog;
-using System;
-using System.Data.Common;
-using System.Net.Http;
-using System.Threading.Tasks;
+using RuneSharper.Data;
 
 namespace RuneSharper.API.Integration.Tests;
 
@@ -40,7 +38,7 @@ public class RuneSharperApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
     private DbConnection _dbConnection = default!;
     private Respawner _respawner = default!;
 
-    private string ConnectionString => $"{_dbContainer.ConnectionString}TrustServerCertificate=True;Encrypt=False";
+    private string ConnectionString => $"{_dbContainer.ConnectionString}TrustServerCertificate=True;";
 
     public HttpClient HttpClient { get; private set; } = default!;
 
@@ -85,8 +83,11 @@ public class RuneSharperApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
         await _dbContainer.DisposeAsync();
     }
 
-    public async Task ResetDb()
+    public async Task ResetPersistance()
     {
         await _respawner.ResetAsync(_dbConnection);
+
+        var cache = Services.GetRequiredService<IMemoryCache>() as MemoryCache;
+        cache!.Compact(1.0);
     }
 }

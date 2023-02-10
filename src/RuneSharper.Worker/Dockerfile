@@ -6,7 +6,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["RuneSharper.Worker/RuneSharper.Worker.csproj", "RuneSharper.Worker/"]
-COPY ["RuneSharper.Services/RuneSharper.Services.csproj", "RuneSharper.Services/"]
+COPY ["RuneSharper.Application/RuneSharper.Application.csproj", "RuneSharper.Application/"]
 COPY ["RuneSharper.Data/RuneSharper.Data.csproj", "RuneSharper.Data/"]
 COPY ["RuneSharper.Shared/RuneSharper.Shared.csproj", "RuneSharper.Shared/"]
 RUN dotnet restore "RuneSharper.Worker/RuneSharper.Worker.csproj"

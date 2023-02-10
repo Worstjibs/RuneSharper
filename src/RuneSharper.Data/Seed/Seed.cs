@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RuneSharper.Shared.Entities;
-using RuneSharper.Shared.Entities.Snapshots;
-using RuneSharper.Shared.Enums;
+using RuneSharper.Domain.Entities;
+using RuneSharper.Domain.Entities.Snapshots;
+using RuneSharper.Domain.Enums;
 
 namespace RuneSharper.Data.Seed;
 

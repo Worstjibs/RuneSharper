@@ -1,16 +1,12 @@
-using DotnetOsrsApiWrapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Azure;
-using RuneSharper.Worker;
-using RuneSharper.Data;
-using RuneSharper.Data.Repositories;
-using RuneSharper.Services.SaveStats;
-using RuneSharper.Services.Stats;
-using RuneSharper.Shared.Settings;
-using Serilog;
 using System.Reflection;
-using RuneSharper.Shared.Extensions;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Azure;
+using Microsoft.EntityFrameworkCore;
+using DotnetOsrsApiWrapper;
+using Serilog;
+using RuneSharper.Data;
+using RuneSharper.IoC;
+using RuneSharper.Application.Settings;
+using RuneSharper.Worker;
 
 var log = new LoggerConfiguration()
     .WriteTo.Console()
@@ -26,22 +22,11 @@ try
         {
             var config = hostContext.Configuration;
 
-            services.AddMemoryCache();
+            services.Configure<RuneSharperSettings>(config.GetRequiredSection("RuneSharperSettings"));
 
-            services.Configure<RuneSharperSettings>(config.GetSection("RuneSharperSettings"));
-            services.AddSingleton<IOsrsApiService, OsrsApiService>();
-            services.AddScoped<ISaveStatsService, SaveStatsService>();
-
-            services.AddScoped<ICharacterRepository, CachedCharacterRepository>();
-            services.AddScoped<CharacterRepository>();
-
-            services.AddScoped<ISnapshotRepository, CachedSnapshotRepostiory>();
-            services.AddScoped<SnapshotRepository>();
-
-            services.AddDbContext<RuneSharperContext>(options =>
-            {
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-            });
+            services
+                .AddRuneSharperServices()
+                .AddRuneSharperDatabase(config);
 
             services.AddAzureClients(builder =>
             {

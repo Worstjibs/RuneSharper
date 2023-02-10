@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RuneSharper.Shared.Entities.Snapshots;
+using RuneSharper.Domain.Entities.Snapshots;
 
 namespace RuneSharper.Data.Mappings; 
 public class SnapshotMapping : IEntityTypeConfiguration<Snapshot> {

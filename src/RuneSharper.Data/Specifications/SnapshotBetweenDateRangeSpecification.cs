@@ -1,8 +1,6 @@
-﻿
-
-using RuneSharper.Shared.Entities.Snapshots;
+﻿using RuneSharper.Domain.Entities.Snapshots;
+using RuneSharper.Domain.Helpers;
 using RuneSharper.Shared.Enums;
-using RuneSharper.Shared.Helpers;
 
 namespace RuneSharper.Data.Specifications;
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RuneSharper.Data.Specifications;
-using RuneSharper.Shared.Entities;
+using RuneSharper.Domain.Entities;
+using RuneSharper.Domain.Interfaces;
 
 namespace RuneSharper.Data.Repositories;
 
@@ -18,8 +19,7 @@ public class CharacterRepository : Repository<Character>, ICharacterRepository
 
     public async Task<IEnumerable<Character>> GetCharactersByNameAsync(IEnumerable<string> userNames, bool includeNameChanged = false)
     {
-        return await DbSet
-            .Where(x => userNames.Contains(x.UserName) && x.NameChanged == includeNameChanged)
+        return await ApplySpecification(new CharacterByUserNameSpecification(userNames))
             .ToListAsync();
     }
 }

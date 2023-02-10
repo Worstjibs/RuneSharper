@@ -1,4 +1,4 @@
-﻿using RuneSharper.Shared.Entities.Snapshots;
+﻿using RuneSharper.Domain.Entities.Snapshots;
 
 namespace RuneSharper.Data.Specifications;
 
