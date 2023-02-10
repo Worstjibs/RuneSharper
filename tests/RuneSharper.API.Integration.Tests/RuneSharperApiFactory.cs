@@ -86,8 +86,8 @@ public class RuneSharperApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
     public async Task ResetPersistance()
     {
         await _respawner.ResetAsync(_dbConnection);
-        var cache = Services.GetRequiredService<IMemoryCache>() as MemoryCache;
 
+        var cache = Services.GetRequiredService<IMemoryCache>() as MemoryCache;
         cache!.Compact(1.0);
     }
 }

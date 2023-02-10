@@ -53,10 +53,6 @@ async Task MigrateDatabase(IServiceProvider services, IWebHostEnvironment env) {
         var context = servicesCollection.GetRequiredService<RuneSharperContext>();
 
         await context.Database.MigrateAsync();
-
-        if (env.IsDevelopment()) {
-            await Seed.SeedDataAsync(context);
-        }
     } catch (Exception ex) {
         var logger = servicesCollection.GetRequiredService<ILogger<Program>>();
 
