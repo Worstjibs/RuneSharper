@@ -6,6 +6,7 @@ using RuneSharper.Application.Services.Snapshots.ChangeAggregation;
 using RuneSharper.Application.Models;
 using RuneSharper.Shared.Enums;
 using System.Reflection;
+using RuneSharper.Application.Attributes;
 
 namespace RuneSharper.Application.Services.Characters;
 
@@ -45,34 +46,21 @@ public class CharactersService : ICharactersService
 
     public async Task<IEnumerable<CharacterListModel>> GetCharacterListModelsAsync(string? sort, SortDirection direction)
     {
-        var characters = await _characterRepository.GetAllAsync();
-        var latestSnapshots = await _snapshotRepository.GetLatestSnapshotsAsync(characters.Select(x => x.UserName));
+        string? tableName = null;
+        string? columnName = null;
 
-        var characterModels = characters.Join(
-            latestSnapshots,
-            c => c.Id,
-            s => s.Character.Id,
-            (c, s) =>
-            {
-                var overallSkill = s.Skills.FirstOrDefault(x => x.Type == SkillType.Overall);
+        if (sort is not null)
+            (tableName, columnName) = GetProperty(sort);
 
-                return new CharacterListModel
-                {
-                    UserName = c.UserName,
-                    FirstTracked = c.DateCreated,
-                    TotalExperience = overallSkill?.Experience ?? 0,
-                    TotalLevel = overallSkill?.Level ?? 0
-                };
-            });
+        var characters = await _characterRepository.GetCharactersAsync(tableName, columnName, direction, 0, 0);
 
-        if (!string.IsNullOrEmpty(sort))
+        return characters.Select(x => new CharacterListModel
         {
-            characterModels = direction == SortDirection.Ascending
-                ? characterModels.OrderBy(x => GetProperty(sort, x))
-                : characterModels.OrderByDescending(x => GetProperty(sort, x));
-        }
-
-        return characterModels;
+            UserName = x.UserName,
+            FirstTracked = x.DateCreated,
+            TotalExperience = x.Snapshots.First().Skills.First().Experience,
+            TotalLevel = x.Snapshots.First().Skills.First().Level
+        }).ToList();
     }
 
     public async Task<CharacterViewModel?> GetCharacterViewModelAsync(string userName)
@@ -102,16 +90,19 @@ public class CharactersService : ICharactersService
         return characterModel;
     }
 
-    private static object GetProperty(string sort, CharacterListModel model)
+    private static (string TableName, string ColumnName) GetProperty(string sort)
     {
         var property = typeof(CharacterListModel)
             .GetProperty(sort, BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.IgnoreCase);
 
-        if (property != null)
-        {
-            return property.GetValue(model)!;
-        }
+        if (property == null)
+            throw new ArgumentException($"Sort expression {sort} is invalid");
 
-        throw new ArgumentException($"Sort expression {sort} is invalid");
+        var sortMapping = property.GetCustomAttribute<SortMappingAttribute>();
+
+        if (sortMapping == null)
+            throw new ArgumentException($"Property {property.Name} does not have sort mapping attribute defined");
+
+        return (sortMapping.TableName, sortMapping.ColumnName);
     }
 }

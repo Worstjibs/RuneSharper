@@ -2,6 +2,7 @@
 using RuneSharper.Data.Extensions;
 using RuneSharper.Domain.Entities;
 using RuneSharper.Domain.Interfaces;
+using RuneSharper.Shared.Enums;
 
 namespace RuneSharper.Data.Repositories;
 
@@ -13,7 +14,8 @@ public class CachedCharacterRepository : Repository<Character>, ICharacterReposi
     public CachedCharacterRepository(
         RuneSharperContext context,
         CharacterRepository characterRepository,
-        IMemoryCache memoryCache) : base(context)
+        IRuneSharperConnectionFactory connectionFactory,
+        IMemoryCache memoryCache) : base(context, connectionFactory)
     {
         _characterRepository = characterRepository;
         _memoryCache = memoryCache;
@@ -46,5 +48,10 @@ public class CachedCharacterRepository : Repository<Character>, ICharacterReposi
         _context.Characters.AttachRange(results);
 
         return results;
+    }
+
+    public async Task<IEnumerable<Character>> GetCharactersAsync(string? sortTable, string? sortColumn, SortDirection direction, int skip, int take)
+    {
+        return await _characterRepository.GetCharactersAsync(sortTable, sortColumn, direction, skip, take);
     }
 }

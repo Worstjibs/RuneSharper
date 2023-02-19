@@ -7,7 +7,8 @@ namespace RuneSharper.Data.Repositories;
 
 public class SkillSnapshotRepository : Repository<SkillSnapshot>, ISkillSnapshotRepository
 {
-    public SkillSnapshotRepository(RuneSharperContext context) : base(context)
+    public SkillSnapshotRepository(RuneSharperContext context, IRuneSharperConnectionFactory connectionFactory) 
+        : base(context, connectionFactory)
     {
     }
 

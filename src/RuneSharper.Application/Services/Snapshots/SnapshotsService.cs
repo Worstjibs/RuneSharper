@@ -48,7 +48,7 @@ public class SnapshotsService : ISnapshotsService
         var first = await _snapshotRepository.GetFirstSnapshotAsync(userName, dateRange);
 
         if (first is null)
-            return null;
+            return new ActivitiesModel();
 
         var last = await _snapshotRepository.GetLastSnapshotAsync(userName, dateRange);
 

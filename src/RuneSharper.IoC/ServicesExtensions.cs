@@ -8,20 +8,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
+using RuneSharper.Data.Connections;
 using RuneSharper.Domain.Interfaces;
+using RuneSharper.Application.Models;
 using RuneSharper.Application.Services.Characters;
 using RuneSharper.Application.Services.DateTimeProvider;
 using RuneSharper.Application.Services.LineCharts;
 using RuneSharper.Application.Services.SaveStats;
 using RuneSharper.Application.Services.Snapshots;
 using RuneSharper.Application.Services.Snapshots.ChangeAggregation;
-using RuneSharper.Application.Snapshots.ChangeAggregation.Strategies;
 using RuneSharper.Application.Services.Stats;
-using RuneSharper.Application.Services.Token;
-using RuneSharper.Domain.Entities.Users;
-using RuneSharper.Application.Models;
 using RuneSharper.Application.Services.Snapshots.ChangeAggregation.Strategies;
+using RuneSharper.Application.Services.Token;
 using RuneSharper.Application.Settings;
+using RuneSharper.Domain.Entities.Users;
 using System.Reflection;
 
 namespace RuneSharper.IoC;
@@ -111,10 +111,15 @@ public static class ServicesExtensions
 
     public static IServiceCollection AddRuneSharperDatabase(this IServiceCollection services, IConfiguration config)
     {
+        var defaultConnectionString = config.GetConnectionString("DefaultConnection")!;
+
         services.AddDbContext<RuneSharperContext>(options =>
         {
-            options.UseSqlServer(config.GetConnectionString("DefaultConnection")!);
+            options.UseSqlServer(defaultConnectionString);
         });
+
+        services.AddScoped<IRuneSharperConnectionFactory>(_ =>
+            new RuneSharperConnectionFactory(defaultConnectionString));
 
         return services;
     }

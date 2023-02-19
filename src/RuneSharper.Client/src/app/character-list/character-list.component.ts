@@ -15,6 +15,8 @@ export class CharacterListComponent implements OnInit {
   loadingIndicator = true;
   reorderable = true;
 
+  sorts = [{ prop: 'userName', dir: 'asc' }];
+
   columns: TableColumn[] = [];
 
   ColumnMode = ColumnMode;
@@ -33,12 +35,7 @@ export class CharacterListComponent implements OnInit {
       { prop: 'firstTracked', pipe: this.datePipe }
     ];
 
-    this.characterService.getCharacterList()
-      .subscribe(data => {
-        this.rows = data;
-
-        this.loadingIndicator = false;
-      });
+    this.sort('userName', SortDirection.asc);
   }
 
   onSort($event: any) {

@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using RuneSharper.Data.Specifications;
+using RuneSharper.Domain.Entities;
 using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Domain.Helpers;
 using RuneSharper.Domain.Interfaces;
@@ -9,7 +11,8 @@ namespace RuneSharper.Data.Repositories;
 
 public class SnapshotRepository : Repository<Snapshot>, ISnapshotRepository
 {
-    public SnapshotRepository(RuneSharperContext context) : base(context)
+    public SnapshotRepository(RuneSharperContext context, IRuneSharperConnectionFactory connectionFactory) 
+        : base(context, connectionFactory)
     {
     }
 
