@@ -5,6 +5,7 @@ using RuneSharper.Application.Services.SaveStats;
 using RuneSharper.Application.Services.Snapshots.ChangeAggregation;
 using RuneSharper.Application.Models;
 using RuneSharper.Shared.Enums;
+using System.Reflection;
 
 namespace RuneSharper.Application.Services.Characters;
 
@@ -103,9 +104,8 @@ public class CharactersService : ICharactersService
 
     private static object GetProperty(string sort, CharacterListModel model)
     {
-        sort = $"{char.ToUpperInvariant(sort[0])}{sort[1..]}";
-
-        var property = typeof(CharacterListModel).GetProperty(sort);
+        var property = typeof(CharacterListModel)
+            .GetProperty(sort, BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.IgnoreCase);
 
         if (property != null)
         {

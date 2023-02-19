@@ -5,6 +5,6 @@ namespace RuneSharper.Application.Services.Snapshots.ChangeAggregation.Strategie
 
 public interface IChangeAggregationStrategy
 {
-    Frequency Frequency { get; }
+    FrequencyType Frequency { get; }
     DateRange DateRange { get; }
 }

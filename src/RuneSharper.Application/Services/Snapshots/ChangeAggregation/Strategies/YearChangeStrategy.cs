@@ -8,7 +8,7 @@ public class YearChangeStrategy : BaseChangeStrategy
 {
     public YearChangeStrategy(IDateTimeProvider dateTimeProvider) : base(dateTimeProvider) { }
 
-    public override Frequency Frequency => Frequency.Year;
+    public override FrequencyType Frequency => FrequencyType.Year;
 
     protected override DateTime dateFrom => InstantiatedUtc.AddYears(-1);
     protected override DateTime dateTo => InstantiatedUtc;

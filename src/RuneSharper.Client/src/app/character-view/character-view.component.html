@@ -6,18 +6,9 @@
             <tabset>
                 <tab heading="Skills">
                     <h3>Skill Changes</h3>                
-                    <tabset>
-                        <tab heading="Day">
-                            <app-skill-list [stats]="getStats(Frequency.Day)"></app-skill-list>
-                        </tab>
-                        <tab heading="Week">
-                            <app-skill-list [stats]="getStats(Frequency.Week)"></app-skill-list>
-                        </tab>
-                        <tab heading="Month">
-                            <app-skill-list [stats]="getStats(Frequency.Month)"></app-skill-list>
-                        </tab>
-                        <tab heading="Year">
-                            <app-skill-list [stats]="getStats(Frequency.Year)"></app-skill-list>
+                    <tabset>                        
+                        <tab *ngFor="let agg of character?.statsChange" [heading]="agg.frequency.name">                            
+                            <app-skill-list [stats]="agg.model"></app-skill-list>
                         </tab>
                     </tabset>
                 </tab>
@@ -27,17 +18,8 @@
                     <app-boss-list class="col-9 mb-5" [bosses]="character.activities.bosses"></app-boss-list>
                     <h3>Boss Changes</h3>
                     <tabset>
-                        <tab heading="Day">
-                            <app-boss-list [bosses]="getBosses(Frequency.Day)"></app-boss-list>
-                        </tab>
-                        <tab heading="Week">
-                            <app-boss-list [bosses]="getBosses(Frequency.Week)"></app-boss-list>
-                        </tab>
-                        <tab heading="Month">
-                            <app-boss-list [bosses]="getBosses(Frequency.Month)"></app-boss-list>
-                        </tab>
-                        <tab heading="Year">
-                            <app-boss-list [bosses]="getBosses(Frequency.Year)"></app-boss-list>
+                        <tab *ngFor="let agg of character?.activitiesChange" [heading]="agg.frequency.name">                            
+                            <app-boss-list [bosses]="agg.model.bosses"></app-boss-list>
                         </tab>
                     </tabset>
                 </tab>

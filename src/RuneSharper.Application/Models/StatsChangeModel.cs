@@ -7,7 +7,7 @@ public class StatsChangeModel : ChangeModel<StatsModel>
 {
     public StatsChangeModel() { }
 
-    public StatsChangeModel(Frequency frequency, DateRange dateRange, StatsModel? model)
+    public StatsChangeModel(FrequencyType frequency, DateRange dateRange, StatsModel? model)
         : base(frequency, dateRange, model)
     {
     }

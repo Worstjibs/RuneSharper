@@ -22,6 +22,7 @@ using RuneSharper.Domain.Entities.Users;
 using RuneSharper.Application.Models;
 using RuneSharper.Application.Services.Snapshots.ChangeAggregation.Strategies;
 using RuneSharper.Application.Settings;
+using System.Reflection;
 
 namespace RuneSharper.IoC;
 
@@ -51,10 +52,11 @@ public static class ServicesExtensions
 
         services.AddScoped<IChangeAggregationHandler<ActivitiesChangeModel>, ActivitiesChangeAggregationHandler>();
         services.AddScoped<IChangeAggregationHandler<StatsChangeModel>, StatsChangeAggregationHandler>();
-        services.AddScoped<IChangeAggregationStrategy, DayChangeStrategy>();
-        services.AddScoped<IChangeAggregationStrategy, WeekChangeStrategy>();
-        services.AddScoped<IChangeAggregationStrategy, MonthChangeStrategy>();
-        services.AddScoped<IChangeAggregationStrategy, YearChangeStrategy>();
+        services.Scan(i =>
+            i.FromAssemblies(Assembly.GetAssembly(typeof(IChangeAggregationStrategy))!)
+            .AddClasses(c => c.AssignableTo<IChangeAggregationStrategy>())
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
 
         services.AddScoped<IDateTimeProvider, DateTimeProvider>();
 
