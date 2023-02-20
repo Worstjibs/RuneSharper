@@ -17,7 +17,6 @@ public class ProjectedCharacterRepository : Repository<Character>, IProjectedCha
     public async Task<IEnumerable<CharacterListModel>> GetProjectedCharacters(Expression<Func<CharacterListModel, object>>? orderBy, SortDirection? direction)
     {
         var query = DbSet
-            .Where(x => x.UserName != "becky")
             .SelectMany(c => c.Snapshots
                 .OrderByDescending(s => s.DateCreated)
                 .Take(1)
