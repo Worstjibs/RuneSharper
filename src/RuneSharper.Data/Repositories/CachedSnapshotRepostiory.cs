@@ -6,7 +6,6 @@ using RuneSharper.Domain.Helpers;
 using RuneSharper.Domain.Interfaces;
 using RuneSharper.Shared.Extensions;
 using RuneSharper.Application.Settings;
-using RuneSharper.Shared.Enums;
 
 namespace RuneSharper.Data.Repositories;
 
@@ -22,8 +21,8 @@ public class CachedSnapshotRepostiory : Repository<Snapshot>, ISnapshotRepositor
         RuneSharperContext context,
         SnapshotRepository snapshotRepository,
         IMemoryCache memoryCache,
-        IRuneSharperConnectionFactory connectionFactory,
-        IOptions<RuneSharperSettings> settings) : base(context, connectionFactory)
+        IOptions<RuneSharperSettings> settings) 
+        : base(context)
     {
         _snapshotRepository = snapshotRepository;
         _memoryCache = memoryCache;

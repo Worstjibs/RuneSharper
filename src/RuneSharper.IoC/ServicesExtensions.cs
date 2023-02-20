@@ -38,6 +38,8 @@ public static class ServicesExtensions
         services.AddScoped<ICharacterRepository, CachedCharacterRepository>();
         services.AddScoped<CharacterRepository>();
 
+        services.AddScoped<IProjectedCharacterRepository<CharacterListModel>, ProjectedCharacterRepository>();
+
         services.AddScoped<ISnapshotRepository, CachedSnapshotRepostiory>();
         services.AddScoped<SnapshotRepository>();
 

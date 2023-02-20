@@ -9,13 +9,11 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseIntE
 {
     protected readonly DbSet<TEntity> DbSet;
     protected readonly RuneSharperContext _context;
-    protected readonly IRuneSharperConnectionFactory _connectionFactory;
 
-    public Repository(RuneSharperContext context, IRuneSharperConnectionFactory connectionFactory)
+    public Repository(RuneSharperContext context)
     {
         DbSet = context.Set<TEntity>();
         _context = context;
-        _connectionFactory = connectionFactory;
     }
 
     public void Delete(TEntity entity)
