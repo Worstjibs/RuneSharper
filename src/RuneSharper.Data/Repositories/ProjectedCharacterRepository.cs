@@ -17,16 +17,19 @@ public class ProjectedCharacterRepository : Repository<Character>, IProjectedCha
     public async Task<IEnumerable<CharacterListModel>> GetProjectedCharacters(Expression<Func<CharacterListModel, object>>? orderBy, SortDirection? direction)
     {
         var query = DbSet
+            .Where(x => x.UserName != "becky")
             .SelectMany(c => c.Snapshots
                 .OrderByDescending(s => s.DateCreated)
                 .Take(1)
-                .SelectMany(s => s.Skills.Where(skill => skill.Type == SkillType.Overall)))
+                .SelectMany(s => s.Skills))
+            .GroupBy(x => x.Snapshot.Character)
             .Select(x => new CharacterListModel
             {
-                UserName = x.Snapshot.Character.UserName,
-                FirstTracked = x.Snapshot.Character.DateCreated,
-                TotalLevel = x.Level,
-                TotalExperience = x.Experience
+                UserName = x.Key.UserName,
+                FirstTracked = x.Key.DateCreated,
+                TotalLevel = x.Max(s => s.Level),
+                TotalExperience = x.Max(s => s.Experience),
+                HighestSkill = x.Where(s => s.Type != SkillType.Overall).OrderByDescending(s => s.Experience).First().Type.ToString()
             });
 
         if (orderBy is not null)

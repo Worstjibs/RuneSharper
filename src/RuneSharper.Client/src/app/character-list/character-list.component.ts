@@ -32,7 +32,8 @@ export class CharacterListComponent implements OnInit {
       { prop: 'userName' },
       { prop: 'totalLevel' },
       { prop: 'totalExperience' },
-      { prop: 'firstTracked', pipe: this.datePipe }
+      { prop: 'firstTracked', pipe: this.datePipe },
+      { prop: 'highestSkill', sortable: false }
     ];
 
     this.sort('userName', SortDirection.asc);

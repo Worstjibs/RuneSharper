@@ -1,18 +1,10 @@
-﻿using RuneSharper.Application.Attributes;
-
-namespace RuneSharper.Application.Models;
+﻿namespace RuneSharper.Application.Models;
 
 public class CharacterListModel
 {
-    [SortMapping("Characters", "Username")]
-    public string UserName { get; set; } = default!;
-
-    [SortMapping("SkillSnapshot", "Level")]
+    public string UserName { get; set; } = string.Empty;
     public int TotalLevel { get; set; }
-
-    [SortMapping("SkillSnapshot", "Experience")]
     public int TotalExperience { get; set; }
-
-    [SortMapping("Characters", "DateCreated")]
     public DateTime FirstTracked { get; set; }
+    public string HighestSkill { get; set; } = string.Empty;
 }
