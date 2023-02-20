@@ -3,17 +3,17 @@ using RuneSharper.Data.Extensions;
 using RuneSharper.Domain.Entities;
 using RuneSharper.Domain.Interfaces;
 
-namespace RuneSharper.Data.Repositories;
+namespace RuneSharper.Data.Repositories.Characters;
 
 public class CachedCharacterRepository : Repository<Character>, ICharacterRepository
 {
-    private readonly CharacterRepository _characterRepository;
-    private readonly IMemoryCache _memoryCache;
+    protected readonly CharacterRepository _characterRepository;
+    protected readonly IMemoryCache _memoryCache;
 
     public CachedCharacterRepository(
         RuneSharperContext context,
         CharacterRepository characterRepository,
-        IMemoryCache memoryCache) 
+        IMemoryCache memoryCache)
         : base(context)
     {
         _characterRepository = characterRepository;

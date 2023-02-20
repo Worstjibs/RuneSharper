@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace RuneSharper.Domain.Interfaces;
 
-public interface IProjectedCharacterRepository<T> : IRepository<Character>
+public interface IProjectedCharacterRepository<T> : IRepository<Character>, ICharacterRepository
 {
-    Task<IEnumerable<T>> GetProjectedCharacters(Expression<Func<T, object>>? orderBy, SortDirection? direction);
+    Task<IEnumerable<T>> GetProjectedCharacters(string? orderBy, SortDirection? direction);
 }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
+using RuneSharper.Data.Repositories.Characters;
 using RuneSharper.Data.Connections;
 using RuneSharper.Domain.Interfaces;
 using RuneSharper.Application.Models;
@@ -38,7 +39,8 @@ public static class ServicesExtensions
         services.AddScoped<ICharacterRepository, CachedCharacterRepository>();
         services.AddScoped<CharacterRepository>();
 
-        services.AddScoped<IProjectedCharacterRepository<CharacterListModel>, ProjectedCharacterRepository>();
+        services.AddScoped<IProjectedCharacterRepository<CharacterListModel>, CachedProjectedCharacterRepository>();
+        services.AddScoped<ProjectedCharacterRepository>();
 
         services.AddScoped<ISnapshotRepository, CachedSnapshotRepostiory>();
         services.AddScoped<SnapshotRepository>();
