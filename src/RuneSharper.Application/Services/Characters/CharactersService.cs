@@ -6,6 +6,7 @@ using RuneSharper.Application.Models;
 using RuneSharper.Shared.Enums;
 using System.Reflection;
 using System.Linq.Expressions;
+using RuneSharper.Application.Attributes;
 
 namespace RuneSharper.Application.Services.Characters;
 
@@ -88,6 +89,9 @@ public class CharactersService : ICharactersService
 
         if (property == null)
             throw new ArgumentException($"Sort expression {sort} is invalid");
+
+        if (property.GetCustomAttribute<UnsortableAttribute>() is not null)
+            throw new ArgumentException($"Property {property.Name} is unsortable");
 
         var parameter = Expression.Parameter(typeof(CharacterListModel));
         var propertyExpression = Expression.Property(parameter, property);

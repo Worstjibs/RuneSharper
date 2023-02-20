@@ -1,4 +1,6 @@
-﻿namespace RuneSharper.Application.Models;
+﻿using RuneSharper.Application.Attributes;
+
+namespace RuneSharper.Application.Models;
 
 public class CharacterListModel
 {
@@ -6,5 +8,7 @@ public class CharacterListModel
     public int TotalLevel { get; set; }
     public int TotalExperience { get; set; }
     public DateTime FirstTracked { get; set; }
+
+    [Unsortable]
     public string HighestSkill { get; set; } = string.Empty;
 }
