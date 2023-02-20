@@ -17,6 +17,7 @@ using DotNet.Testcontainers.Containers;
 using Respawn;
 using Serilog;
 using RuneSharper.Data;
+using RuneSharper.Data.Connections;
 
 namespace RuneSharper.API.Integration.Tests;
 
@@ -32,7 +33,7 @@ public class RuneSharperApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
                 Password = "TuxUNPjhIJmttJ1pMhF",
                 Database = "runesharper"
             })
-            //.WithPortBinding(1433, 1433)
+            .WithPortBinding(1450, 1433)
             .Build();
 
     private DbConnection _dbConnection = default!;
@@ -54,11 +55,15 @@ public class RuneSharperApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
         {
             services.RemoveAll<RuneSharperContext>();
             services.RemoveAll<DbContextOptions<RuneSharperContext>>();
+            services.RemoveAll<IRuneSharperConnectionFactory>();
 
             services.AddDbContext<RuneSharperContext>(options =>
             {
                 options.UseSqlServer(ConnectionString);
             });
+
+            services.AddScoped<IRuneSharperConnectionFactory>(_ =>
+                new RuneSharperConnectionFactory(ConnectionString));
         });
     }
 

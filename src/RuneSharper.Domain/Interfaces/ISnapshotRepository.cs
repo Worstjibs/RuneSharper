@@ -1,5 +1,6 @@
 ﻿using RuneSharper.Domain.Entities.Snapshots;
 using RuneSharper.Domain.Helpers;
+using RuneSharper.Shared.Enums;
 
 namespace RuneSharper.Domain.Interfaces;
 

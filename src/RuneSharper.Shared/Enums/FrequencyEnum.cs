@@ -1,9 +1,15 @@
-﻿namespace RuneSharper.Shared.Enums;
+﻿using System.ComponentModel.DataAnnotations;
 
-public enum Frequency
+namespace RuneSharper.Shared.Enums;
+
+public enum FrequencyType
 {
     Day,
     Week,
-    Month,
+    [Display(Name = "2 Weeks")]
+    Fortnight,
+    Month, 
+    [Display(Name = "3 Months")]
+    Quarter,
     Year
 }

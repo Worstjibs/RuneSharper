@@ -3,7 +3,7 @@ using RuneSharper.Data.Specifications;
 using RuneSharper.Domain.Entities;
 using RuneSharper.Domain.Interfaces;
 
-namespace RuneSharper.Data.Repositories;
+namespace RuneSharper.Data.Repositories.Characters;
 
 public class CharacterRepository : Repository<Character>, ICharacterRepository
 {

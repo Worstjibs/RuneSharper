@@ -1,4 +1,4 @@
-import { Frequency } from "@app/enums/frequency";
+import { Frequency } from "@app/models/frequency";
 
 export interface Stats {
     overall: Skill;

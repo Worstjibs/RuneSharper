@@ -5,15 +5,15 @@ namespace RuneSharper.Application.Models;
 
 public class ChangeModel<T> where T : class
 {
-    public Frequency? Frequency { get; set; }
+    public FrequencyModel? Frequency { get; set; }
     public DateRange? DateRange { get; set; }
     public T? Model { get; set; }
 
     public ChangeModel() { }
 
-    public ChangeModel(Frequency frequency, DateRange dateRange, T? model)
+    public ChangeModel(FrequencyType frequency, DateRange dateRange, T? model)
     {
-        Frequency = frequency;
+        Frequency = new FrequencyModel(frequency);
         DateRange = dateRange;
         Model = model;
     }

@@ -27,13 +27,18 @@ public class SnapshotsService : ISnapshotsService
             last!.Skills,
             f => f.Type,
             l => l.Type,
-            (f, l) => new SkillSnapshot
-            {
-                Experience = l.Experience - f.Experience,
-                Level = l.Level - f.Level,
-                Rank = f.Rank - l.Rank,
-                Type = l.Type
-            }).ToList();
+            (f, l) =>
+                f.Rank < 0
+                ? null
+                : new SkillSnapshot
+                {
+                    Experience = l.Experience - f.Experience,
+                    Level = l.Level - f.Level,
+                    Rank = f.Rank - l.Rank,
+                    Type = l.Type
+                })
+            .Where(x => x is not null)
+            .ToList();
 
         return new StatsModel(deltaList);
     }
@@ -43,7 +48,7 @@ public class SnapshotsService : ISnapshotsService
         var first = await _snapshotRepository.GetFirstSnapshotAsync(userName, dateRange);
 
         if (first is null)
-            return null;
+            return new ActivitiesModel();
 
         var last = await _snapshotRepository.GetLastSnapshotAsync(userName, dateRange);
 
@@ -51,13 +56,18 @@ public class SnapshotsService : ISnapshotsService
             last!.Activities,
             f => f.Type,
             l => l.Type,
-            (f, l) => new ActivitySnapshot
-            {
-                Rank = f.Rank - l.Rank,
-                Score = l.Score - f.Score,
-                Type = f.Type
-            }).ToList();
+            (f, l) =>
+                f.Rank < 0
+                ? null
+                : new ActivitySnapshot
+                {
+                    Rank = f.Rank - l.Rank,
+                    Score = l.Score - f.Score,
+                    Type = f.Type
+                })
+            .Where(x => x is not null)
+            .ToList();
 
-        return new ActivitiesModel(deltaList);
+        return new ActivitiesModel(deltaList!);
     }
 }

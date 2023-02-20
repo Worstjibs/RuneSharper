@@ -15,7 +15,7 @@ public abstract class BaseChangeStrategy : IChangeAggregationStrategy
     protected abstract DateTime dateFrom { get; }
     protected abstract DateTime dateTo { get; }
 
-    public abstract Frequency Frequency { get; }
+    public abstract FrequencyType Frequency { get; }
 
     public DateRange DateRange => new DateRange(dateFrom, dateTo);
 }

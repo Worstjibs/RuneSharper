@@ -1,4 +1,4 @@
-import { Frequency } from "../enums/frequency";
+import { Frequency } from "./frequency";
 
 export interface Activities {
     clues: Activity[];
@@ -13,7 +13,7 @@ export interface Activity {
 }
 
 export interface ActivitiesChange {
-    frequency: Frequency,
-    dateRange: { DateFrom: Date, DateTo: Date },
+    frequency: Frequency;
+    dateRange: { DateFrom: Date, DateTo: Date };
     model: Activities;
 }

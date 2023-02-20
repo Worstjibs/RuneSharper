@@ -7,7 +7,7 @@ public class ActivitiesChangeModel : ChangeModel<ActivitiesModel>
 {
     public ActivitiesChangeModel() { }
 
-    public ActivitiesChangeModel(Frequency frequency, DateRange dateRange, ActivitiesModel? model)
+    public ActivitiesChangeModel(FrequencyType frequency, DateRange dateRange, ActivitiesModel? model)
         : base(frequency, dateRange, model)
     {
     }

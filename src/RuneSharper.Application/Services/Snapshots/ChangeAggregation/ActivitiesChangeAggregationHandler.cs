@@ -16,7 +16,7 @@ public class ActivitiesChangeAggregationHandler : ChangeAggregationHandler<Activ
         _snapshotsService = snapshotsService;
     }
 
-    public override async Task<ActivitiesChangeModel> GetChangeAggregationForUser(string userName, Frequency frequency)
+    public override async Task<ActivitiesChangeModel> GetChangeAggregationForUser(string userName, FrequencyType frequency)
     {
         var strategy = GetStrategy(frequency);
 

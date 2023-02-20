@@ -21,7 +21,8 @@ public class CachedSnapshotRepostiory : Repository<Snapshot>, ISnapshotRepositor
         RuneSharperContext context,
         SnapshotRepository snapshotRepository,
         IMemoryCache memoryCache,
-        IOptions<RuneSharperSettings> settings) : base(context)
+        IOptions<RuneSharperSettings> settings) 
+        : base(context)
     {
         _snapshotRepository = snapshotRepository;
         _memoryCache = memoryCache;

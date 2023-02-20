@@ -45,10 +45,6 @@ try
 
             services.AddOsrsWrapper();
         })
-        .UseWindowsService(options =>
-        {
-            options.ServiceName = "RuneSharper Worker Service";
-        })
         .Build();
 
     using (var scope = host.Services.CreateScope())

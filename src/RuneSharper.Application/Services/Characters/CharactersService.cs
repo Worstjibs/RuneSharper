@@ -1,29 +1,31 @@
 ﻿using RuneSharper.Domain.Entities;
-using RuneSharper.Domain.Enums;
 using RuneSharper.Domain.Interfaces;
 using RuneSharper.Application.Services.SaveStats;
 using RuneSharper.Application.Services.Snapshots.ChangeAggregation;
 using RuneSharper.Application.Models;
 using RuneSharper.Shared.Enums;
+using System.Reflection;
+using System.Linq.Expressions;
+using RuneSharper.Application.Attributes;
 
 namespace RuneSharper.Application.Services.Characters;
 
 public class CharactersService : ICharactersService
 {
-    private readonly ICharacterRepository _characterRepository;
     private readonly ISnapshotRepository _snapshotRepository;
     private readonly ISaveStatsService _saveStatsService;
+    private readonly IProjectedCharacterRepository<CharacterListModel> _projectedCharacterRepository;
     private readonly IChangeAggregationHandler<ActivitiesChangeModel> _activitiesChangeAggregationHandler;
     private readonly IChangeAggregationHandler<StatsChangeModel> _statsChangeAggregationHandler;
 
     public CharactersService(
-        ICharacterRepository characterRepository,
+        IProjectedCharacterRepository<CharacterListModel> projectedCharacterRepository,
         ISnapshotRepository snapshotRepository,
         ISaveStatsService saveStatsService,
         IChangeAggregationHandler<ActivitiesChangeModel> activitiesChangeAggregationHandler,
         IChangeAggregationHandler<StatsChangeModel> statsChangeAggregationHandler)
     {
-        _characterRepository = characterRepository;
+        _projectedCharacterRepository = projectedCharacterRepository;
         _snapshotRepository = snapshotRepository;
         _saveStatsService = saveStatsService;
         _activitiesChangeAggregationHandler = activitiesChangeAggregationHandler;
@@ -32,7 +34,7 @@ public class CharactersService : ICharactersService
 
     public async Task<Character?> GetCharacterAsync(string userName)
     {
-        return await _characterRepository.GetCharacterByNameAsync(userName);
+        return await _projectedCharacterRepository.GetCharacterByNameAsync(userName);
     }
 
     public async Task<Character?> UpdateCharacterStatsAsync(string userName)
@@ -42,41 +44,14 @@ public class CharactersService : ICharactersService
         return await _saveStatsService.SaveStatsForCharacter(userName);
     }
 
-    public async Task<IEnumerable<CharacterListModel>> GetCharacterListModelsAsync(string? sort, SortDirection direction)
+    public async Task<IEnumerable<CharacterListModel>> GetCharacterListModelsAsync(string? sort, SortDirection? direction)
     {
-        var characters = await _characterRepository.GetAllAsync();
-        var latestSnapshots = await _snapshotRepository.GetLatestSnapshotsAsync(characters.Select(x => x.UserName));
-
-        var characterModels = characters.Join(
-            latestSnapshots,
-            c => c.Id,
-            s => s.Character.Id,
-            (c, s) =>
-            {
-                var overallSkill = s.Skills.FirstOrDefault(x => x.Type == SkillType.Overall);
-
-                return new CharacterListModel
-                {
-                    UserName = c.UserName,
-                    FirstTracked = c.DateCreated,
-                    TotalExperience = overallSkill?.Experience ?? 0,
-                    TotalLevel = overallSkill?.Level ?? 0
-                };
-            });
-
-        if (!string.IsNullOrEmpty(sort))
-        {
-            characterModels = direction == SortDirection.Ascending
-                ? characterModels.OrderBy(x => GetProperty(sort, x))
-                : characterModels.OrderByDescending(x => GetProperty(sort, x));
-        }
-
-        return characterModels;
+        return await _projectedCharacterRepository.GetProjectedCharacters(sort, direction);
     }
 
     public async Task<CharacterViewModel?> GetCharacterViewModelAsync(string userName)
     {
-        var character = await _characterRepository.GetCharacterByNameAsync(userName);
+        var character = await _projectedCharacterRepository.GetCharacterByNameAsync(userName);
 
         if (character is null)
             return null;
@@ -99,19 +74,5 @@ public class CharactersService : ICharactersService
         characterModel.StatsChange = await _statsChangeAggregationHandler.GetChangeAggregationsForUser(userName);
 
         return characterModel;
-    }
-
-    private static object GetProperty(string sort, CharacterListModel model)
-    {
-        sort = $"{char.ToUpperInvariant(sort[0])}{sort[1..]}";
-
-        var property = typeof(CharacterListModel).GetProperty(sort);
-
-        if (property != null)
-        {
-            return property.GetValue(model)!;
-        }
-
-        throw new ArgumentException($"Sort expression {sort} is invalid");
     }
 }

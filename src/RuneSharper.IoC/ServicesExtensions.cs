@@ -8,20 +8,22 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RuneSharper.Data;
 using RuneSharper.Data.Repositories;
+using RuneSharper.Data.Repositories.Characters;
+using RuneSharper.Data.Connections;
 using RuneSharper.Domain.Interfaces;
+using RuneSharper.Application.Models;
 using RuneSharper.Application.Services.Characters;
 using RuneSharper.Application.Services.DateTimeProvider;
 using RuneSharper.Application.Services.LineCharts;
 using RuneSharper.Application.Services.SaveStats;
 using RuneSharper.Application.Services.Snapshots;
 using RuneSharper.Application.Services.Snapshots.ChangeAggregation;
-using RuneSharper.Application.Snapshots.ChangeAggregation.Strategies;
 using RuneSharper.Application.Services.Stats;
-using RuneSharper.Application.Services.Token;
-using RuneSharper.Domain.Entities.Users;
-using RuneSharper.Application.Models;
 using RuneSharper.Application.Services.Snapshots.ChangeAggregation.Strategies;
+using RuneSharper.Application.Services.Token;
 using RuneSharper.Application.Settings;
+using RuneSharper.Domain.Entities.Users;
+using System.Reflection;
 
 namespace RuneSharper.IoC;
 
@@ -37,6 +39,9 @@ public static class ServicesExtensions
         services.AddScoped<ICharacterRepository, CachedCharacterRepository>();
         services.AddScoped<CharacterRepository>();
 
+        services.AddScoped<IProjectedCharacterRepository<CharacterListModel>, CachedProjectedCharacterRepository>();
+        services.AddScoped<ProjectedCharacterRepository>();
+
         services.AddScoped<ISnapshotRepository, CachedSnapshotRepostiory>();
         services.AddScoped<SnapshotRepository>();
 
@@ -51,10 +56,11 @@ public static class ServicesExtensions
 
         services.AddScoped<IChangeAggregationHandler<ActivitiesChangeModel>, ActivitiesChangeAggregationHandler>();
         services.AddScoped<IChangeAggregationHandler<StatsChangeModel>, StatsChangeAggregationHandler>();
-        services.AddScoped<IChangeAggregationStrategy, DayChangeStrategy>();
-        services.AddScoped<IChangeAggregationStrategy, WeekChangeStrategy>();
-        services.AddScoped<IChangeAggregationStrategy, MonthChangeStrategy>();
-        services.AddScoped<IChangeAggregationStrategy, YearChangeStrategy>();
+        services.Scan(i =>
+            i.FromAssemblies(Assembly.GetAssembly(typeof(IChangeAggregationStrategy))!)
+            .AddClasses(c => c.AssignableTo<IChangeAggregationStrategy>())
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
 
         services.AddScoped<IDateTimeProvider, DateTimeProvider>();
 
@@ -109,10 +115,15 @@ public static class ServicesExtensions
 
     public static IServiceCollection AddRuneSharperDatabase(this IServiceCollection services, IConfiguration config)
     {
+        var defaultConnectionString = config.GetConnectionString("DefaultConnection")!;
+
         services.AddDbContext<RuneSharperContext>(options =>
         {
-            options.UseSqlServer(config.GetConnectionString("DefaultConnection")!);
+            options.UseSqlServer(defaultConnectionString);
         });
+
+        services.AddScoped<IRuneSharperConnectionFactory>(_ =>
+            new RuneSharperConnectionFactory(defaultConnectionString));
 
         return services;
     }

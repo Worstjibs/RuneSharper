@@ -9,14 +9,14 @@ public abstract class ChangeAggregationHandler<T> : IChangeAggregationHandler<T>
 
     protected ChangeAggregationHandler(IEnumerable<IChangeAggregationStrategy> strategies)
     {
-        _strategies = strategies;
+        _strategies = strategies.OrderBy(x => x.Frequency);
     }
 
-    public abstract Task<T> GetChangeAggregationForUser(string userName, Frequency frequency);
+    public abstract Task<T> GetChangeAggregationForUser(string userName, FrequencyType frequency);
 
     public abstract Task<IEnumerable<T>> GetChangeAggregationsForUser(string userName);
 
-    public IChangeAggregationStrategy GetStrategy(Frequency frequency)
+    public IChangeAggregationStrategy GetStrategy(FrequencyType frequency)
     {
         return _strategies.First(x => x.Frequency == frequency);
     }
