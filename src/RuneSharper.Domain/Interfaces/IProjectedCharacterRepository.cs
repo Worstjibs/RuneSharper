@@ -1,6 +1,5 @@
 ﻿using RuneSharper.Domain.Entities;
 using RuneSharper.Shared.Enums;
-using System.Linq.Expressions;
 
 namespace RuneSharper.Domain.Interfaces;
 
