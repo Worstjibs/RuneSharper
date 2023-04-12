@@ -109,5 +109,8 @@ public enum ActivityType
     Vorkath,
     Wintertodt,
     Zalcano,
-    Zulrah
+    Zulrah,
+    Artio,
+    Calvarion,
+    Spindel
 }
